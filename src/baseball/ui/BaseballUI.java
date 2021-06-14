@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import baseball.dao.BaseballDAO;
+import baseball.vo.ItemInventoryVO;
 import baseball.vo.ItemVO;
 import baseball.vo.TrainerVO;
 import baseball.vo.UserCharacterVO;
@@ -403,7 +404,7 @@ public class BaseballUI {
 			int m = keyin.nextInt();	
 			switch(m) {					
 			case 1: statInfo();			break;
-//			case 2: itemInfo();			break;
+			case 2: itemInfo();			break;
 			case 0: return;
 			default:
 			}
@@ -444,7 +445,15 @@ public class BaseballUI {
 	}
 	
 	public void itemInfo() {
-		
+		System.out.println(" [ 내 아이템 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemInventoryVO> list = dao.myItemInfoSelect();
+		ItemInventoryVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		System.out.println(list.size());
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
 	}
 	
 	public void goldInfo() {

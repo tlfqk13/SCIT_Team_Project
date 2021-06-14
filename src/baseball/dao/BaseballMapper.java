@@ -3,6 +3,7 @@ package baseball.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import baseball.vo.ItemInventoryVO;
 import baseball.vo.ItemVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -36,5 +37,7 @@ public interface BaseballMapper {
 	public ArrayList<ItemVO> shoesSelect();
 	// 아이템 음식 목록 불러오기 
 	public ArrayList<ItemVO> foodSelect();
+	// 내 아이템 목록 불러오기 
+	public ArrayList<ItemInventoryVO> myItemInfoSelect();
 
 }

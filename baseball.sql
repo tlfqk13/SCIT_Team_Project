@@ -48,9 +48,10 @@ select * from itemhaveinfo;
  insert into itemhaveinfo(characterid, itemid, quantity) values(1,104,1);
  
  --조인
-select num,b.id,name from board b, member m
-where b.id=m.id;
- 
+
+ select uc.charactername, i.itemname, ihi.quantity from usercharacter uc, itemhaveinfo ihi, item i
+ where uc.characterid=ihi.characterid and i.itemid=ihi.itemid;
+ commit;
  
  --아이템장착정보--
 

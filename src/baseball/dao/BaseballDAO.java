@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import baseball.vo.ItemInventoryVO;
 import baseball.vo.ItemVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -261,6 +262,26 @@ public class BaseballDAO {
 		}
 		return result;
 	}
+
+
+	public ArrayList<ItemInventoryVO> myItemInfoSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemInventoryVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.myItemInfoSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
 
 
 }
