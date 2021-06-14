@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import baseball.vo.ItemVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -154,7 +155,112 @@ public class BaseballDAO {
 	}
 
 
-	
-	
+	public ArrayList<ItemVO> gloveSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.gloveSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemVO> clothSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.clothSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemVO> helmetSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.helmetSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemVO> batSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.batSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemVO> shoesSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.shoesSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemVO> foodSelect() {
+		SqlSession ss= null;
+		ArrayList<ItemVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.foodSelect();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
 
 }

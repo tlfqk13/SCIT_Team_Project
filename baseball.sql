@@ -41,6 +41,16 @@ CREATE TABLE itemhaveinfo (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
+
+select * from itemhaveinfo;
+
+--insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'±Û·¯ºê','¿µ±¤ÀÇ ±Û·¯ºê','±¸¼Ó+3',300);
+ insert into itemhaveinfo(characterid, itemid, quantity) values(1,104,1);
+ 
+ --Á¶ÀÎ
+select num,b.id,name from board b, member m
+where b.id=m.id;
+ 
  
  --¾ÆÀÌÅÛÀåÂøÁ¤º¸--
 
@@ -69,6 +79,10 @@ CREATE TABLE item (
     summary      VARCHAR2(100) NOT NULL,
     price        NUMBER NOT NULL
 );
+
+
+insert into board(num,id,title,content)values(boardseq.nextval,'aaa','±ÛÁ¦¸ñ1','±Û³»¿ë 1111');
+
  
  --Æ®·¹ÀÌ´×--
 
@@ -166,6 +180,33 @@ CREATE SEQUENCE characteridseq INCREMENT BY 1 MINVALUE 1;
 
 CREATE SEQUENCE itemidseq INCREMENT BY 1 MINVALUE 101;
 
+drop sequence itemidseq;
+delete from item where itemclass='±Û·¯ºê';
+select * from item;
+
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'±Û·¯ºê','¿µ±¤ÀÇ ±Û·¯ºê','±¸¼Ó+3',300);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'±Û·¯ºê','¸í¿¹ÀÇ ±Û·¯ºê','±¸¼Ó+5',550);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'±Û·¯ºê','½Â¸®ÀÇ ±Û·¯ºê','±¸¼Ó+7',750);
+----------------------------------------
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'¿Ê','¿µ±¤ÀÇ À¯´ÏÆû','¸ÇÅ»+3',300);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'¿Ê','¸í¿¹ÀÇ À¯´ÏÆû','¸ÇÅ»+5',450);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'¿Ê','½Â¸®ÀÇ À¯´ÏÆû','¸ÇÅ»+7',600);
+----------------------------------------
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'Çï¸ä','¿µ±¤ÀÇ Çï¸ä','Ã¼·Â+3',200);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'Çï¸ä','¸í¿¹ÀÇ Çï¸ä','Ã¼·Â+5',450);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'Çï¸ä','½Â¸®ÀÇ Çï¸ä','Ã¼·Â+7',650);
+----------------------------------------
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'¹æ¸ÁÀÌ','¿µ±¤ÀÇ ¹æ¸ÁÀÌ','ÆÄ¿ö+3',600);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'¹æ¸ÁÀÌ','¸í¿¹ÀÇ ¹æ¸ÁÀÌ','ÆÄ¿ö+5',900);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'¹æ¸ÁÀÌ','½Â¸®ÀÇ ¹æ¸ÁÀÌ','ÆÄ¿ö+7',1200);
+----------------------------------------
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'½Å¹ß','¿µ±¤ÀÇ ½Å¹ß','½ºÇÇµå+3',300);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'½Å¹ß','¸í¿¹ÀÇ ½Å¹ß','½ºÇÇµå+5',400);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'½Å¹ß','½Â¸®ÀÇ ½Å¹ß','½ºÇÇµå+7',500);
+select * from item;
+
+commit;
+
 CREATE SEQUENCE trainingidseq INCREMENT BY 1 MINVALUE 201;
 
 CREATE SEQUENCE coachidseq INCREMENT BY 1 MINVALUE 301;
@@ -173,3 +214,7 @@ CREATE SEQUENCE coachidseq INCREMENT BY 1 MINVALUE 301;
 CREATE SEQUENCE hallofframeidseq INCREMENT BY 1 MINVALUE 401;
 
 CREATE SEQUENCE itemequiphaveseq INCREMENT BY 1 MINVALUE 501;
+
+
+
+

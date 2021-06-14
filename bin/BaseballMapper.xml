@@ -107,6 +107,30 @@ where
 	and className = '투수'
 </select>
 
+<select id="gloveSelect" resultType="item">
+select * from item
+where itemClass = '글러브'
+</select>
+
+<select id="clothSelect" resultType="item">
+select * from item
+where itemClass = '옷'
+</select>
+
+<select id="helmetSelect" resultType="item">
+select * from item
+where itemClass = '헬멧'
+</select>
+
+<select id="batSelect" resultType="item">
+select * from item
+where itemClass = '방망이'
+</select>
+
+<select id="shoesSelect" resultType="item">
+select * from item
+where itemClass = '신발'
+</select>
 
 
 

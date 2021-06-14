@@ -9,6 +9,7 @@
 	<typeAliases>
 		<typeAlias type="baseball.vo.UserVO" alias="users" />
 		<typeAlias type="baseball.vo.UserCharacterVO" alias="character" />
+		<typeAlias type="baseball.vo.ItemVO" alias="item"/>
 	</typeAliases>
 	
 	<!-- DB접속 정보 셋팅 -->

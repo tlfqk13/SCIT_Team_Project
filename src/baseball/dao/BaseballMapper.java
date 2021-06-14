@@ -3,6 +3,7 @@ package baseball.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import baseball.vo.ItemVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -22,8 +23,18 @@ public interface BaseballMapper {
 	public ArrayList<UserCharacterVO> hitterSelect(String s);
 	//투수 캐릭터 목록 불러오기
 	public ArrayList<UserCharacterVO> pitcherSelect(String s);
-
-
-	
+	// 아이템 목록 불러오기 
+	// 아이템 글러브 목록 불러오기
+	public ArrayList<ItemVO> gloveSelect();
+	// 아이템 옷 목록 불러오기 
+	public ArrayList<ItemVO> clothSelect();
+	// 아이템 헬멧 목록 불러오기 
+	public ArrayList<ItemVO> helmetSelect();
+	// 아이템 방망이 목록 불러오기 
+	public ArrayList<ItemVO> batSelect();
+	// 아이템 신발 목록 불러오기 
+	public ArrayList<ItemVO> shoesSelect();
+	// 아이템 음식 목록 불러오기 
+	public ArrayList<ItemVO> foodSelect();
 
 }

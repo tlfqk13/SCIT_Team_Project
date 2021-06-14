@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import baseball.dao.BaseballDAO;
+import baseball.vo.ItemVO;
 import baseball.vo.TrainerVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -262,23 +263,22 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 
-	
 	public void storeMenu() {
 		while (true) {
 			storeMenuPrint();
 			int m = keyin.nextInt();	
 			switch(m) {					
-//			case 1: clothSelect();			break;
-//			case 2: helmetSelect();			break;
-//			case 3: batSelect();			break;
-//			case 4: shoesSelect(); 			break;
-//			case 5: foodSelect(); 			break;
+			case 1: clothSelect();			break;
+			case 2: helmetSelect();			break;
+			case 3: batSelect();			break;
+			case 4: shoesSelect(); 			break;
+			case 5: gloveSelect();			break;
+//			case 6: foodSelect(); 			break;
 			case 0: return;
 			default:
 			}
 		}
 	}
-	
 	
 	public void storeMenuPrint() {
 		System.out.println("[ 상점 ]");
@@ -286,25 +286,97 @@ public class BaseballUI {
 		System.out.println("2.	헬멧");
 		System.out.println("3. 	배트");
 		System.out.println("4. 	신발");
-		System.out.println("5. 	음식");
+		System.out.println("5. 	글러브");
+		System.out.println("6.  음식");
 		System.out.println("0.	뒤로가기");
 		System.out.print("선택>	");
 	}
-	
+
 	public void clothSelect() {
-		
+		System.out.println(" [ 옷 장비 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemVO> list = dao.clothSelect();
+		ItemVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		for(int i=0;i<list.size();i++) {
+			vo=list.get(i);
+			System.out.println(
+					vo.getItemName()+"\t"
+					+vo.getSummary()+"\t"
+					+vo.getPrice());
+		}
 	}
 	public void helmetSelect() {
-		
+		System.out.println(" [ 헬멧 장비 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemVO> list = dao.helmetSelect();
+		ItemVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		for(int i=0;i<list.size();i++) {
+			vo=list.get(i);
+			System.out.println(
+					vo.getItemName()+"\t"
+					+vo.getSummary()+"\t"
+					+vo.getPrice());
+		}
 	}
 	public void batSelect() {
-		
+		System.out.println(" [ 방망이 장비 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemVO> list = dao.batSelect();
+		ItemVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		for(int i=0;i<list.size();i++) {
+			vo=list.get(i);
+			System.out.println(
+					vo.getItemName()+"\t"
+					+vo.getSummary()+"\t"
+					+vo.getPrice());
+		}
 	}
 	public void shoesSelect() {
+		System.out.println(" [ 신발 장비 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemVO> list = dao.shoesSelect();
+		ItemVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		for(int i=0;i<list.size();i++) {
+			vo=list.get(i);
+			System.out.println(
+					vo.getItemName()+"\t"
+					+vo.getSummary()+"\t"
+					+vo.getPrice());
+		}
+	}
+	public void gloveSelect() {
+		System.out.println(" [ 글러브 장비 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemVO> list = dao.gloveSelect();
+		ItemVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		for(int i=0;i<list.size();i++) {
+			vo=list.get(i);
+			System.out.println(
+					vo.getItemName()+"\t"
+					+vo.getSummary()+"\t"
+					+vo.getPrice());
+		}
 		
 	}
+
 	public void foodSelect() {
-		
+		System.out.println(" [ 음식 아이템 목록 ] ");
+		//타자캐릭터 목록 출력
+		ArrayList<ItemVO> list = dao.foodSelect();
+		ItemVO vo=null;
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		for(int i=0;i<list.size();i++) {
+			vo=list.get(i);
+			System.out.println(
+					vo.getItemName()+"\t"
+					+vo.getSummary()+"\t"
+					+vo.getPrice());
+		}
 	}
 	
 	public void trainingMenu() {
