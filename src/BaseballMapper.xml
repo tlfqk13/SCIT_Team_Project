@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="baseball.dao.BaseballMapper">
+
+<!-- 회원 정보 저장 --> 
+<insert id="join" parameterType="users">
+insert into users (
+	userId
+	, password
+)
+values (
+	#{userId}
+	, #{password}
+)
+</insert>
+
+<!-- 아이디 중복 확인 -->
+<select id="getId" parameterType="string" resultType="users">
+select 
+	*
+from
+	users
+where
+	userId = #{userId}
+</select>
+
+<!-- 로그인시 아이디 패스워드 확인 -->
+<select id="getPassword" parameterType="map" resultType="users">
+select
+	*
+from
+	users
+where
+	userId = #{userId}
+	and password = #{password}
+</select>
+
+<!-- 타자 캐릭터 생성 -->
+<insert id="hitterCharacterCreate" parameterType="character">
+insert into usercharacter (
+	characterId
+	, userId
+	, characterName
+	, className
+	, hitterPower
+	, hitterHit
+	, hitterRunSpeed
+	)
+	values (
+	characteridseq.nextval
+	, #{userId}
+	, #{characterName}
+	, #{className}
+	, round(dbms_random.value(0,50))
+	, round(dbms_random.value(0,50))
+	, round(dbms_random.value(0,50))
+	)
+</insert>
+
+<!-- 투수 캐릭터 생성 -->
+<insert id="pitcherCharacterCreate" parameterType="character">
+insert into usercharacter (
+	characterId
+	, userId
+	, characterName
+	, className
+	, pitcherBallSpeed
+	, pitcherBallControl
+	, pitcherMentality
+	)
+	values (
+	characteridseq.nextval
+	, #{userId}
+	, #{characterName}
+	, #{className}
+	, round(dbms_random.value(0,50))
+	, round(dbms_random.value(0,50))
+	, round(dbms_random.value(0,50))
+	)
+</insert>
+
+<!-- 타자 캐릭터 목록 불러오기 -->
+<select id="hitterSelect" parameterType="string" resultType="character">
+select 
+	uct.*
+	, (hitterPower + hitterHit + hitterRunSpeed) as allStat
+from
+	usercharacter uct
+where
+	userId = #{loginId}
+	and className = '타자'
+</select>
+
+<!-- 투수 캐릭터 목록 불러오기 -->
+<select id="pitcherSelect" parameterType="string" resultType="character">
+select 
+	uct.*
+	, (pitcherBallSpeed + pitcherBallControl + pitcherMentality) as allStat
+from
+	usercharacter uct
+where
+	userId = #{loginId}
+	and className = '투수'
+</select>
+
+
+
+
+</mapper>
+

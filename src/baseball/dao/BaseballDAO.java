@@ -1,0 +1,160 @@
+package baseball.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import baseball.vo.UserCharacterVO;
+import baseball.vo.UserVO;
+
+
+public class BaseballDAO {
+	private SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
+	
+	
+	//회원정보 저장
+	public int join(UserVO vo) {
+		SqlSession ss = null;
+		int result = 0;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.join(vo);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+	
+	//아이디 중복 확인
+	public UserVO getId(String id) {
+		SqlSession ss = null;
+		UserVO vo = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			vo = mapper.getId(id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return vo;
+	}
+
+
+
+	//로그인시 아이디, 비밀번호 확인
+	public UserVO getPassword(String userId, String password) {
+		SqlSession ss = null;
+		UserVO vo = null;
+		HashMap<String, String> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("password", password);
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			vo = mapper.getPassword(map);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return vo;
+	}
+
+	
+	//타자 캐릭터 생성
+	public int hitterCharacterCreate(UserCharacterVO vo) {
+		SqlSession ss = null;
+		int result = 0;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.hitterCharacterCreate(vo);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+	
+	
+	//투수 캐릭터 생성
+	public int pitcherCharacterCreate(UserCharacterVO vo) {
+		SqlSession ss = null;
+		int result = 0;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.pitcherCharacterCreate(vo);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+	
+	//타자 캐릭터 목록 불러오기
+	public ArrayList<UserCharacterVO> hitterSelect(String s) {
+		SqlSession ss = null;
+		ArrayList<UserCharacterVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.hitterSelect(s);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+
+	//투수 캐릭터 목록 불러오기
+	public ArrayList<UserCharacterVO> pitcherSelect(String s) {
+		SqlSession ss = null;
+		ArrayList<UserCharacterVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.pitcherSelect(s);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+
+	
+	
+
+}
