@@ -119,7 +119,7 @@ public class BaseballUI {
 		
 		
 	}
-	
+	//aaaaaaaaaaaaaaaaaaaa
 	public void characterMenuPrint() {
 		System.out.println("[ 선수 메뉴 ]");
 		System.out.println("1.	선수 생성");
