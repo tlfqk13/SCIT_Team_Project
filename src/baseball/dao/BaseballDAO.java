@@ -166,6 +166,7 @@ public class BaseballDAO {
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.gloveSelect();
 			ss.commit();
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -180,12 +181,12 @@ public class BaseballDAO {
 	public ArrayList<ItemVO> clothSelect() {
 		SqlSession ss= null;
 		ArrayList<ItemVO> result=null;
+		
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.clothSelect();
 			ss.commit();
-
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -271,7 +272,7 @@ public class BaseballDAO {
 		}
 		return result;
 	}
-
+	
 
 	public ArrayList<ItemInventoryVO> itemInfo() {
 		SqlSession ss= null;
@@ -308,4 +309,92 @@ public class BaseballDAO {
 		}
 		return result;
 	}
+	
+	public void test(int purchaseResult) {
+		SqlSession ss = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.test(purchaseResult);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+	}
+
+
+	public void purchaseBat(int purchaseBat) {
+		SqlSession ss = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.purchaseBat(purchaseBat);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		
+	}
+	
+	public void purchaseHelmet(int purchaseHelmet) {
+		SqlSession ss = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.purchaseBat(purchaseHelmet);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		
+	}
+
+
+	public void purchaseShoes(int purchaseShoes) {
+		SqlSession ss = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.purchaseShoes(purchaseShoes);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		
+	}
+
+
+	public void purchaseGlove(int purchaseGlove) {
+		SqlSession ss = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.purchaseGlove(purchaseGlove);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		
+	}
+	
 }

@@ -19,7 +19,16 @@ public class BaseballUI {
 	private UserCharacterVO presentChar = null;
 	private ItemVO item_presentChar=null;
 	private String loginId = null;
-
+	
+	private int purchaseResult=0;
+	private int purchaseId=0;
+	
+	private int purchaseBat=0;
+	private int purchaseGlove=0;
+	private int purchaseShoes=0;
+	private int purchaseCloth=0;
+	private int purchaseHelmet=0;
+	
 	
 	public BaseballUI() {
 		while (true) {
@@ -218,10 +227,10 @@ public class BaseballUI {
 		}
 		else {
 			UserCharacterVO vo = null;
-			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호", "캐릭터 이름","BallSpeed","BallControl","Mentality","보유금", "연차");
+			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호", "캐릭터 이름","hitterpower","hitterhit","hitterrunspeed","보유금", "연차");
 			for (int i = 0; i < list.size(); i++) {
 				vo = list.get(i);
-				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getPitcherBallSpeed(),vo.getPitcherBallControl(),vo.getPitcherMentality(),vo.getGold(), vo.getYear());
+				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getHitterPower(),vo.getHitterHit(),vo.getHitterRunSpeed(),vo.getGold(), vo.getYear());
 			}
 			System.out.print("번호 선택> ");
 			int num = keyin.nextInt();
@@ -318,17 +327,24 @@ public class BaseballUI {
 	}
 	
 	public void clothPurchase(ItemVO item_presentChar) {
-		if(item_presentChar.getItemName().contentEquals("영광의 유니폼")) {
-			System.out.println("영광의 유니폼 구매완료");
-			presentChar.setGold(presentChar.getGold()-300);
+		
+		
+		if(presentChar.getGold()>=300) {
+			if(item_presentChar.getItemName().contentEquals("영광의 유니폼")) {
+				System.out.println("영광의 유니폼 구매완료");
+				presentChar.setGold(presentChar.getGold()-300);
+			}
+			else if(item_presentChar.getItemName().contentEquals("명예의 유니폼")) {
+				System.out.println("영광의 유니폼 구매완료");
+				presentChar.setGold(presentChar.getGold()-450);
+			}
+			else if(item_presentChar.getItemName().contentEquals("승리의 유니폼")) {
+				System.out.println("영광의 유니폼 구매완료");
+				presentChar.setGold(presentChar.getGold()-600);
+			}
 		}
-		else if(item_presentChar.getItemName().contentEquals("명예의 유니폼")) {
-			System.out.println("영광의 유니폼 구매완료");
-			presentChar.setGold(presentChar.getGold()-450);
-		}
-		else if(item_presentChar.getItemName().contentEquals("승리의 유니폼")) {
-			System.out.println("영광의 유니폼 구매완료");
-			presentChar.setGold(presentChar.getGold()-600);
+		else {
+			System.out.println("돈이 없어요");
 		}
 	}
 	
@@ -352,18 +368,34 @@ public class BaseballUI {
 		System.out.println(presentChar.getGold());
 	}
 	private void helmetPurchase(ItemVO item_presentChar2) {
-		if(item_presentChar.getItemName().contentEquals("영광의 헬멧")) {
-			System.out.println("영광의 헬멧 구매완료");
-			presentChar.setGold(presentChar.getGold()-200);
+			
+		if(presentChar.getGold()>=300 || presentChar.getGold()>=200) {
+			if(item_presentChar.getItemName().contentEquals("영광의 헬멧")) {
+				System.out.println("영광의 헬멧 구매완료");
+				presentChar.setGold(presentChar.getGold()-200);
+			}
+			else if(item_presentChar.getItemName().contentEquals("명예의 헬멧")) {
+				System.out.println("영광의 헬멧 구매완료");
+				presentChar.setGold(presentChar.getGold()-450);
+			}
+			else if(item_presentChar.getItemName().contentEquals("승리의 헬멧")) {
+				System.out.println("영광의 헬멧 구매완료");
+				presentChar.setGold(presentChar.getGold()-650);
+			}
 		}
-		else if(item_presentChar.getItemName().contentEquals("명예의 헬멧")) {
-			System.out.println("영광의 헬멧 구매완료");
-			presentChar.setGold(presentChar.getGold()-450);
+		else {
+			System.out.println("돈이 없어요");
 		}
-		else if(item_presentChar.getItemName().contentEquals("승리의 헬멧")) {
-			System.out.println("영광의 헬멧 구매완료");
-			presentChar.setGold(presentChar.getGold()-650);
-		}
+		
+		//맵으로 받아서 아이디 where 써서 하면 그냥 수정완료 
+		purchaseResult=presentChar.getGold();
+		purchaseId=presentChar.getCharacterId();
+		purchaseHelmet=presentChar.getHitterHit();
+		dao.test(purchaseResult);
+		dao.purchaseHelmet(purchaseHelmet);
+		
+		//UserCharacterVO vo = new UserCharacterVO(loginId, name, className);
+		UserCharacterVO vo= new UserCharacterVO(purchaseId, purchaseResult);
 		
 	}
 
@@ -387,19 +419,31 @@ public class BaseballUI {
 		System.out.println(presentChar.getGold());
 	}
 	private void batPurchase(ItemVO item_presentChar2) {
-		if(item_presentChar.getItemName().contentEquals("영광의 방망이")) {
-			System.out.println("영광의 방망이 구매완료");
-			presentChar.setGold(presentChar.getGold()-600);
-		}
-		else if(item_presentChar.getItemName().contentEquals("명예의 방망이")) {
-			System.out.println("영광의 방망이 구매완료");
-			presentChar.setGold(presentChar.getGold()-900);
-		}
-		else if(item_presentChar.getItemName().contentEquals("승리의 방망이")) {
-			System.out.println("영광의 방망이 구매완료");
-			presentChar.setGold(presentChar.getGold()-1200);
-		}
 		
+		if(presentChar.getGold()>=300) {
+			if(item_presentChar.getItemName().contentEquals("영광의 방망이")) {
+				System.out.println("영광의 방망이 구매완료");
+				presentChar.setGold(presentChar.getGold()-600);
+				presentChar.setHitterPower(presentChar.getHitterPower()+3);
+			}
+			else if(item_presentChar.getItemName().contentEquals("명예의 방망이")) {
+				System.out.println("영광의 방망이 구매완료");
+				presentChar.setGold(presentChar.getGold()-900);
+				presentChar.setHitterPower(presentChar.getHitterPower()+5);
+			}
+			else if(item_presentChar.getItemName().contentEquals("승리의 방망이")) {
+				System.out.println("영광의 방망이 구매완료");
+				presentChar.setGold(presentChar.getGold()-1200);
+				presentChar.setHitterPower(presentChar.getHitterPower()+7);
+			}
+		}
+		else {
+			System.out.println("돈이 없어요");
+		}
+		purchaseResult=presentChar.getGold();
+		purchaseBat=presentChar.getHitterPower();
+		dao.test(purchaseResult);
+		dao.purchaseBat(purchaseBat);
 	}
 
 	public void shoesSelect() {
@@ -422,25 +466,38 @@ public class BaseballUI {
 		System.out.println(presentChar.getGold());
 	}
 	private void shoesPurchase(ItemVO item_presentChar2) {
-		if(item_presentChar.getItemName().contentEquals("영광의 신발")) {
-			System.out.println("영광의 신발 구매완료");
-			presentChar.setGold(presentChar.getGold()-300);
+		if(presentChar.getGold()>=300) {
+			if(item_presentChar.getItemName().contentEquals("영광의 신발")) {
+				System.out.println("영광의 신발 구매완료");
+				presentChar.setGold(presentChar.getGold()-300);
+				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+3);
+			}
+			else if(item_presentChar.getItemName().contentEquals("명예의 신발")) {
+				System.out.println("영광의 신발 구매완료");
+				presentChar.setGold(presentChar.getGold()-400);
+				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+5);
+			}
+			else if(item_presentChar.getItemName().contentEquals("승리의 신발")) {
+				System.out.println("영광의 신발 구매완료");
+				presentChar.setGold(presentChar.getGold()-500);
+				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+7);
+			}
 		}
-		else if(item_presentChar.getItemName().contentEquals("명예의 신발")) {
-			System.out.println("영광의 신발 구매완료");
-			presentChar.setGold(presentChar.getGold()-400);
+		else {
+			System.out.println("돈이 없어요 !!!");
 		}
-		else if(item_presentChar.getItemName().contentEquals("승리의 신발")) {
-			System.out.println("영광의 신발 구매완료");
-			presentChar.setGold(presentChar.getGold()-500);
-		}
-		
+		purchaseResult=presentChar.getGold();
+		purchaseShoes=presentChar.getHitterRunSpeed();
+		dao.test(purchaseResult);
+		dao.purchaseShoes(purchaseShoes);
 	}
 
 	public void gloveSelect() {
 		System.out.println(" [ 글러브 장비 목록 ] ");
 		//타자캐릭터 목록 출력
 		ArrayList<ItemVO> list = dao.gloveSelect();
+		
+		
 		ItemVO vo=null;
 		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
 		for(int i=0;i<list.size();i++) {
@@ -454,23 +511,32 @@ public class BaseballUI {
 		int num = keyin.nextInt();
 		item_presentChar=list.get(num-1);
 		glovePurchase(item_presentChar);
-		System.out.println(presentChar.getGold());
 		
 	}
 	private void glovePurchase(ItemVO item_presentChar2) {
-		if(item_presentChar.getItemName().contentEquals("영광의 글러브")) {
-			System.out.println("영광의 글러브 구매완료");
-			presentChar.setGold(presentChar.getGold()-300);
+		
+		if(presentChar.getGold()>=300) {
+			if(item_presentChar.getItemName().contentEquals("영광의 글러브")) {
+				System.out.println("영광의 글러브 구매완료");
+				presentChar.setGold(presentChar.getGold()-300);
+			}
+			else if(item_presentChar.getItemName().contentEquals("명예의 글러브")) {
+				System.out.println("영광의 글러브 구매완료");
+				presentChar.setGold(presentChar.getGold()-550);
+			}
+			else if(item_presentChar.getItemName().contentEquals("승리의 글러브")) {
+				System.out.println("영광의 글러브 구매완료");
+				presentChar.setGold(presentChar.getGold()-700);
+			}
 		}
-		else if(item_presentChar.getItemName().contentEquals("명예의 글러브")) {
-			System.out.println("영광의 글러브 구매완료");
-			presentChar.setGold(presentChar.getGold()-550);
-		}
-		else if(item_presentChar.getItemName().contentEquals("승리의 글러브")) {
-			System.out.println("영광의 글러브 구매완료");
-			presentChar.setGold(presentChar.getGold()-700);
+		else {
+			System.out.println("돈이 없어요 ");
 		}
 		
+		purchaseResult=presentChar.getGold();
+		purchaseGlove=presentChar.getPitcherBallControl();
+		dao.test(purchaseResult);
+		dao.purchaseGlove(purchaseGlove);
 	}
 
 	public void foodSelect() {

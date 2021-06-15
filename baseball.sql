@@ -6,7 +6,16 @@ CREATE TABLE users (
 );
  
  update usercharacter set gold=500 where characterid=1;
+ 
+ select * from item;
+ 
  select * from usercharacter;
+ 
+ select gold from usercharacter;
+ 
+ select * from itemequipinfo;
+ 
+  insert into itemequipinfo(characterid, equipitemid1, equipitemid2,equipitemid3) values(1,107,104,113);
  
 
  
@@ -222,7 +231,7 @@ select * from itemequiphaveinfo;
 
 select i.itemname, i.price, i.summary
 from item i, itemequiphaveinfo iqhi, usercharacter uc
-where i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid;
+where i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid; 
 
 commit;
 

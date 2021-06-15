@@ -32,6 +32,10 @@ public class UserCharacterVO {
 		this.className = className;
 	}
 
+	public UserCharacterVO(int gold,int characterId) {
+		this.gold=gold;
+		this.characterId=characterId;
+	}
 
 
 

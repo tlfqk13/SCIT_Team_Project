@@ -151,5 +151,29 @@ where
 
 </select>
 
+<update id="purchaseBat" parameterType="int">
+update usercharacter 
+set hitterpower = #{hitterpower}
+where characterid=#{characterid}
+</update>
+
+<update id="purchaseBat" parameterType="int">
+update usercharacter 
+set hitterpower = #{hitterpower}
+where characterid=#{characterid}
+</update>
+
+<update id="purchaseShoes" parameterType="int">
+update usercharacter 
+set hitterrunspeed = #{hitterrunspeed}
+where characterid=#{characterid}
+</update>
+
+<update id="purchaseGlove" parameterType="int">
+update usercharacter 
+set pitcherballcontrol = #{pitcherballcontrol}
+where characterid=#{characterid}
+</update>
+
 </mapper>
 

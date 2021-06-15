@@ -42,7 +42,14 @@ public interface BaseballMapper {
 	public ArrayList<ItemInventoryVO> itemInfo();
 	// 골드 업데이트 
 	public ArrayList<UserCharacterVO> goldUpdate();
-	
+	// 내가 가진 장비 아이템 정보
 	public ArrayList<ItemequipinfoVO> itemequiphaveInfo();
+	
+	public void test(int purchaseResult);
+	public void purchaseBat(int purchaseBat);
+	public void purchaseHelmet(int purchaseHelmet);
+	public void purchaseShoes(int purchaseShoes);
+	public void purchaseGlove(int purchaseGlove);
+
 
 }
