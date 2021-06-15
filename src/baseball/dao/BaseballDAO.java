@@ -310,13 +310,15 @@ public class BaseballDAO {
 		return result;
 	}
 	
-	public void test(int purchaseResult) {
+	public void ttest(UserCharacterVO vo) {
 		SqlSession ss = null;
+		int result = 0;
 		try {
 			ss = factory.openSession(); 
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-			mapper.test(purchaseResult);
+			result = mapper.ttest(vo);
 			ss.commit();
+			System.out.println("호출 완료");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -394,6 +396,12 @@ public class BaseballDAO {
 		finally {
 			if (ss != null) ss.close();
 		}
+		
+	}
+
+
+	public void test(int purchaseResult) {
+		// TODO Auto-generated method stub
 		
 	}
 	

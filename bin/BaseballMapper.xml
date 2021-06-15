@@ -151,16 +151,16 @@ where
 
 </select>
 
-<update id="purchaseBat" parameterType="int">
+<update id="ttest" parameterType="character">
 update usercharacter 
-set hitterpower = #{hitterpower}
-where characterid=#{characterid}
+set gold = #{gold}
+where characterId=#{characterId}
 </update>
 
 <update id="purchaseBat" parameterType="int">
 update usercharacter 
 set hitterpower = #{hitterpower}
-where characterid=#{characterid}
+where characterId=#{characterId}
 </update>
 
 <update id="purchaseShoes" parameterType="int">

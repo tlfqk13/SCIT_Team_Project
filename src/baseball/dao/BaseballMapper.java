@@ -46,6 +46,9 @@ public interface BaseballMapper {
 	public ArrayList<ItemequipinfoVO> itemequiphaveInfo();
 	
 	public void test(int purchaseResult);
+
+	public int ttest (UserCharacterVO vo);
+	
 	public void purchaseBat(int purchaseBat);
 	public void purchaseHelmet(int purchaseHelmet);
 	public void purchaseShoes(int purchaseShoes);

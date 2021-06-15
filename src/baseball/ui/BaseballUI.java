@@ -395,7 +395,8 @@ public class BaseballUI {
 		dao.purchaseHelmet(purchaseHelmet);
 		
 		//UserCharacterVO vo = new UserCharacterVO(loginId, name, className);
-		UserCharacterVO vo= new UserCharacterVO(purchaseId, purchaseResult);
+		UserCharacterVO vo= new UserCharacterVO(purchaseResult,purchaseId);
+		dao.ttest(vo);
 		
 	}
 

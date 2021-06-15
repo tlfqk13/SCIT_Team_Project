@@ -229,6 +229,7 @@ select * from item;
 select * from usercharacter;
 select * from itemequiphaveinfo;
 
+
 select i.itemname, i.price, i.summary
 from item i, itemequiphaveinfo iqhi, usercharacter uc
 where i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid; 
