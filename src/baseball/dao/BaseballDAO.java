@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import baseball.vo.ItemInventoryVO;
 import baseball.vo.ItemVO;
+import baseball.vo.ItemequipinfoVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -279,6 +280,24 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.itemInfo();
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+	
+	public ArrayList<ItemequipinfoVO> itemequiphaveInfo() {
+		SqlSession ss= null;
+		ArrayList<ItemequipinfoVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.itemequiphaveInfo();
 			ss.commit();
 		}
 		catch(Exception e) {

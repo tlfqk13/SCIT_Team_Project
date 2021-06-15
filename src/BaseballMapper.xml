@@ -141,6 +141,15 @@ where
 	i.itemid = ihi.itemid and uc.characterid=ihi.characterid 
 </select>
 
+<select id="itemequiphaveInfo" resultType="itemequiphaveInfo">
+select 
+	i.itemname, i.price, i.summary,iqhi.itemlevel
+from 
+	item i, itemequiphaveinfo iqhi, usercharacter uc
+where 
+	i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid
+
+</select>
 
 </mapper>
 

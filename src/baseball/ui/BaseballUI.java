@@ -6,6 +6,7 @@ import java.util.Scanner;
 import baseball.dao.BaseballDAO;
 import baseball.vo.ItemInventoryVO;
 import baseball.vo.ItemVO;
+import baseball.vo.ItemequipinfoVO;
 import baseball.vo.TrainerVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -512,6 +513,7 @@ public class BaseballUI {
 			switch(m) {					
 			case 1: statInfo();			break;
 			case 2: itemInfo();			break;
+			case 3: itemEquipHaveInfo(); break;
 			case 0: return;
 			default:
 			}
@@ -521,7 +523,8 @@ public class BaseballUI {
 	public void characterInfoMenuPrint() {
 		System.out.println("[ 캐릭터 정보 ]");
 		System.out.println("1.	스탯");
-		System.out.println("2.	아이템");
+		System.out.println("2.	소비 아이템");
+		System.out.println("3.  장비 아이템");
 		System.out.println("0.	뒤로가기");
 		System.out.print("선택>	");
 	}
@@ -555,6 +558,20 @@ public class BaseballUI {
 		System.out.println(" [ 내 아이템 목록 ] ");
 		//타자캐릭터 목록 출력
 		ArrayList<ItemInventoryVO> list = dao.itemInfo();
+		ItemInventoryVO vo=null;
+		System.out.println("--------------------------------------------------");
+		System.out.println("골드 : " + presentChar.getGold());
+		System.out.println("--------------------------------------------------");
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		System.out.println(list.size());
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
+	}
+	
+	public void itemEquipHaveInfo() {
+		System.out.println("[ 내 장비 아이템 목록 ] ");
+		ArrayList<ItemequipinfoVO> list = dao.itemequiphaveInfo();
 		ItemInventoryVO vo=null;
 		System.out.println("--------------------------------------------------");
 		System.out.println("골드 : " + presentChar.getGold());

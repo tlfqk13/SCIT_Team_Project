@@ -11,6 +11,7 @@
 		<typeAlias type="baseball.vo.UserCharacterVO" alias="character" />
 		<typeAlias type="baseball.vo.ItemVO" alias="item"/>
 		<typeAlias type="baseball.vo.ItemInventoryVO" alias="itemInventory"/>
+		<typeAlias type="baseball.vo.ItemEquipInventoryVO" alias="itemequiphaveInfo"/>
 	
 	</typeAliases>
 	

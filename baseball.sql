@@ -218,10 +218,13 @@ insert into itemequiphaveinfo(itemequipid,characterid,itemid,itemlevel) values(i
 
 select * from item;
 select * from usercharacter;
+select * from itemequiphaveinfo;
 
+select i.itemname, i.price, i.summary
+from item i, itemequiphaveinfo iqhi, usercharacter uc
+where i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid;
 
 commit;
-
 
 CREATE SEQUENCE trainingidseq INCREMENT BY 1 MINVALUE 201;
 
