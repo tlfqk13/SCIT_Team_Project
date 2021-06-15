@@ -107,7 +107,7 @@ where
 	and className = '투수'
 </select>
 
-<!-- 현재 캐릭터 정보 가져오기 -->
+<!-- 현재 캐릭터 정보 불러오기 -->
 <select id="getCharacter" parameterType="map" resultType="character">
 select
 	uct.*
@@ -119,7 +119,67 @@ where
 	and characterId = #{characterId}
 </select>
 
+<!-- 명예의 전당 타자 목록 불러오기 -->
+<select id="getHitterHofCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '타자'
+	and allStat >= 200
+order by allStat desc
+</select>
 
+<!-- 명예의 전당 투수 목록 불러오기 -->
+<select id="getPitcherHofCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '투수'
+	and allStat >= 200
+order by allStat desc
+</select>
+
+<!-- 일반 은퇴 선수 중 타자 목록 불러오기 -->
+<select id="getHitterKickCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '타자'
+	and allStat <![CDATA[ < ]]> 200
+order by allStat desc
+</select>
+
+<!-- 일반 은퇴 선수 중 투수 목록 불러오기 -->
+<select id="getPitcherKickCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '투수'
+	and allStat <![CDATA[ < ]]> 200
+order by allStat desc
+</select>
+
+<!-- 5년차 이후에 은퇴선수 목록으로 이동 -->
+<insert id="hofCharacterInsert" parameterType="character">
+insert into hallofframe
+	values (hallofframeidseq.nextval, #{userId}, #{characterName}, #{allStat}, #{className})
+</insert>
+
+<!-- 캐릭터 삭제 -->
+<delete id="deleteCharacter" parameterType="map">
+delete from usercharacter
+where 
+	userId = #{userId}
+	and characterId = #{characterId}
+</delete>
 
 </mapper>
 

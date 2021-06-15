@@ -3,6 +3,7 @@ package baseball.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import baseball.vo.HofVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -22,8 +23,20 @@ public interface BaseballMapper {
 	public ArrayList<UserCharacterVO> hitterSelect(String s);
 	//투수 캐릭터 목록 불러오기
 	public ArrayList<UserCharacterVO> pitcherSelect(String s);
-	//현재 캐릭터 정보 가져오기
+	//현재 캐릭터 정보 불러오기
 	public UserCharacterVO getCharacter(HashMap<String, Object> map);
+	//명예의 전당 타자 목록 불러오기
+	public ArrayList<HofVO> getHitterHofCharacter();
+	//명예의 전당 투수 목록 불러오기
+	public ArrayList<HofVO> getPitcherHofCharacter();
+	//일반 은퇴 선수 중 타자 목록 불러오기
+	public ArrayList<HofVO> getHitterKickCharacter();
+	//일반 은퇴 선수 중 투수 목록 불러오기
+	public ArrayList<HofVO> getPitcherKickCharacter();
+	//5년차 이후에 은퇴선수 목록으로 이동
+	public int hofCharacterInsert(UserCharacterVO vo);
+	//선수 삭제
+	public int deleteCharacter(String loginId, int presentCharId);
 
 
 	

@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import baseball.dao.BaseballDAO;
+import baseball.vo.HofVO;
 import baseball.vo.TrainerVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -33,7 +34,7 @@ public class BaseballUI {
 			switch(m) {					//고른 번호에 따라 처리, 0번 고르면 종료
 			case 1: join();		break;
 			case 2: login();	break;
-//			case 3: hof();	break;
+			case 3: hof();	break;
 			case 0: System.out.println("게임을 종료합니다."); return;
 			default:
 			}
@@ -421,21 +422,21 @@ public class BaseballUI {
 		System.out.printf("%s", " ---------------------------------------- \n");
 		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "캐릭터 이름", "|", presentChar.getCharacterName(), "|");
 		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "클래스", "|", presentChar.getClassName(), "|");
-		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "연차", "|", presentChar.getYear(), "|");
-		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "올스탯", "|", presentChar.getAllStat() , "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "연차", "|", presentChar.getYear(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "올스탯", "|", presentChar.getAllStat() , "|");
 		if (presentChar.getClassName().equals("타자")) {
-			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "파워", "|", presentChar.getHitterPower(), "|" );
-			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "타격", "|", presentChar.getHitterHit() , "|");
-			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "주루", "|", presentChar.getHitterRunSpeed() , "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "파워", "|", presentChar.getHitterPower(), "|" );
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "타격", "|", presentChar.getHitterHit() , "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "주루", "|", presentChar.getHitterRunSpeed() , "|");
 
 		}
 		else if (presentChar.getClassName().equals("투수")) {
-			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "볼스피드", "|", presentChar.getPitcherBallSpeed() , "|");
-			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "볼컨트롤", "|", presentChar.getPitcherBallControl(), "|");
-			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "정신력", "|", presentChar.getPitcherMentality(), "|" );
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "볼스피드", "|", presentChar.getPitcherBallSpeed() , "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "볼컨트롤", "|", presentChar.getPitcherBallControl(), "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "정신력", "|", presentChar.getPitcherMentality(), "|" );
 		}
-		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "체력 ", "|", presentChar.getHealth(), "|");
-		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "행동력", "|", presentChar.getActive(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "체력 ", "|", presentChar.getHealth(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5d \t %s \n","|", "행동력", "|", presentChar.getActive(), "|");
 		System.out.printf("%s", " ---------------------------------------- \n");
 		
 	}
@@ -458,7 +459,123 @@ public class BaseballUI {
 	}
 	
 	public void hof() {
-		so
+		int m = 0;
+		while (true) {
+			hofMenuPrint();
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+			switch(m) {					
+			case 1: hitterHofCharacter();		break;
+			case 2: pitcherHofCharacter();		break;
+			case 3: hitterKickCharacter();		break;
+			case 4: pitcherKickCharacter(); 	break;
+			case 0: System.out.println("메인메뉴로 돌아갑니다.");; 	break;
+			default:
+			}
+		}
+		
+		
+	}
+	
+	public void hofMenuPrint() {
+		System.out.println("[ 은퇴선수 ]");
+		System.out.println("1.	명예의 전당(타자)");
+		System.out.println("2.	명예의 전당(투수)");
+		System.out.println("3. 	일반 은퇴 선수(타자)");
+		System.out.println("3. 	일반 은퇴 선수(투수)");
+		System.out.println("0. 	뒤로");
+		System.out.print("선택>	");
+	}
+	
+	public void hitterHofCharacter() {
+		ArrayList<HofVO> list = null;
+		HofVO vo = null;
+		System.out.printf("%35s \n", "[ 명예의 전당 ]");
+		System.out.println();
+		System.out.printf("%33s \n", "- 타자 -");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+		System.out.printf("%s  %-10s \t %-4s \t %-12s \t %-4s \t %-5s \t %s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "올스탯", "|");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");		
+		list = dao.getHitterHofCharacter();
+		for (int i = 0; i < list.size(); i++) {
+			vo = list.get(i);
+			System.out.printf("%s  %-10s \t %-4s \t %-12s \t %-4s \t %-5d \t %s \n","|   ", vo.getUserid(), "|", vo.getCharacterName() , "|", vo.getAllStat(), "|");
+
+		}
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");		
+
+	}
+	
+	public void pitcherHofCharacter() {
+		ArrayList<HofVO> list = null;
+		HofVO vo = null;
+		System.out.printf("%35s \n", "[ 명예의 전당 ]");
+		System.out.println();
+		System.out.printf("%33s \n", "- 투수 -");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-12s \t %-4s \t %-5s \t %s \n","|", "유저ID", "|", "캐릭터 이름" , "|", "올스탯", "|");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");		
+		list = dao.getPitcherHofCharacter();
+		for (int i = 0; i < list.size(); i++) {
+			vo = list.get(i);
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-12s \t %-4s \t %-5d \t %s \n","|", vo.getUserid(), "|", vo.getCharacterName() , "|", vo.getAllStat(), "|");
+		}
+		System.out.println();
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");		
+
+	}
+	
+	public void hitterKickCharacter() {
+		ArrayList<HofVO> list = null;
+		HofVO vo = null;
+		System.out.printf("%35s \n", "- 일반 은퇴 선수 -");
+		System.out.println();
+		System.out.printf("%33s \n", "- 타자 -");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+		System.out.printf("%s  %-10s \t %-4s \t %-12s \t %-4s \t %-5s \t %s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "올스탯", "|");
+		list = dao.getHitterKickCharacter();
+		for (int i = 0; i < list.size(); i++) {
+			vo = list.get(i);
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-12s \t %-4s \t %-5d \t %s \n","|", vo.getUserid(), "|", vo.getCharacterName() , "|", vo.getAllStat(), "|");
+		}
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+	}
+	
+	public void pitcherKickCharacter() {
+		ArrayList<HofVO> list = null;
+		HofVO vo = null;
+		System.out.printf("%35s \n", "- 일반 은퇴 선수 -");
+		System.out.println();
+		System.out.printf("%33s \n", "- 투수 -");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+		System.out.printf("%s  %-10s \t %-4s \t %-12s \t %-4s \t %-5s \t %s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "올스탯", "|");
+		list = dao.getPitcherKickCharacter();
+		for (int i = 0; i < list.size(); i++) {
+			vo = list.get(i);
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-12s \t %-4s \t %-5d \t %s \n","|", vo.getUserid(), "|", vo.getCharacterName() , "|", vo.getAllStat(), "|");
+		}
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+	}
+	
+	public void temp() {
+		//5년차 경기 뛰면  명예의전당테이블로 옮기고 삭제
+		UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
+		if (vo.getYear() < 5) {
+			//경기
+		}
+		else {
+			int m = dao.hofCharacterInsert(vo);
+			int n = dao.deleteCharacter(loginId, presentCharId);
+			presentCharId = 0;
+			return;
+		}
+		
 	}
 }
 	

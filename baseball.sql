@@ -110,6 +110,7 @@ CREATE TABLE hallofframe (
     userid         VARCHAR2(20) NOT NULL,
     charactername  VARCHAR2(40) NOT NULL,
     allstat        NUMBER NOT NULL,
+    classname      VARCHAR2(10) NOT NULL,
     CONSTRAINT hallofframefk FOREIGN KEY ( userid )
         REFERENCES users ( userid )
             ON DELETE CASCADE
@@ -147,16 +148,6 @@ CREATE TABLE itemlevel (
 
 
 
---해고 캐릭터 --
-CREATE TABLE kickcharacter (
-    kickcharacterid  NUMBER PRIMARY KEY,
-    userid           VARCHAR2(20) NOT NULL,
-    charactername    VARCHAR2(40) NOT NULL,
-    allstat          NUMBER default 0 NOT NULL,
-    CONSTRAINT kickcharacterfk FOREIGN KEY ( userid )
-        REFERENCES users ( userid )
-            ON DELETE CASCADE
-);
 
 
 
