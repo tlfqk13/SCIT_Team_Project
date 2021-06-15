@@ -488,7 +488,7 @@ public class BaseballUI {
 		System.out.println("1.	명예의 전당(타자)");
 		System.out.println("2.	명예의 전당(투수)");
 		System.out.println("3. 	일반 은퇴 선수(타자)");
-		System.out.println("3. 	일반 은퇴 선수(투수)");
+		System.out.println("4. 	일반 은퇴 선수(투수)");
 		System.out.println("0. 	뒤로");
 		System.out.print("선택>	");
 	}
