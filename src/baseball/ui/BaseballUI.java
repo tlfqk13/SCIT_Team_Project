@@ -14,7 +14,7 @@ import baseball.vo.UserVO;
 public class BaseballUI {
 	private BaseballDAO dao = new BaseballDAO();
 	Scanner keyin = new Scanner(System.in);
-	private UserCharacterVO presentChar = null;
+	private int presentCharId = 0;
 	private String loginId = null;
 
 	
@@ -44,8 +44,7 @@ public class BaseballUI {
 		System.out.println("[ 나만의 선수 키우기 야구편 ]");
 		System.out.println("1.	회원가입");
 		System.out.println("2.	로그인");
-		System.out.println("3. 	명예의 전당");
-		System.out.println("4. 	은퇴선수");
+		System.out.println("3. 	은퇴선수");
 		System.out.println("0.	종료");
 		System.out.print("선택>	");
 	}
@@ -246,7 +245,7 @@ public class BaseballUI {
 				}
 			}
 			
-			presentChar = list.get(num-1);
+			presentCharId = list.get(num-1).getCharacterId();
 			mainMenu();
 		}
 	}
@@ -281,7 +280,7 @@ public class BaseballUI {
 					continue;
 				}
 			}
-			presentChar = list.get(num-1);
+			presentCharId = list.get(num-1).getCharacterId();
 			mainMenu();
 		}
 		
@@ -291,7 +290,7 @@ public class BaseballUI {
 	public void mainMenu() {
 		int m = 0;
 		
-		if (loginId != null && presentChar != null) {
+		if (loginId != null && presentCharId != 0) {
 			while (true) {
 				mainMenuPrint();
 				try {
@@ -416,27 +415,28 @@ public class BaseballUI {
 	}
 	
 	public void statInfo() {
-		System.out.println("[ 스탯창 ]");
+		UserCharacterVO presentChar = dao.getCharacter(loginId, presentCharId);
+		System.out.printf("%-25s \n", "[ 스탯창 ]");
 		System.out.println();
-		System.out.printf("%s", "---------------------------- \n");
-		System.out.printf("%5s \t %-10s \t %-4s \t %-5s \t %s \n","|", "캐릭터 이름", "|", presentChar.getCharacterName(), "|");
-		System.out.printf("%-10s \t %-4s \t %s \n", "클래스", "|", presentChar.getClassName());
-		System.out.printf("%-10s \t %-4s \t %d \n", "연차", "|", presentChar.getYear());
-		System.out.printf("%-10s \t %-4s \t %d \n", "올스탯", "|", presentChar.getAllStat() );
+		System.out.printf("%s", " ---------------------------------------- \n");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "캐릭터 이름", "|", presentChar.getCharacterName(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "클래스", "|", presentChar.getClassName(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "연차", "|", presentChar.getYear(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "올스탯", "|", presentChar.getAllStat() , "|");
 		if (presentChar.getClassName().equals("타자")) {
-			System.out.printf("%-10s \t %-4s \t %d \n", "파워", "|", presentChar.getHitterPower() );
-			System.out.printf("%-10s \t %-4s \t %d \n", "타격", "|", presentChar.getHitterHit() );
-			System.out.printf("%-10s \t %-4s \t %d \n", "주루", "|", presentChar.getHitterRunSpeed() );
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "파워", "|", presentChar.getHitterPower(), "|" );
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "타격", "|", presentChar.getHitterHit() , "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "주루", "|", presentChar.getHitterRunSpeed() , "|");
 
 		}
 		else if (presentChar.getClassName().equals("투수")) {
-			System.out.printf("%-10s \t %-4s \t %d \n", "볼스피드", "|", presentChar.getPitcherBallSpeed() );
-			System.out.printf("%-10s \t %-4s \t %d \n", "볼컨트롤", "|", presentChar.getPitcherBallControl());
-			System.out.printf("%-10s \t %-4s \t %d \n", "정신력", "|", presentChar.getPitcherMentality() );
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "볼스피드", "|", presentChar.getPitcherBallSpeed() , "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "볼컨트롤", "|", presentChar.getPitcherBallControl(), "|");
+			System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "정신력", "|", presentChar.getPitcherMentality(), "|" );
 		}
-		System.out.printf("%-10s \t %-4s \t %d \n", "체력 ", "|", presentChar.getHealth());
-		System.out.printf("%-10s \t %-4s \t %d \n", "행동력", "|", presentChar.getActive());
-		
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "체력 ", "|", presentChar.getHealth(), "|");
+		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "행동력", "|", presentChar.getActive(), "|");
+		System.out.printf("%s", " ---------------------------------------- \n");
 		
 	}
 	
@@ -457,7 +457,9 @@ public class BaseballUI {
 		
 	}
 	
-	
+	public void hof() {
+		so
+	}
 }
 	
 	

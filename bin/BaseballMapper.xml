@@ -107,6 +107,17 @@ where
 	and className = '투수'
 </select>
 
+<!-- 현재 캐릭터 정보 가져오기 -->
+<select id="getCharacter" parameterType="map" resultType="character">
+select
+	uct.*
+	, (pitcherBallSpeed + pitcherBallControl + pitcherMentality) as allStat
+from
+	usercharacter uct
+where
+	userId = #{loginId}
+	and characterId = #{characterId}
+</select>
 
 
 

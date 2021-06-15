@@ -153,6 +153,27 @@ public class BaseballDAO {
 		return result;
 	}
 
+	//현재 캐릭터 정보 가져오기
+	public UserCharacterVO getCharacter(String loginId, int presentCharId) {
+		SqlSession ss = null;
+		UserCharacterVO result = null;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("loginId", loginId);
+		map.put("characterId", presentCharId);
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.getCharacter(map);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
 
 	
 	

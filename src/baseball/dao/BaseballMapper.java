@@ -22,6 +22,8 @@ public interface BaseballMapper {
 	public ArrayList<UserCharacterVO> hitterSelect(String s);
 	//투수 캐릭터 목록 불러오기
 	public ArrayList<UserCharacterVO> pitcherSelect(String s);
+	//현재 캐릭터 정보 가져오기
+	public UserCharacterVO getCharacter(HashMap<String, Object> map);
 
 
 	
