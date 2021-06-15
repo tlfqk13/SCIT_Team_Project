@@ -16,6 +16,7 @@ public class BaseballUI {
 	private BaseballDAO dao = new BaseballDAO();
 	Scanner keyin = new Scanner(System.in);
 	private UserCharacterVO presentChar = null;
+	private ItemVO item_presentChar=null;
 	private String loginId = null;
 
 	
@@ -302,11 +303,34 @@ public class BaseballUI {
 		for(int i=0;i<list.size();i++) {
 			vo=list.get(i);
 			System.out.println(
+					(i+1) + " : " + 
 					vo.getItemName()+"\t"
 					+vo.getSummary()+"\t"
 					+vo.getPrice());
 		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		item_presentChar=list.get(num-1);
+		clothPurchase(item_presentChar);
+		System.out.println(presentChar.getGold());
+
 	}
+	
+	public void clothPurchase(ItemVO item_presentChar) {
+		if(item_presentChar.getItemName().contentEquals("영광의 유니폼")) {
+			System.out.println("영광의 유니폼 구매완료");
+			presentChar.setGold(presentChar.getGold()-300);
+		}
+		else if(item_presentChar.getItemName().contentEquals("명예의 유니폼")) {
+			System.out.println("영광의 유니폼 구매완료");
+			presentChar.setGold(presentChar.getGold()-450);
+		}
+		else if(item_presentChar.getItemName().contentEquals("승리의 유니폼")) {
+			System.out.println("영광의 유니폼 구매완료");
+			presentChar.setGold(presentChar.getGold()-600);
+		}
+	}
+	
 	public void helmetSelect() {
 		System.out.println(" [ 헬멧 장비 목록 ] ");
 		//타자캐릭터 목록 출력
@@ -320,7 +344,28 @@ public class BaseballUI {
 					+vo.getSummary()+"\t"
 					+vo.getPrice());
 		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		item_presentChar=list.get(num-1);
+		helmetPurchase(item_presentChar);
+		System.out.println(presentChar.getGold());
 	}
+	private void helmetPurchase(ItemVO item_presentChar2) {
+		if(item_presentChar.getItemName().contentEquals("영광의 헬멧")) {
+			System.out.println("영광의 헬멧 구매완료");
+			presentChar.setGold(presentChar.getGold()-200);
+		}
+		else if(item_presentChar.getItemName().contentEquals("명예의 헬멧")) {
+			System.out.println("영광의 헬멧 구매완료");
+			presentChar.setGold(presentChar.getGold()-450);
+		}
+		else if(item_presentChar.getItemName().contentEquals("승리의 헬멧")) {
+			System.out.println("영광의 헬멧 구매완료");
+			presentChar.setGold(presentChar.getGold()-650);
+		}
+		
+	}
+
 	public void batSelect() {
 		System.out.println(" [ 방망이 장비 목록 ] ");
 		//타자캐릭터 목록 출력
@@ -334,7 +379,28 @@ public class BaseballUI {
 					+vo.getSummary()+"\t"
 					+vo.getPrice());
 		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		item_presentChar=list.get(num-1);
+		batPurchase(item_presentChar);
+		System.out.println(presentChar.getGold());
 	}
+	private void batPurchase(ItemVO item_presentChar2) {
+		if(item_presentChar.getItemName().contentEquals("영광의 방망이")) {
+			System.out.println("영광의 방망이 구매완료");
+			presentChar.setGold(presentChar.getGold()-600);
+		}
+		else if(item_presentChar.getItemName().contentEquals("명예의 방망이")) {
+			System.out.println("영광의 방망이 구매완료");
+			presentChar.setGold(presentChar.getGold()-900);
+		}
+		else if(item_presentChar.getItemName().contentEquals("승리의 방망이")) {
+			System.out.println("영광의 방망이 구매완료");
+			presentChar.setGold(presentChar.getGold()-1200);
+		}
+		
+	}
+
 	public void shoesSelect() {
 		System.out.println(" [ 신발 장비 목록 ] ");
 		//타자캐릭터 목록 출력
@@ -348,7 +414,28 @@ public class BaseballUI {
 					+vo.getSummary()+"\t"
 					+vo.getPrice());
 		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		item_presentChar=list.get(num-1);
+		shoesPurchase(item_presentChar);
+		System.out.println(presentChar.getGold());
 	}
+	private void shoesPurchase(ItemVO item_presentChar2) {
+		if(item_presentChar.getItemName().contentEquals("영광의 신발")) {
+			System.out.println("영광의 신발 구매완료");
+			presentChar.setGold(presentChar.getGold()-300);
+		}
+		else if(item_presentChar.getItemName().contentEquals("명예의 신발")) {
+			System.out.println("영광의 신발 구매완료");
+			presentChar.setGold(presentChar.getGold()-400);
+		}
+		else if(item_presentChar.getItemName().contentEquals("승리의 신발")) {
+			System.out.println("영광의 신발 구매완료");
+			presentChar.setGold(presentChar.getGold()-500);
+		}
+		
+	}
+
 	public void gloveSelect() {
 		System.out.println(" [ 글러브 장비 목록 ] ");
 		//타자캐릭터 목록 출력
@@ -361,6 +448,26 @@ public class BaseballUI {
 					vo.getItemName()+"\t"
 					+vo.getSummary()+"\t"
 					+vo.getPrice());
+		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		item_presentChar=list.get(num-1);
+		glovePurchase(item_presentChar);
+		System.out.println(presentChar.getGold());
+		
+	}
+	private void glovePurchase(ItemVO item_presentChar2) {
+		if(item_presentChar.getItemName().contentEquals("영광의 글러브")) {
+			System.out.println("영광의 글러브 구매완료");
+			presentChar.setGold(presentChar.getGold()-300);
+		}
+		else if(item_presentChar.getItemName().contentEquals("명예의 글러브")) {
+			System.out.println("영광의 글러브 구매완료");
+			presentChar.setGold(presentChar.getGold()-550);
+		}
+		else if(item_presentChar.getItemName().contentEquals("승리의 글러브")) {
+			System.out.println("영광의 글러브 구매완료");
+			presentChar.setGold(presentChar.getGold()-700);
 		}
 		
 	}
@@ -447,8 +554,11 @@ public class BaseballUI {
 	public void itemInfo() {
 		System.out.println(" [ 내 아이템 목록 ] ");
 		//타자캐릭터 목록 출력
-		ArrayList<ItemInventoryVO> list = dao.myItemInfoSelect();
+		ArrayList<ItemInventoryVO> list = dao.itemInfo();
 		ItemInventoryVO vo=null;
+		System.out.println("--------------------------------------------------");
+		System.out.println("골드 : " + presentChar.getGold());
+		System.out.println("--------------------------------------------------");
 		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
 		System.out.println(list.size());
 		for(int i=0;i<list.size();i++) {

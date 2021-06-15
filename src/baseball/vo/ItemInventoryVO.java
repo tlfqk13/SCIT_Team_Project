@@ -4,9 +4,8 @@ public class ItemInventoryVO {
 	private int characterid;
 	private int itemid;
 	private int quantity;
-	
-	private ItemInventoryVO myitemInventoryVO;//쿼리로 조인할 vo
-	
+	private String characterName;
+	private String itemName;
 	
 	public int getCharacterid() {
 		return characterid;
@@ -26,11 +25,28 @@ public class ItemInventoryVO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public String getCharacterName() {
+		return characterName;
+	}
+	public void setCharacterName(String characterName) {
+		this.characterName = characterName;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 	
 	@Override
 	public String toString() {
-		return "ItemInventory [characterid=" + characterid + ", itemid=" + itemid + ", quantity=" + quantity + "]";
+		return "ItemInventoryVO [ characterName=" + characterName + 
+									", itemName=" + itemName +
+									", quantity= " + quantity
+									+"  ] ";
+								
 	}
+	
 	
 	
 	

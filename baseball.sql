@@ -5,6 +5,11 @@ CREATE TABLE users (
     password  VARCHAR2(40) NOT NULL
 );
  
+ update usercharacter set gold=500 where characterid=1;
+ select * from usercharacter;
+ 
+
+ 
  --캐릭터-
 
 CREATE TABLE usercharacter (
@@ -44,6 +49,8 @@ CREATE TABLE itemhaveinfo (
 
 select * from itemhaveinfo;
 
+
+
 --insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'글러브','영광의 글러브','구속+3',300);
  insert into itemhaveinfo(characterid, itemid, quantity) values(1,104,1);
  
@@ -51,7 +58,9 @@ select * from itemhaveinfo;
 
  select uc.charactername, i.itemname, ihi.quantity from usercharacter uc, itemhaveinfo ihi, item i
  where uc.characterid=ihi.characterid and i.itemid=ihi.itemid;
- commit;
+ 
+ select ihi.characterid, ihi.itemid, ihi.quantity from item i, itemhaveinfo ihi
+where i.itemid = ihi.itemid;
  
  --아이템장착정보--
 
@@ -145,7 +154,8 @@ CREATE TABLE itemequiphaveinfo (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
-            
+
+         
 --아이템 강화--
 
 CREATE TABLE itemlevel (
@@ -159,7 +169,6 @@ CREATE TABLE itemlevel (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
-
 
 
 --해고 캐릭터 --
@@ -204,9 +213,15 @@ insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextv
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','영광의 신발','스피드+3',300);
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','명예의 신발','스피드+5',400);
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','승리의 신발','스피드+7',500);
+-----------------------------------------------------------
+insert into itemequiphaveinfo(itemequipid,characterid,itemid,itemlevel) values(itemequiphaveseq.nextval,1,'104',3);
+
 select * from item;
+select * from usercharacter;
+
 
 commit;
+
 
 CREATE SEQUENCE trainingidseq INCREMENT BY 1 MINVALUE 201;
 

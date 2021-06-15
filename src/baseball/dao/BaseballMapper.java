@@ -38,6 +38,8 @@ public interface BaseballMapper {
 	// 아이템 음식 목록 불러오기 
 	public ArrayList<ItemVO> foodSelect();
 	// 내 아이템 목록 불러오기 
-	public ArrayList<ItemInventoryVO> myItemInfoSelect();
+	public ArrayList<ItemInventoryVO> itemInfo();
+	// 골드 업데이트 
+	public ArrayList<UserCharacterVO> goldUpdate();
 
 }

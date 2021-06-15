@@ -126,6 +126,7 @@ public class BaseballDAO {
 			ss = factory.openSession(); 
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result = mapper.hitterSelect(s);
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -163,6 +164,7 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.gloveSelect();
+			ss.commit();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -181,6 +183,8 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.clothSelect();
+			ss.commit();
+
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -199,6 +203,7 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.helmetSelect();
+			ss.commit();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -217,6 +222,7 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.batSelect();
+			ss.commit();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -235,6 +241,7 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.shoesSelect();
+			ss.commit();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -253,6 +260,7 @@ public class BaseballDAO {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result=mapper.foodSelect();
+			ss.commit();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -264,13 +272,14 @@ public class BaseballDAO {
 	}
 
 
-	public ArrayList<ItemInventoryVO> myItemInfoSelect() {
+	public ArrayList<ItemInventoryVO> itemInfo() {
 		SqlSession ss= null;
 		ArrayList<ItemInventoryVO> result=null;
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-			result=mapper.myItemInfoSelect();
+			result=mapper.itemInfo();
+			ss.commit();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -280,8 +289,4 @@ public class BaseballDAO {
 		}
 		return result;
 	}
-
-
-
-
 }

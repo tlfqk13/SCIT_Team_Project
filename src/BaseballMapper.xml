@@ -132,14 +132,15 @@ select * from item
 where itemClass = '신발'
 </select>
 
-<select id="myItemInfoSelect" resultType="itemInventory">
- select 
- 	uc.charactername,ihi.quantity 
- from 
- 	usercharacter uc, itemhaveinfo ihi
- where 
- 	uc.characterid=ihi.characterid
+<select id="itemInfo" resultType="itemInventory">
+select 
+	uc.charactername, i.itemname, ihi.quantity 
+from 
+	item i, itemhaveinfo ihi , usercharacter uc
+where 
+	i.itemid = ihi.itemid and uc.characterid=ihi.characterid 
 </select>
+
 
 </mapper>
 
