@@ -1,6 +1,7 @@
 package baseball.ui;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import baseball.dao.BaseballDAO;
@@ -19,8 +20,16 @@ public class BaseballUI {
 	
 	public BaseballUI() {
 		while (true) {
+			int m = 0;
 			loginMenuPrint();				//메뉴 출력
-			int m = keyin.nextInt();	//번호 입력받음
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
 			switch(m) {					//고른 번호에 따라 처리, 0번 고르면 종료
 			case 1: join();		break;
 			case 2: login();	break;
@@ -36,6 +45,7 @@ public class BaseballUI {
 		System.out.println("1.	회원가입");
 		System.out.println("2.	로그인");
 		System.out.println("3. 	명예의 전당");
+		System.out.println("4. 	은퇴선수");
 		System.out.println("0.	종료");
 		System.out.print("선택>	");
 	}
@@ -103,8 +113,16 @@ public class BaseballUI {
 		}
 		else if (loginId != null) {
 			while (true) {
+				int m = 0;
 				characterMenuPrint();				
-				int m = keyin.nextInt();
+				try {
+					m = keyin.nextInt();
+				}
+				catch (InputMismatchException e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}
 				switch(m) {
 					case 1: characterCreate(); 	break;
 					case 2: characterSelect();	break;
@@ -119,7 +137,7 @@ public class BaseballUI {
 		
 		
 	}
-	//aaaaaaaaaaaaa
+	
 	public void characterMenuPrint() {
 		System.out.println("[ 선수 메뉴 ]");
 		System.out.println("1.	선수 생성");
@@ -130,12 +148,23 @@ public class BaseballUI {
 	
 	public void characterCreate() {
 		String name, className;
+		
 		int cnt = 0;
 		System.out.println("[ 캐릭터 생성 ]");
 		System.out.print("캐릭터 이름 : ");
 		name = keyin.next();
-		System.out.print("타자 or 투수 > ");
-		className = keyin.next();
+		while (true) {
+			System.out.print("타자 or 투수 > ");
+			className = keyin.next();
+			if (className.equals("타자") || className.equals("투수")) {
+				break;
+			}
+			else {
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
+		}
+		
 		UserCharacterVO vo = new UserCharacterVO(loginId, name, className);
 		if (className.equals("타자")) {
 			cnt = dao.hitterCharacterCreate(vo);
@@ -155,8 +184,16 @@ public class BaseballUI {
 	
 	public void characterSelect() {
 		while (true) {
+			int m = 0;
 			selectMenuPrint();
-			int m = keyin.nextInt();
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
 			switch(m) {					
 			case 1: pitcherSelect(); 	break;
 			case 2: hitterSelect(); 	break;
@@ -179,6 +216,7 @@ public class BaseballUI {
 	}
 	
 	public void pitcherSelect() {
+		int num = 0;
 		System.out.println("[ 투수 캐릭터 목록 ]");
 		
 		//투수캐릭터 목록 출력
@@ -195,14 +233,26 @@ public class BaseballUI {
 				vo = list.get(i);
 				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getPitcherBallSpeed(),vo.getPitcherBallControl(),vo.getPitcherMentality(),vo.getGold(), vo.getYear());
 			}
-			System.out.print("번호 선택> ");
-			int num = keyin.nextInt();
+			while (true) {
+				System.out.print("번호 선택> ");
+				try {
+					num = keyin.nextInt();
+					break;
+				}
+				catch (InputMismatchException e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}
+			}
+			
 			presentChar = list.get(num-1);
 			mainMenu();
 		}
 	}
 	
 	public void hitterSelect() {
+		int num = 0;
 		System.out.println("[ 타자 캐릭터 목록 ]");
 		
 		//타자캐릭터 목록 출력
@@ -219,8 +269,18 @@ public class BaseballUI {
 				vo = list.get(i);
 				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getPitcherBallSpeed(),vo.getPitcherBallControl(),vo.getPitcherMentality(),vo.getGold(), vo.getYear());
 			}
-			System.out.print("번호 선택> ");
-			int num = keyin.nextInt();
+			while (true) {
+				System.out.print("번호 선택> ");
+				try {
+					num = keyin.nextInt();
+					break;
+				}
+				catch (InputMismatchException e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}
+			}
 			presentChar = list.get(num-1);
 			mainMenu();
 		}
@@ -229,10 +289,19 @@ public class BaseballUI {
 	
 	
 	public void mainMenu() {
+		int m = 0;
+		
 		if (loginId != null && presentChar != null) {
 			while (true) {
 				mainMenuPrint();
-				int m = keyin.nextInt();	
+				try {
+					m = keyin.nextInt();
+				}
+				catch (InputMismatchException e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}	
 				switch(m) {					
 				case 1: storeMenu();			break;
 				case 2: trainingMenu();			break;
@@ -355,15 +424,15 @@ public class BaseballUI {
 		System.out.printf("%-10s \t %-4s \t %d \n", "연차", "|", presentChar.getYear());
 		System.out.printf("%-10s \t %-4s \t %d \n", "올스탯", "|", presentChar.getAllStat() );
 		if (presentChar.getClassName().equals("타자")) {
-			System.out.printf("%-10s \t %-4s \t %d \n", "Power", "|", presentChar.getHitterPower() );
-			System.out.printf("%-10s \t %-4s \t %d \n", "Hit", "|", presentChar.getHitterHit() );
-			System.out.printf("%-10s \t %-4s \t %d \n", "RunSpeed", "|", presentChar.getHitterRunSpeed() );
+			System.out.printf("%-10s \t %-4s \t %d \n", "파워", "|", presentChar.getHitterPower() );
+			System.out.printf("%-10s \t %-4s \t %d \n", "타격", "|", presentChar.getHitterHit() );
+			System.out.printf("%-10s \t %-4s \t %d \n", "주루", "|", presentChar.getHitterRunSpeed() );
 
 		}
 		else if (presentChar.getClassName().equals("투수")) {
-			System.out.printf("%-10s \t %-4s \t %d \n", "BallSpeed", "|", presentChar.getPitcherBallSpeed() );
-			System.out.printf("%-10s \t %-4s \t %d \n", "BallControl", "|", presentChar.getPitcherBallControl());
-			System.out.printf("%-10s \t %-4s \t %d \n", "Mentality", "|", presentChar.getPitcherMentality() );
+			System.out.printf("%-10s \t %-4s \t %d \n", "볼스피드", "|", presentChar.getPitcherBallSpeed() );
+			System.out.printf("%-10s \t %-4s \t %d \n", "볼컨트롤", "|", presentChar.getPitcherBallControl());
+			System.out.printf("%-10s \t %-4s \t %d \n", "정신력", "|", presentChar.getPitcherMentality() );
 		}
 		System.out.printf("%-10s \t %-4s \t %d \n", "체력 ", "|", presentChar.getHealth());
 		System.out.printf("%-10s \t %-4s \t %d \n", "행동력", "|", presentChar.getActive());
