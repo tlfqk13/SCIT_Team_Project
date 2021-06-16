@@ -56,5 +56,5 @@ public interface BaseballMapper {
 	public ArrayList<ItemequipinfoVO> itemequiphaveInfo(int purchaseItemId);
 	
 	//구매수 1증가
-	int addQuantity(int purchaseItemId);
+	int addQuantity(ItemHaveInfoVO ihivo1);
 }

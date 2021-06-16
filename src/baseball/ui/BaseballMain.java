@@ -8,3 +8,6 @@ public class BaseballMain {
 	}
 
 }
+
+
+// 장착하면 능력치 오르게 

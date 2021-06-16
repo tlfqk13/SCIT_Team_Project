@@ -67,10 +67,12 @@ CREATE TABLE usercharacter (
  --아이템소유정보--
 
 CREATE TABLE itemhaveinfo (
+    itemehaveseq NUMBER,
     characterid  NUMBER,
     itemid       NUMBER,
     quantity     NUMBER,
---    CONSTRAINT itemhaveinfo PRIMARY KEY ( characterid,itemid ), 
+    
+    CONSTRAINT itemhaveinfo PRIMARY KEY ( itemehaveseq), 
 --    characterid,
     CONSTRAINT itemhaveinfofk1 FOREIGN KEY ( characterid )
         REFERENCES usercharacter ( characterid )
@@ -86,7 +88,7 @@ select * from itemhaveinfo;
 
 commit;
 
-select * from itemhaveinfo;;
+select * from itemequipinfo;
 
 commit;
 
@@ -281,6 +283,6 @@ CREATE SEQUENCE hallofframeidseq INCREMENT BY 1 MINVALUE 401;
 
 CREATE SEQUENCE itemequiphaveseq INCREMENT BY 1 MINVALUE 501;
 
+CREATE SEQUENCE itemehaveseq INCREMENT BY 1 MINVALUE 601;
 
-
-
+drop sequence itemehaveseq;

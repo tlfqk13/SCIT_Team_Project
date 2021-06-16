@@ -422,9 +422,9 @@ public class BaseballUI {
 		vo.pitcherBallSpeed(purchaseResult, purchaseId, purchaseHelmet);
 		dao.purchaseHelmet(vo);
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-		dao.itemehaveInfo(ihivo,purchaseItemId);
 		
-		
+		ItemHaveInfoVO ihivo1= new ItemHaveInfoVO(purchaseBat, purchaseItemId);
+		dao.itemehaveInfo(ihivo,ihivo1);
 	}
 
 	public void batSelect() {
