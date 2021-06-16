@@ -292,12 +292,14 @@ public class BaseballDAO {
 		return result;
 	}
 	
-	public void itemehaveInfo(ItemHaveInfoVO ihivo) {
+	public void itemehaveInfo(ItemHaveInfoVO ihivo, int purchaseItemId) {
 		SqlSession ss= null;
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			mapper.itemehaveInfo(ihivo);
+			ss.commit();
+			mapper.addQuantity(purchaseItemId);
 			ss.commit();
 		}
 		catch(Exception e) {
@@ -414,5 +416,6 @@ public class BaseballDAO {
 		}
 		return result;
 	}
+
 
 }

@@ -16,6 +16,11 @@ public class ItemHaveInfoVO {
 		this.itemid=itemid;
 		this.quantity=quantity;
 	}
+	
+	public ItemHaveInfoVO(int charaterid,int itemid) {
+		this.characterid=charaterid;
+		this.itemid=itemid;
+	}
 	public int getCharacterid() {
 		return characterid;
 	}

@@ -53,5 +53,8 @@ public interface BaseballMapper {
 	public void purchaseCloth(UserCharacterVO vo);
 	
 	// 내가 가진 아이템 목록 불러오기 
-	public ArrayList<ItemequipinfoVO> itemequiphaveInfo(int purchaseId);
+	public ArrayList<ItemequipinfoVO> itemequiphaveInfo(int purchaseItemId);
+	
+	//구매수 1증가
+	int addQuantity(int purchaseItemId);
 }

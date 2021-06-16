@@ -343,12 +343,12 @@ public class BaseballUI {
 				presentChar.setPitcherMentality(presentChar.getPitcherMentality()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 유니폼")) {
-				System.out.println("영광의 유니폼 구매완료");
+				System.out.println("명예의 유니폼 구매완료");
 				presentChar.setGold(presentChar.getGold()-450);
 				presentChar.setPitcherMentality(presentChar.getPitcherMentality()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 유니폼")) {
-				System.out.println("영광의 유니폼 구매완료");
+				System.out.println("승리의 유니폼 구매완료");
 				presentChar.setGold(presentChar.getGold()-600);
 				presentChar.setPitcherMentality(presentChar.getPitcherMentality()+7);
 			}
@@ -364,10 +364,10 @@ public class BaseballUI {
 		System.out.println(purchaseQuntity);
 		UserCharacterVO vo= new UserCharacterVO();
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-		System.out.println("구매자 : " + purchaseId + " 아이템 : " + purchaseItemId);
+		System.out.println("골드 : " + purchaseResult + " 구매자 : " + purchaseId +" 옷구매 " +purchaseCloth);
 		vo.pitcherMentality(purchaseResult, purchaseId, purchaseCloth);
 		dao.purchaseCloth(vo);
-		dao.itemehaveInfo(ihivo);
+
 	}
 	
 	public void helmetSelect() {
@@ -389,7 +389,7 @@ public class BaseballUI {
 		helmetPurchase(item_presentChar);
 		System.out.println(presentChar.getGold());
 	}
-	private void helmetPurchase(ItemVO item_presentChar2) {
+	private void helmetPurchase(ItemVO item_presentChar) {
 			
 		if(presentChar.getGold()>=300 || presentChar.getGold()>=200) {
 			if(item_presentChar.getItemName().contentEquals("영광의 헬멧")) {
@@ -398,12 +398,12 @@ public class BaseballUI {
 				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 헬멧")) {
-				System.out.println("영광의 헬멧 구매완료");
+				System.out.println("명예의 헬멧 구매완료");
 				presentChar.setGold(presentChar.getGold()-450);
 				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 헬멧")) {
-				System.out.println("영광의 헬멧 구매완료");
+				System.out.println("승리의 헬멧 구매완료");
 				presentChar.setGold(presentChar.getGold()-650);
 				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+7);
 			}
@@ -416,9 +416,15 @@ public class BaseballUI {
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
 		purchaseHelmet=presentChar.getHitterHit();
+		purchaseItemId = item_presentChar.getItemId();
+		purchaseQuntity=1;
 		UserCharacterVO vo= new UserCharacterVO();
 		vo.pitcherBallSpeed(purchaseResult, purchaseId, purchaseHelmet);
 		dao.purchaseHelmet(vo);
+		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
+		dao.itemehaveInfo(ihivo,purchaseItemId);
+		
+		
 	}
 
 	public void batSelect() {
@@ -440,7 +446,7 @@ public class BaseballUI {
 		batPurchase(item_presentChar);
 		System.out.println(presentChar.getGold());
 	}
-	private void batPurchase(ItemVO item_presentChar2) {
+	private void batPurchase(ItemVO item_presentChar) {
 		
 		if(presentChar.getGold()>=300) {
 			if(item_presentChar.getItemName().contentEquals("영광의 방망이")) {
@@ -449,12 +455,12 @@ public class BaseballUI {
 				presentChar.setHitterPower(presentChar.getHitterPower()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 방망이")) {
-				System.out.println("영광의 방망이 구매완료");
+				System.out.println("명예의 방망이 구매완료");
 				presentChar.setGold(presentChar.getGold()-900);
 				presentChar.setHitterPower(presentChar.getHitterPower()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 방망이")) {
-				System.out.println("영광의 방망이 구매완료");
+				System.out.println("승리의 방망이 구매완료");
 				presentChar.setGold(presentChar.getGold()-1200);
 				presentChar.setHitterPower(presentChar.getHitterPower()+7);
 			}
@@ -465,10 +471,13 @@ public class BaseballUI {
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
 		purchaseBat=presentChar.getHitterPower();
-		
+		purchaseItemId = item_presentChar.getItemId();
+		purchaseQuntity=1;
 		UserCharacterVO vo= new UserCharacterVO();
 		vo.hitterPower(purchaseResult, purchaseId, purchaseBat);
 		dao.purchaseHelmet(vo);
+		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
+//		dao.itemehaveInfo(ihivo);
 	}
 
 	public void shoesSelect() {
@@ -490,7 +499,7 @@ public class BaseballUI {
 		shoesPurchase(item_presentChar);
 		System.out.println(presentChar.getGold());
 	}
-	private void shoesPurchase(ItemVO item_presentChar2) {
+	private void shoesPurchase(ItemVO item_presentChar) {
 		if(presentChar.getGold()>=300) {
 			if(item_presentChar.getItemName().contentEquals("영광의 신발")) {
 				System.out.println("영광의 신발 구매완료");
@@ -498,12 +507,12 @@ public class BaseballUI {
 				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 신발")) {
-				System.out.println("영광의 신발 구매완료");
+				System.out.println("명예의 신발 구매완료");
 				presentChar.setGold(presentChar.getGold()-400);
 				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 신발")) {
-				System.out.println("영광의 신발 구매완료");
+				System.out.println("승리의 신발 구매완료");
 				presentChar.setGold(presentChar.getGold()-500);
 				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+7);
 			}
@@ -514,9 +523,13 @@ public class BaseballUI {
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
 		purchaseShoes=presentChar.getHitterRunSpeed();
+		purchaseItemId = item_presentChar.getItemId();
+		purchaseQuntity=1;
 		UserCharacterVO vo= new UserCharacterVO();
 		vo.hitterRunSpeed(purchaseResult, purchaseId, purchaseShoes);
 		dao.purchaseHelmet(vo);
+		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
+//		dao.itemehaveInfo(ihivo);
 
 	}
 
@@ -543,7 +556,7 @@ public class BaseballUI {
 		
 		
 	}
-	private void glovePurchase(ItemVO item_presentChar2) {
+	private void glovePurchase(ItemVO item_presentChar) {
 		
 		if(presentChar.getGold()>=300) {
 			if(item_presentChar.getItemName().contentEquals("영광의 글러브")) {
@@ -552,12 +565,12 @@ public class BaseballUI {
 				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 글러브")) {
-				System.out.println("영광의 글러브 구매완료");
+				System.out.println("명예의 글러브 구매완료");
 				presentChar.setGold(presentChar.getGold()-550);
 				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 글러브")) {
-				System.out.println("영광의 글러브 구매완료");
+				System.out.println("승리의 글러브 구매완료");
 				presentChar.setGold(presentChar.getGold()-700);
 				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
@@ -571,9 +584,11 @@ public class BaseballUI {
 		purchaseGlove=presentChar.getPitcherBallControl();
 		UserCharacterVO vo= new UserCharacterVO();
 		vo.pitcherBallControl(purchaseResult, purchaseId, purchaseGlove);
-		
+		purchaseItemId = item_presentChar.getItemId();
+		purchaseQuntity=1;
 		System.out.println("글러브 샀음 리런 옴? " + vo);
-	
+		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
+//		dao.itemehaveInfo(ihivo);
 	}
 
 	public void foodSelect() {

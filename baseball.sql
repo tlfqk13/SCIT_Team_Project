@@ -5,15 +5,17 @@ CREATE TABLE users (
     password  VARCHAR2(40) NOT NULL
 );
  
- update usercharacter set gold=gold+1000, hitterhit=15 where characterid=1;
+ update usercharacter set gold=gold+5000, hitterhit=15 ,pitchermentality=10 where characterid=1;
+ 
  commit;
+ 
  select * from item;
  
  select * from usercharacter;   
  
  select gold from usercharacter;
  
- select * from itemequipinfo;
+ select * from itemhaveinfo;
  
  select 
    i.itemname, i.price, i.summary, ihi.quantity
@@ -21,10 +23,17 @@ from
    item i, itemhaveinfo ihi, usercharacter uc
 where 
    i.itemid=ihi.itemid and ihi.characterid=uc.characterid;
+   
+select 
+   i.itemname, i.price, i.summary
+from 
+   item i, itemhaveinfo ihi, usercharacter uc
+where 
+   i.itemid=ihi.itemid and ihi.characterid=uc.characterid;
 
- 
- 
  select * from itemhaveinfo;
+ select * from itemequiphaveinfo;
+ select * from itemequipinfo;
 
  
  drop table itemhaveinfo;
@@ -61,7 +70,8 @@ CREATE TABLE itemhaveinfo (
     characterid  NUMBER,
     itemid       NUMBER,
     quantity     NUMBER,
---    CONSTRAINT itemhaveinfo PRIMARY KEY (itemid ),
+--    CONSTRAINT itemhaveinfo PRIMARY KEY ( characterid,itemid ), 
+--    characterid,
     CONSTRAINT itemhaveinfofk1 FOREIGN KEY ( characterid )
         REFERENCES usercharacter ( characterid )
             ON DELETE CASCADE,
@@ -69,8 +79,12 @@ CREATE TABLE itemhaveinfo (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
+
 drop table itemhaveinfo;
+
 select * from itemhaveinfo;
+
+commit;
 
 select * from itemhaveinfo;;
 
@@ -248,11 +262,14 @@ insert into itemequiphaveinfo(itemequipid,characterid,itemid,itemlevel) values(i
 select * from item;
 select * from usercharacter;
 select * from itemequiphaveinfo;
+select * from itemequipinfo;
+--지금 아이템 담기고 있음
+select * from itemhaveinfo;
 
 
 select i.itemname, i.price, i.summary
-from item i, itemequiphaveinfo iqhi, usercharacter uc
-where i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid; 
+from item i, itemhaveinfo ihi, usercharacter uc
+where i.itemid=ihi.itemid and ihi.characterid=uc.characterid; 
 
 commit;
 

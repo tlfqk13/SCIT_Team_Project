@@ -159,9 +159,11 @@ insert into itemhaveinfo (
 	)
 </insert>
 
+
+
 <select id="itemequiphaveInfo" resultType="itemequiphaveInfo">
 select 
-   i.itemname, i.price, i.summary
+   i.itemname, i.price, i.summary,ihi.quantity
 from 
    item i, itemhaveinfo ihi, usercharacter uc
 where 
@@ -197,6 +199,15 @@ where characterId=#{characterId}
 update usercharacter 
 set  gold = #{gold},pitcherBallControl = #{pitcherBallControl}
 where characterId=#{characterId}
+</update>
+
+<update id="addQuantity" parameterType="int">
+update 
+	itemhaveinfo 
+set 	
+	quantity=quantity + 1 
+where 
+	itemid = #{itemid} 
 </update>
 
 </mapper>
