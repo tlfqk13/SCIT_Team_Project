@@ -15,7 +15,7 @@ import baseball.vo.UserVO;
 public class BaseballUI {
 	private BaseballDAO dao = new BaseballDAO();
 	Scanner keyin = new Scanner(System.in);
-	private int presentCharId = 0;
+	private UserCharacterVO presentChar = null;
 	private String loginId = null;
 
 	
@@ -34,7 +34,7 @@ public class BaseballUI {
 			switch(m) {					//고른 번호에 따라 처리, 0번 고르면 종료
 			case 1: join();		break;
 			case 2: login();	break;
-			case 3: hof();	break;
+//			case 3: hof();	break;
 			case 0: System.out.println("게임을 종료합니다."); return;
 			default:
 			}
@@ -246,7 +246,7 @@ public class BaseballUI {
 				}
 			}
 			
-			presentCharId = list.get(num-1).getCharacterId();
+			presentChar = list.get(num-1);
 			mainMenu();
 		}
 	}
@@ -281,7 +281,7 @@ public class BaseballUI {
 					continue;
 				}
 			}
-			presentCharId = list.get(num-1).getCharacterId();
+			presentChar = list.get(num-1);
 			mainMenu();
 		}
 		
@@ -291,7 +291,7 @@ public class BaseballUI {
 	public void mainMenu() {
 		int m = 0;
 		
-		if (loginId != null && presentCharId != 0) {
+		if (loginId != null && presentChar != null) {
 			while (true) {
 				mainMenuPrint();
 				try {
@@ -306,8 +306,8 @@ public class BaseballUI {
 				case 1: storeMenu();			break;
 				case 2: trainingMenu();			break;
 				case 3: characterInfoMenu();	break;
-				case 4: match(); 			break;
-				case 5: rest(); 			break;
+//				case 4: match(); 			break;
+//				case 5: rest(); 			break;
 				case 0: System.out.println("게임을 종료합니다."); System.exit(0);
 				default:
 				}
@@ -378,9 +378,8 @@ public class BaseballUI {
 	
 	public void trainingMenu() {
 			int m = 0;
-			if (loginId != null && presentCharId != 0) {
-				UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
-				String charClassName = vo.getClassName();
+			if (loginId != null && presentChar != null) {
+				String charClassName = presentChar.getClassName();
 				while (true) {
 					if (charClassName.equals("타자")) {
 						hitterTrainingMenuPrint();
@@ -478,7 +477,6 @@ public class BaseballUI {
 	}
 	
 	public void statInfo() {
-		UserCharacterVO presentChar = dao.getCharacter(loginId, presentCharId);
 		System.out.printf("%-25s \n", "[ 스탯창 ]");
 		System.out.println();
 		System.out.printf("%s", " ---------------------------------------- \n");
@@ -512,38 +510,65 @@ public class BaseballUI {
 	}
 
 	
-	public void match() {
+//	public void match() {
+//		System.out.println("[ 경기 하기 ]");
+//		System.out.println("경기 시작");
+//		dao.play(loginId, presentCharId);
+//		System.out.println("행동력이 5로 회복 되었습니다.");
+//		System.out.println("소지금이 증가 하였습니다.");
+//		System.out.println("건강이 100으로 회복 되었습니다.");
+//		
+//	}
+//	
+//	public void rest() {
+//		int health = 0, gold = 0;
+//		System.out.println("[ 휴식 하기 ]");
+//		System.out.println("1.	일반 휴식");
+//		System.out.println("2.	고급 휴식");
+//		System.out.println("0.	뒤로 가기");
+//		System.out.print("선택>	");
+//		int m = keyin.nextInt();
+//		if(m == 1) {
+//			System.out.println("휴식이 완료 되었습니다.");
+//			System.out.println("소지금이 감소하였습니다.");
+//			dao.rest1(health, gold);
+//		}
+//		else if (m == 2) {
+//			System.out.println("100% 휴식이 완료되었습니다.");
+//			System.out.println("소지금이 감소하였습니다.");
+//			dao.rest2(health, gold);
+//		}
+//		else {
+//			return;
+//		}
+//	}
+//	
+//	public 
+//	
+//	public void hof() {
+//		int m = 0;
+//		while (true) {
+//			hofMenuPrint();
+//			try {
+//				m = keyin.nextInt();
+//			}
+//			catch (InputMismatchException e) {
+//				keyin.nextLine();
+//				System.out.println("다시 입력하세요.");
+//				continue;
+//			}	
+//			switch(m) {					
+//			case 1: hitterHofCharacter();		break;
+//			case 2: pitcherHofCharacter();		break;
+//			case 3: hitterKickCharacter();		break;
+//			case 4: pitcherKickCharacter(); 	break;
+//			case 0: System.out.println("메인메뉴로 돌아갑니다.");; 	break;
+//			default:
+//			}
+//		}
+//		
 		
-	}
-	
-	public void rest() {
-		
-	}
-	
-	public void hof() {
-		int m = 0;
-		while (true) {
-			hofMenuPrint();
-			try {
-				m = keyin.nextInt();
-			}
-			catch (InputMismatchException e) {
-				keyin.nextLine();
-				System.out.println("다시 입력하세요.");
-				continue;
-			}	
-			switch(m) {					
-			case 1: hitterHofCharacter();		break;
-			case 2: pitcherHofCharacter();		break;
-			case 3: hitterKickCharacter();		break;
-			case 4: pitcherKickCharacter(); 	break;
-			case 0: System.out.println("메인메뉴로 돌아갑니다.");; 	break;
-			default:
-			}
-		}
-		
-		
-	}
+//	}
 	
 	public void hofMenuPrint() {
 		System.out.println("[ 은퇴선수 ]");
@@ -625,20 +650,20 @@ public class BaseballUI {
 		System.out.printf("%s", " ---------------------------------------------------------------- \n");
 	}
 	
-	public void temp() {
-		//5년차 경기 뛰면  명예의전당테이블로 옮기고 삭제
-		UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
-		if (vo.getYear() < 5) {
-			//경기
-		}
-		else {
-			int m = dao.hofCharacterInsert(vo);
-			int n = dao.deleteCharacter(loginId, presentCharId);
-			presentCharId = 0;
-			return;
-		}
-		
-	}
+//	public void temp() {
+//		//5년차 경기 뛰면  명예의전당테이블로 옮기고 삭제
+//		UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
+//		if (vo.getYear() < 5) {
+//			//경기
+//		}
+//		else {
+//			int m = dao.hofCharacterInsert(vo);
+//			int n = dao.deleteCharacter(loginId, presentCharId);
+//			presentCharId = 0;
+//			return;
+//		}
+//		
+//	}
 }
 	
 	
