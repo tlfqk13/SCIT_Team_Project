@@ -181,5 +181,21 @@ where
 	and characterId = #{characterId}
 </delete>
 
+<!-- 일반 휴식 -->
+<update id = "rest1" parameterType = "int">
+update usercharacter set health = health + 20, gold = gold - 2000 where characterid = #{characterid} 
+</update>
+
+<!-- 고급 휴식 -->
+<update id = "rest2" parameterType = "int">
+update usercharacter set health = 100, gold = gold - 4000 where characterid = #{characterid}
+</update>
+
+<!-- 경기 -->
+<update id = "play" parameterType = "int">
+update usercharacter set health = 100, gold = gold + 3000, active = 5 where characterid = #{characterid}
+</update>
+
+
 </mapper>
 

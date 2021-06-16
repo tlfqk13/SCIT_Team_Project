@@ -139,9 +139,9 @@ CREATE TABLE itemlevel (
     itemlevel    NUMBER,
     itemeffect1  NUMBER NOT NULL,
     itemeffect2  NUMBER DEFAULT 0 NOT NULL,
-    CONSTRAINT itemlevel PRIMARY KEY ( itemid,
+    CONSTRAINT itemlevelfk1 PRIMARY KEY ( itemid,
                                        itemlevel ),
-    CONSTRAINT itemlevel FOREIGN KEY ( itemid )
+    CONSTRAINT itemlevelfk2 FOREIGN KEY ( itemid )
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );

@@ -34,7 +34,7 @@ public class BaseballUI {
 			switch(m) {					//고른 번호에 따라 처리, 0번 고르면 종료
 			case 1: join();		break;
 			case 2: login();	break;
-//			case 3: hof();	break;
+			case 3: hof();	break;
 			case 0: System.out.println("게임을 종료합니다."); return;
 			default:
 			}
@@ -306,8 +306,8 @@ public class BaseballUI {
 				case 1: storeMenu();			break;
 				case 2: trainingMenu();			break;
 				case 3: characterInfoMenu();	break;
-//				case 4: match(); 			break;
-//				case 5: rest(); 			break;
+				case 4: match(); 			break;
+				case 5: rest(); 			break;
 				case 0: System.out.println("게임을 종료합니다."); System.exit(0);
 				default:
 				}
@@ -510,65 +510,94 @@ public class BaseballUI {
 	}
 
 	
-//	public void match() {
-//		System.out.println("[ 경기 하기 ]");
-//		System.out.println("경기 시작");
-//		dao.play(loginId, presentCharId);
-//		System.out.println("행동력이 5로 회복 되었습니다.");
-//		System.out.println("소지금이 증가 하였습니다.");
-//		System.out.println("건강이 100으로 회복 되었습니다.");
-//		
-//	}
-//	
-//	public void rest() {
-//		int health = 0, gold = 0;
-//		System.out.println("[ 휴식 하기 ]");
-//		System.out.println("1.	일반 휴식");
-//		System.out.println("2.	고급 휴식");
-//		System.out.println("0.	뒤로 가기");
-//		System.out.print("선택>	");
-//		int m = keyin.nextInt();
-//		if(m == 1) {
-//			System.out.println("휴식이 완료 되었습니다.");
-//			System.out.println("소지금이 감소하였습니다.");
-//			dao.rest1(health, gold);
-//		}
-//		else if (m == 2) {
-//			System.out.println("100% 휴식이 완료되었습니다.");
-//			System.out.println("소지금이 감소하였습니다.");
-//			dao.rest2(health, gold);
-//		}
-//		else {
-//			return;
-//		}
-//	}
-//	
-//	public 
-//	
-//	public void hof() {
-//		int m = 0;
-//		while (true) {
-//			hofMenuPrint();
-//			try {
-//				m = keyin.nextInt();
-//			}
-//			catch (InputMismatchException e) {
-//				keyin.nextLine();
-//				System.out.println("다시 입력하세요.");
-//				continue;
-//			}	
-//			switch(m) {					
-//			case 1: hitterHofCharacter();		break;
-//			case 2: pitcherHofCharacter();		break;
-//			case 3: hitterKickCharacter();		break;
-//			case 4: pitcherKickCharacter(); 	break;
-//			case 0: System.out.println("메인메뉴로 돌아갑니다.");; 	break;
-//			default:
-//			}
-//		}
-//		
+	public void match() {
+		System.out.println("[ 경기 하기 ]");
+		System.out.println("경기 시작");
+		presentChar.setActive(5);
+		presentChar.setHealth(100);
+		presentChar.setGold(presentChar.getGold()+500);
+		System.out.println("행동력이 5로 회복 되었습니다.");
+		System.out.println("소지금이 증가 하였습니다.");
+		System.out.println("건강이 100으로 회복 되었습니다.");
 		
-//	}
+		//캐릭터 정보 db에 반영하기
+		//dao.     (presentChar);
+		
+	}
+	
+	public void rest() {
+		int m = 0;
+		while (true) {
+			restMenuPrint();
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+			switch(m) {		
+			case 1: freeRest();			break;
+			case 2: premiumRest();			break;
+			case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
+			default:
+			}
+		}
+		
+	}
+	
+	public void restMenuPrint() {
+		System.out.println("[ 휴식 하기 ]");
+		System.out.println("1.	일반 휴식");
+		System.out.println("2.	고급 휴식");
+		System.out.println("0.	뒤로 가기");
+		System.out.print("선택>	");
+	}
+	
+	public void freeRest() {
+		presentChar.setActive(presentChar.getActive()-1);
+		presentChar.setHealth(50);
+		System.out.println("일반 휴식이 완료 되었습니다.");
+		
+	//캐릭터 정보 db에 반영하기
+	//dao.     (presentChar);
+
+	}
+	
+	public void premiumRest() {
+		
+		presentChar.setActive(presentChar.getActive()-1);
+		presentChar.setGold(presentChar.getGold()-100);
+		presentChar.setHealth(10);
+		System.out.println("프리미엄 휴식이 완료되었습니다.");
+		System.out.println("소지금이 감소하였습니다.");
+		//캐릭터 정보 db에 반영하기
+		//dao.     (presentChar);
+	}
+	
+	public void hof() {
+		int m = 0;
+		while (true) {
+			hofMenuPrint();
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+			switch(m) {					
+			case 1: hitterHofCharacter();		break;
+			case 2: pitcherHofCharacter();		break;
+			case 3: hitterKickCharacter();		break;
+			case 4: pitcherKickCharacter(); 	break;
+			case 0: System.out.println("메인메뉴로 돌아갑니다."); 	return;
+			default:
+			}
+		}	
+	}
 	
 	public void hofMenuPrint() {
 		System.out.println("[ 은퇴선수 ]");
