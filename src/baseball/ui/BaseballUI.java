@@ -377,22 +377,84 @@ public class BaseballUI {
 	}
 	
 	public void trainingMenu() {
-		while (true) {
-			System.out.println("코치 목록");
+			int m = 0;
+			if (loginId != null && presentCharId != 0) {
+				UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
+				String charClassName = vo.getClassName();
+				while (true) {
+					if (charClassName.equals("타자")) {
+						hitterTrainingMenuPrint();
+						try {
+							m = keyin.nextInt();
+						}
+						catch (InputMismatchException e) {
+							keyin.nextLine();
+							System.out.println("다시 입력하세요.");
+							continue;
+						}	
+						switch(m) {		
+//						case 1: powerTraining();			break;
+//						case 2: hitTraining();			break;
+//						case 3: runSpeedTraining();	break;
+						case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
+						default:
+						}
+					}
+				
+					else if (charClassName.equals("투수")) {
+						pitcherTrainingMenuPrint();
+						try {
+							m = keyin.nextInt();
+						}
+						catch (InputMismatchException e) {
+							keyin.nextLine();
+							System.out.println("다시 입력하세요.");
+							continue;
+						}	
+						switch(m) {		
+//						case 1: ballSpeedTraining();			break;
+//						case 2: ballControlTraining();			break;
+//						case 3: mentalityTraining();	break;
+						case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
+						default:
+						}
+					}
+					
+				}
+			}
+			else {
+				return;
+			}
 			
-			//코치 목록 출력/타자면 타자코치만 나오고 투수면 투수코치만 나오게 하기.
-//			TrainerVO tvo = dao.getTrainer(m, presentChar.get);
-//			for(int i = 0; i < tvo.size(); i++) {
-//				System.out.println(presentChar.getClassid + " 코치");
-//				System.out.printf("%-4d \t %-3 ");
-//			}
-			
-			System.out.print("선택> ");
-			int m = keyin.nextInt();
-			return;
-
-		}
 	}
+	
+	public void hitterTrainingMenuPrint() {
+		System.out.println("[ 타자 훈련 ]");
+		System.out.println("1.	파워 훈련");
+		System.out.println("2.	타격 훈련");
+		System.out.println("3. 	주루 훈련");
+		System.out.println("0.	뒤로가기");
+		System.out.print("선택>	");
+	}
+
+	public void pitcherTrainingMenuPrint() {
+		System.out.println("[ 투수 훈련 ]");
+		System.out.println("1.	볼스피드 훈련");
+		System.out.println("2.	볼컨트롤 훈련");
+		System.out.println("3. 	정신력 훈련");
+		System.out.println("0.	뒤로가기");
+		System.out.print("선택>	");
+	}
+	
+	public void coachMenuPrint() {
+		System.out.println("[ 코치 선택 ]");
+		
+		System.out.print("선택>	");
+	}
+	
+	
+	
+	
 	
 	public void characterInfoMenu() {
 		while (true) {
