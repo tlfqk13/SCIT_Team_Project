@@ -132,7 +132,12 @@ select * from item
 where itemClass = '신발'
 </select>
 
-<select id="itemInfo" resultType="itemInventory">
+<select id="foodSelect" resultType="item">
+select * from item
+where itemClass = '소비형 아이템'
+</select>
+
+<select id="itemInfo" resultType="itemhaveinfo">
 select 
 	uc.charactername, i.itemname, ihi.quantity 
 from 
@@ -141,38 +146,57 @@ where
 	i.itemid = ihi.itemid and uc.characterid=ihi.characterid 
 </select>
 
+<insert id="itemehaveInfo" parameterType="itemhaveinfo">
+insert into itemhaveinfo (
+	characterid,
+	itemid,
+	quantity
+	)
+	values(
+	#{characterid},
+	#{itemid},
+	#{quantity}
+	)
+</insert>
+
 <select id="itemequiphaveInfo" resultType="itemequiphaveInfo">
 select 
-	i.itemname, i.price, i.summary,iqhi.itemlevel
+   i.itemname, i.price, i.summary
 from 
-	item i, itemequiphaveinfo iqhi, usercharacter uc
+   item i, itemhaveinfo ihi, usercharacter uc
 where 
-	i.itemid=iqhi.itemid and iqhi.characterid=uc.characterid
+   i.itemid=ihi.itemid and ihi.characterid=uc.characterid
 
 </select>
 
-<update id="ttest" parameterType="character">
+<update id="purchaseBat" parameterType="character">
 update usercharacter 
-set gold = #{gold}
+set gold = #{gold},hitterPower=#{hitterPower}
 where characterId=#{characterId}
 </update>
 
-<update id="purchaseBat" parameterType="int">
+<update id="purchaseCloth" parameterType="character">
 update usercharacter 
-set hitterpower = #{hitterpower}
+set gold = #{gold},pitcherMentality=#{pitcherMentality}
+where characterId=#{characterId}
+</update>
+
+<update id="purchaseHelmet" parameterType="character">
+update usercharacter 
+set gold = #{gold},pitcherBallSpeed=#{pitcherBallSpeed}
 where characterId=#{characterId}
 </update>
 
 <update id="purchaseShoes" parameterType="int">
 update usercharacter 
-set hitterrunspeed = #{hitterrunspeed}
-where characterid=#{characterid}
+set  gold = #{gold},hitterRunSpeed = #{hitterRunSpeed}
+where characterId=#{characterId}
 </update>
 
 <update id="purchaseGlove" parameterType="int">
 update usercharacter 
-set pitcherballcontrol = #{pitcherballcontrol}
-where characterid=#{characterid}
+set  gold = #{gold},pitcherBallControl = #{pitcherBallControl}
+where characterId=#{characterId}
 </update>
 
 </mapper>

@@ -1,12 +1,21 @@
 package baseball.vo;
 
-public class ItemInventoryVO {
+public class ItemHaveInfoVO {
 	private int characterid;
 	private int itemid;
 	private int quantity;
 	private String characterName;
 	private String itemName;
 	
+	public ItemHaveInfoVO() {
+		super();
+	}
+	
+	public ItemHaveInfoVO(int charaterid,int itemid,int quantity) {
+		this.characterid=charaterid;
+		this.itemid=itemid;
+		this.quantity=quantity;
+	}
 	public int getCharacterid() {
 		return characterid;
 	}

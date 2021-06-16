@@ -11,6 +11,8 @@ public class ItemEquipInventoryVO {
 	private String Summary;
 	private int price;
 	
+	private int quantity;
+	
 	//i.itemname, i.price, i.summary
 	
 	
@@ -56,11 +58,20 @@ public class ItemEquipInventoryVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
 	@Override
 	public String toString() {
-		return "ItemEquipInventoryVO [itemlevel=" + itemlevel + ", itemName=" + itemName + ", Summary=" + Summary
-				+ ", price=" + price + "]";
+		return "[ itemName=" + itemName + ", Summary=" + Summary
+				+ ", price=" + price +", °³¼ö= " +quantity + "]";
 	}
+
 	
 	
 	

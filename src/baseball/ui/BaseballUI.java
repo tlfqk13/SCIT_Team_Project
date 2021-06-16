@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import baseball.dao.BaseballDAO;
-import baseball.vo.ItemInventoryVO;
+import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
 import baseball.vo.ItemequipinfoVO;
 import baseball.vo.TrainerVO;
@@ -20,14 +20,22 @@ public class BaseballUI {
 	private ItemVO item_presentChar=null;
 	private String loginId = null;
 	
+	private int purchaseId;
+	private int purchaseItemId;
+	private int purchaseQuntity=0;
+	
+	
+	
 	private int purchaseResult=0;
-	private int purchaseId=0;
+	
 	
 	private int purchaseBat=0;
 	private int purchaseGlove=0;
 	private int purchaseShoes=0;
 	private int purchaseCloth=0;
 	private int purchaseHelmet=0;
+	
+	
 	
 	
 	public BaseballUI() {
@@ -285,7 +293,7 @@ public class BaseballUI {
 			case 3: batSelect();			break;
 			case 4: shoesSelect(); 			break;
 			case 5: gloveSelect();			break;
-//			case 6: foodSelect(); 			break;
+			case 6: foodSelect(); 			break;
 			case 0: return;
 			default:
 			}
@@ -327,25 +335,39 @@ public class BaseballUI {
 	}
 	
 	public void clothPurchase(ItemVO item_presentChar) {
-		
-		
+
 		if(presentChar.getGold()>=300) {
 			if(item_presentChar.getItemName().contentEquals("¿µ±¤ÀÇ À¯´ÏÆû")) {
 				System.out.println("¿µ±¤ÀÇ À¯´ÏÆû ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-300);
+				presentChar.setPitcherMentality(presentChar.getPitcherMentality()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("¸í¿¹ÀÇ À¯´ÏÆû")) {
 				System.out.println("¿µ±¤ÀÇ À¯´ÏÆû ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-450);
+				presentChar.setPitcherMentality(presentChar.getPitcherMentality()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("½Â¸®ÀÇ À¯´ÏÆû")) {
 				System.out.println("¿µ±¤ÀÇ À¯´ÏÆû ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-600);
+				presentChar.setPitcherMentality(presentChar.getPitcherMentality()+7);
 			}
 		}
 		else {
 			System.out.println("µ·ÀÌ ¾ø¾î¿ä");
 		}
+		purchaseResult=presentChar.getGold();
+		purchaseId=presentChar.getCharacterId();
+		purchaseCloth=presentChar.getPitcherMentality();
+		purchaseItemId = item_presentChar.getItemId();
+		purchaseQuntity=1;
+		System.out.println(purchaseQuntity);
+		UserCharacterVO vo= new UserCharacterVO();
+		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
+		System.out.println("±¸¸ÅÀÚ : " + purchaseId + " ¾ÆÀÌÅÛ : " + purchaseItemId);
+		vo.pitcherMentality(purchaseResult, purchaseId, purchaseCloth);
+		dao.purchaseCloth(vo);
+		dao.itemehaveInfo(ihivo);
 	}
 	
 	public void helmetSelect() {
@@ -373,14 +395,17 @@ public class BaseballUI {
 			if(item_presentChar.getItemName().contentEquals("¿µ±¤ÀÇ Çï¸ä")) {
 				System.out.println("¿µ±¤ÀÇ Çï¸ä ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-200);
+				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("¸í¿¹ÀÇ Çï¸ä")) {
 				System.out.println("¿µ±¤ÀÇ Çï¸ä ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-450);
+				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("½Â¸®ÀÇ Çï¸ä")) {
 				System.out.println("¿µ±¤ÀÇ Çï¸ä ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-650);
+				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+7);
 			}
 		}
 		else {
@@ -391,13 +416,9 @@ public class BaseballUI {
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
 		purchaseHelmet=presentChar.getHitterHit();
-		dao.test(purchaseResult);
-		dao.purchaseHelmet(purchaseHelmet);
-		
-		//UserCharacterVO vo = new UserCharacterVO(loginId, name, className);
-		UserCharacterVO vo= new UserCharacterVO(purchaseResult,purchaseId);
-		dao.ttest(vo);
-		
+		UserCharacterVO vo= new UserCharacterVO();
+		vo.pitcherBallSpeed(purchaseResult, purchaseId, purchaseHelmet);
+		dao.purchaseHelmet(vo);
 	}
 
 	public void batSelect() {
@@ -442,9 +463,12 @@ public class BaseballUI {
 			System.out.println("µ·ÀÌ ¾ø¾î¿ä");
 		}
 		purchaseResult=presentChar.getGold();
+		purchaseId=presentChar.getCharacterId();
 		purchaseBat=presentChar.getHitterPower();
-		dao.test(purchaseResult);
-		dao.purchaseBat(purchaseBat);
+		
+		UserCharacterVO vo= new UserCharacterVO();
+		vo.hitterPower(purchaseResult, purchaseId, purchaseBat);
+		dao.purchaseHelmet(vo);
 	}
 
 	public void shoesSelect() {
@@ -488,9 +512,12 @@ public class BaseballUI {
 			System.out.println("µ·ÀÌ ¾ø¾î¿ä !!!");
 		}
 		purchaseResult=presentChar.getGold();
+		purchaseId=presentChar.getCharacterId();
 		purchaseShoes=presentChar.getHitterRunSpeed();
-		dao.test(purchaseResult);
-		dao.purchaseShoes(purchaseShoes);
+		UserCharacterVO vo= new UserCharacterVO();
+		vo.hitterRunSpeed(purchaseResult, purchaseId, purchaseShoes);
+		dao.purchaseHelmet(vo);
+
 	}
 
 	public void gloveSelect() {
@@ -513,6 +540,8 @@ public class BaseballUI {
 		item_presentChar=list.get(num-1);
 		glovePurchase(item_presentChar);
 		
+		
+		
 	}
 	private void glovePurchase(ItemVO item_presentChar2) {
 		
@@ -520,14 +549,17 @@ public class BaseballUI {
 			if(item_presentChar.getItemName().contentEquals("¿µ±¤ÀÇ ±Û·¯ºê")) {
 				System.out.println("¿µ±¤ÀÇ ±Û·¯ºê ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-300);
+				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("¸í¿¹ÀÇ ±Û·¯ºê")) {
 				System.out.println("¿µ±¤ÀÇ ±Û·¯ºê ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-550);
+				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("½Â¸®ÀÇ ±Û·¯ºê")) {
 				System.out.println("¿µ±¤ÀÇ ±Û·¯ºê ±¸¸Å¿Ï·á");
 				presentChar.setGold(presentChar.getGold()-700);
+				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 		}
 		else {
@@ -535,9 +567,13 @@ public class BaseballUI {
 		}
 		
 		purchaseResult=presentChar.getGold();
+		purchaseId=presentChar.getCharacterId();
 		purchaseGlove=presentChar.getPitcherBallControl();
-		dao.test(purchaseResult);
-		dao.purchaseGlove(purchaseGlove);
+		UserCharacterVO vo= new UserCharacterVO();
+		vo.pitcherBallControl(purchaseResult, purchaseId, purchaseGlove);
+		
+		System.out.println("±Û·¯ºê »òÀ½ ¸®·± ¿È? " + vo);
+	
 	}
 
 	public void foodSelect() {
@@ -624,8 +660,8 @@ public class BaseballUI {
 	public void itemInfo() {
 		System.out.println(" [ ³» ¾ÆÀÌÅÛ ¸ñ·Ï ] ");
 		//Å¸ÀÚÄ³¸¯ÅÍ ¸ñ·Ï Ãâ·Â
-		ArrayList<ItemInventoryVO> list = dao.itemInfo();
-		ItemInventoryVO vo=null;
+		ArrayList<ItemHaveInfoVO> list = dao.itemInfo();
+		ItemHaveInfoVO vo=null;
 		System.out.println("--------------------------------------------------");
 		System.out.println("°ñµå : " + presentChar.getGold());
 		System.out.println("--------------------------------------------------");
@@ -638,8 +674,10 @@ public class BaseballUI {
 	
 	public void itemEquipHaveInfo() {
 		System.out.println("[ ³» Àåºñ ¾ÆÀÌÅÛ ¸ñ·Ï ] ");
-		ArrayList<ItemequipinfoVO> list = dao.itemequiphaveInfo();
-		ItemInventoryVO vo=null;
+		purchaseId=presentChar.getCharacterId();
+		System.out.println(purchaseId);
+		ArrayList<ItemequipinfoVO> list = dao.itemequiphaveInfo(purchaseId);
+		
 		System.out.println("--------------------------------------------------");
 		System.out.println("°ñµå : " + presentChar.getGold());
 		System.out.println("--------------------------------------------------");

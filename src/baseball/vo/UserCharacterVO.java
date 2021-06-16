@@ -21,28 +21,12 @@ public class UserCharacterVO {
 	public UserCharacterVO() {
 		super();
 	}
+
 	
-	
-
-
-	public UserCharacterVO(String userId, String characterName, String className) {
-		super();
-		this.userId = userId;
-		this.characterName = characterName;
-		this.className = className;
-	}
-
-	public UserCharacterVO(int gold,int characterId) {
-		this.gold=gold;
-		this.characterId=characterId;
-	}
-
-
 
 	public int getCharacterId() {
 		return characterId;
 	}
-
 
 	public void setCharacterId(int characterId) {
 		this.characterId = characterId;
@@ -199,6 +183,47 @@ public class UserCharacterVO {
 	}
 	
 	
+	// 아이템 먹으면 디비에서 연산하는거 아니라 연산 결과를 모아서 한번에 디비 업데이트 하려고 
+	// 만든 메서드들.
+	public UserCharacterVO(String userId, String characterName, String className) {
+		super();
+		this.userId = userId;
+		this.characterName = characterName;
+		this.className = className;
+	}
+	
+	public UserCharacterVO pitcherMentality(int gold,int characterId,int pitcherMentality) {
+		this.gold=gold;
+		this.characterId = characterId;
+		this.pitcherMentality=pitcherMentality;
+		return null;
+	}
+	
+	public UserCharacterVO pitcherBallSpeed(int gold,int characterId,int pitcherBallSpeed) {
+		this.gold=gold;
+		this.characterId = characterId;
+		this.pitcherBallSpeed=pitcherBallSpeed;
+		return null;
+	}
+	
+	public void hitterRunSpeed(int gold,int characterId,int hitterRunSpeed) {
+		this.gold=gold;
+		this.characterId = characterId;
+		this.hitterRunSpeed=hitterRunSpeed;
+	}
+	public UserCharacterVO pitcherBallControl(int gold,int characterId,int pitcherBallControl) {
+		this.gold=gold;
+		this.characterId = characterId;
+		this.pitcherBallControl=pitcherBallControl;
+		return null;
+	}
+	
+	public UserCharacterVO hitterPower(int gold,int characterId,int hitterPower) {
+		this.gold=gold;
+		this.characterId = characterId;
+		this.pitcherBallControl=hitterPower;
+		return null;
+	}
 	
 	
 	

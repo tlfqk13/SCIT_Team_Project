@@ -3,7 +3,7 @@ package baseball.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import baseball.vo.ItemInventoryVO;
+import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
 import baseball.vo.ItemequipinfoVO;
 import baseball.vo.UserCharacterVO;
@@ -39,20 +39,19 @@ public interface BaseballMapper {
 	// 아이템 음식 목록 불러오기 
 	public ArrayList<ItemVO> foodSelect();
 	// 내 아이템 목록 불러오기 
-	public ArrayList<ItemInventoryVO> itemInfo();
+	public ArrayList<ItemHaveInfoVO> itemInfo();
 	// 골드 업데이트 
 	public ArrayList<UserCharacterVO> goldUpdate();
 	// 내가 가진 장비 아이템 정보
-	public ArrayList<ItemequipinfoVO> itemequiphaveInfo();
+	public void itemehaveInfo(ItemHaveInfoVO vo);
 	
-	public void test(int purchaseResult);
-
-	public int ttest (UserCharacterVO vo);
+	// 아이템 구매시 골드 와 능력치 갱신하는 메서드 
+	public void purchaseBat(UserCharacterVO vo);
+	public void purchaseHelmet(UserCharacterVO vo);
+	public void purchaseShoes(UserCharacterVO vo);
+	public void purchaseGlove(UserCharacterVO vo);
+	public void purchaseCloth(UserCharacterVO vo);
 	
-	public void purchaseBat(int purchaseBat);
-	public void purchaseHelmet(int purchaseHelmet);
-	public void purchaseShoes(int purchaseShoes);
-	public void purchaseGlove(int purchaseGlove);
-
-
+	// 내가 가진 아이템 목록 불러오기 
+	public ArrayList<ItemequipinfoVO> itemequiphaveInfo(int purchaseId);
 }

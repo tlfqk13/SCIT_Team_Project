@@ -5,15 +5,29 @@ CREATE TABLE users (
     password  VARCHAR2(40) NOT NULL
 );
  
- update usercharacter set gold=500 where characterid=1;
- 
+ update usercharacter set gold=gold+1000, hitterhit=15 where characterid=1;
+ commit;
  select * from item;
  
- select * from usercharacter;
+ select * from usercharacter;   
  
  select gold from usercharacter;
  
  select * from itemequipinfo;
+ 
+ select 
+   i.itemname, i.price, i.summary, ihi.quantity
+from 
+   item i, itemhaveinfo ihi, usercharacter uc
+where 
+   i.itemid=ihi.itemid and ihi.characterid=uc.characterid;
+
+ 
+ 
+ select * from itemhaveinfo;
+
+ 
+ drop table itemhaveinfo;
  
   insert into itemequipinfo(characterid, equipitemid1, equipitemid2,equipitemid3) values(1,107,104,113);
  
@@ -47,7 +61,7 @@ CREATE TABLE itemhaveinfo (
     characterid  NUMBER,
     itemid       NUMBER,
     quantity     NUMBER,
-    CONSTRAINT itemhaveinfo PRIMARY KEY ( characterid,itemid ),
+--    CONSTRAINT itemhaveinfo PRIMARY KEY (itemid ),
     CONSTRAINT itemhaveinfofk1 FOREIGN KEY ( characterid )
         REFERENCES usercharacter ( characterid )
             ON DELETE CASCADE,
@@ -55,13 +69,15 @@ CREATE TABLE itemhaveinfo (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
-
+drop table itemhaveinfo;
 select * from itemhaveinfo;
 
+select * from itemhaveinfo;;
 
+commit;
 
 --insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'글러브','영광의 글러브','구속+3',300);
- insert into itemhaveinfo(characterid, itemid, quantity) values(1,104,1);
+ insert into itemhaveinfo(characterid, itemid, quantity) values(1,105,1);
  
  --조인
 
@@ -223,6 +239,10 @@ insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextv
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','명예의 신발','스피드+5',400);
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','승리의 신발','스피드+7',500);
 -----------------------------------------------------------
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','행동력 +1',200);
+
+
+
 insert into itemequiphaveinfo(itemequipid,characterid,itemid,itemlevel) values(itemequiphaveseq.nextval,1,'104',3);
 
 select * from item;
