@@ -9,13 +9,29 @@ CREATE TABLE users (
  
  commit;
  
+  select * from itemhaveinfo; 
+ 
+ select * from itemhaveinfo ihi, item i
+where i.itemClass = '«Ô∏‰' and ihi.itemid=i.itemid;
+ 
+  select 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ from 
+ 	itemhaveinfo ihi, item i
+where 
+	i.itemClass = '«Ô∏‰' and ihi.itemid=i.itemid 
+group by i.itemname, i.price, i.summary
+order by price;
+ 
  select * from item;
  
  select * from usercharacter;   
- 
+
  select gold from usercharacter;
  
  select * from itemhaveinfo;
+ 
+ select * from itemequipinfo;
  
  select 
    i.itemname, i.price, i.summary, ihi.quantity
@@ -67,12 +83,10 @@ CREATE TABLE usercharacter (
  --æ∆¿Ã≈€º“¿Ø¡§∫∏--
 
 CREATE TABLE itemhaveinfo (
-    itemehaveseq NUMBER,
     characterid  NUMBER,
     itemid       NUMBER,
     quantity     NUMBER,
-    
-    CONSTRAINT itemhaveinfo PRIMARY KEY ( itemehaveseq), 
+--    CONSTRAINT itemhaveinfo PRIMARY KEY ( characterid,itemid ), 
 --    characterid,
     CONSTRAINT itemhaveinfofk1 FOREIGN KEY ( characterid )
         REFERENCES usercharacter ( characterid )
@@ -269,9 +283,11 @@ select * from itemequipinfo;
 select * from itemhaveinfo;
 
 
-select i.itemname, i.price, i.summary
+select i.itemname, i.price, i.summary, count(ihi.quantity) as quantity
 from item i, itemhaveinfo ihi, usercharacter uc
-where i.itemid=ihi.itemid and ihi.characterid=uc.characterid; 
+where i.itemid=ihi.itemid and ihi.characterid=uc.characterid 
+group by i.itemname, i.price, i.summary; 
+
 
 commit;
 
@@ -283,6 +299,6 @@ CREATE SEQUENCE hallofframeidseq INCREMENT BY 1 MINVALUE 401;
 
 CREATE SEQUENCE itemequiphaveseq INCREMENT BY 1 MINVALUE 501;
 
-CREATE SEQUENCE itemehaveseq INCREMENT BY 1 MINVALUE 601;
 
-drop sequence itemehaveseq;
+
+

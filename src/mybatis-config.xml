@@ -12,7 +12,7 @@
 		<typeAlias type="baseball.vo.ItemVO" alias="item"/>
 		<typeAlias type="baseball.vo.ItemHaveInfoVO" alias="itemhaveinfo"/>
 		<typeAlias type="baseball.vo.ItemEquipInventoryVO" alias="itemequiphaveInfo"/>
-	
+		<typeAlias type="baseball.vo.ItemEquipinfoVO" alias="itemquipinfo"/>
 	</typeAliases>
 	
 	<!-- DB접속 정보 셋팅 -->

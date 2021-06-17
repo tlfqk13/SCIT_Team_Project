@@ -3,10 +3,12 @@ package baseball.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.apache.ibatis.io.ResolverUtil.Test;
+
 import baseball.dao.BaseballDAO;
 import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
-import baseball.vo.ItemequipinfoVO;
+import baseball.vo.ItemEquipinfoVO;
 import baseball.vo.TrainerVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -19,12 +21,12 @@ public class BaseballUI {
 	private UserCharacterVO presentChar = null;
 	private ItemVO item_presentChar=null;
 	private String loginId = null;
+	private ItemEquipinfoVO equip_presentChar=null;
+	private ItemHaveInfoVO have_presentChar=null;
 	
 	private int purchaseId;
 	private int purchaseItemId;
 	private int purchaseQuntity=0;
-	
-	
 	
 	private int purchaseResult=0;
 	
@@ -358,16 +360,15 @@ public class BaseballUI {
 		}
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
-		purchaseCloth=presentChar.getPitcherMentality();
 		purchaseItemId = item_presentChar.getItemId();
 		purchaseQuntity=1;
 		System.out.println(purchaseQuntity);
 		UserCharacterVO vo= new UserCharacterVO();
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-		System.out.println("골드 : " + purchaseResult + " 구매자 : " + purchaseId +" 옷구매 " +purchaseCloth);
-		vo.pitcherMentality(purchaseResult, purchaseId, purchaseCloth);
-		dao.purchaseCloth(vo);
-
+		ItemHaveInfoVO ihivo1= new ItemHaveInfoVO(purchaseBat, purchaseItemId);
+		dao.goldUpdate(vo);
+		dao.itemehaveInfo(ihivo,ihivo1);
+		
 	}
 	
 	public void helmetSelect() {
@@ -395,17 +396,14 @@ public class BaseballUI {
 			if(item_presentChar.getItemName().contentEquals("영광의 헬멧")) {
 				System.out.println("영광의 헬멧 구매완료");
 				presentChar.setGold(presentChar.getGold()-200);
-				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 헬멧")) {
 				System.out.println("명예의 헬멧 구매완료");
 				presentChar.setGold(presentChar.getGold()-450);
-				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 헬멧")) {
 				System.out.println("승리의 헬멧 구매완료");
 				presentChar.setGold(presentChar.getGold()-650);
-				presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+7);
 			}
 		}
 		else {
@@ -415,14 +413,12 @@ public class BaseballUI {
 		//맵으로 받아서 아이디 where 써서 하면 그냥 수정완료 
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
-		purchaseHelmet=presentChar.getHitterHit();
 		purchaseItemId = item_presentChar.getItemId();
 		purchaseQuntity=1;
 		UserCharacterVO vo= new UserCharacterVO();
-		vo.pitcherBallSpeed(purchaseResult, purchaseId, purchaseHelmet);
-		dao.purchaseHelmet(vo);
+		vo.goldUpdate(purchaseResult, purchaseId);
+		dao.goldUpdate(vo);
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-		
 		ItemHaveInfoVO ihivo1= new ItemHaveInfoVO(purchaseBat, purchaseItemId);
 		dao.itemehaveInfo(ihivo,ihivo1);
 	}
@@ -452,17 +448,15 @@ public class BaseballUI {
 			if(item_presentChar.getItemName().contentEquals("영광의 방망이")) {
 				System.out.println("영광의 방망이 구매완료");
 				presentChar.setGold(presentChar.getGold()-600);
-				presentChar.setHitterPower(presentChar.getHitterPower()+3);
+//				presentChar.setHitterPower(presentChar.getHitterPower()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 방망이")) {
 				System.out.println("명예의 방망이 구매완료");
 				presentChar.setGold(presentChar.getGold()-900);
-				presentChar.setHitterPower(presentChar.getHitterPower()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 방망이")) {
 				System.out.println("승리의 방망이 구매완료");
 				presentChar.setGold(presentChar.getGold()-1200);
-				presentChar.setHitterPower(presentChar.getHitterPower()+7);
 			}
 		}
 		else {
@@ -470,14 +464,14 @@ public class BaseballUI {
 		}
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
-		purchaseBat=presentChar.getHitterPower();
 		purchaseItemId = item_presentChar.getItemId();
 		purchaseQuntity=1;
 		UserCharacterVO vo= new UserCharacterVO();
-		vo.hitterPower(purchaseResult, purchaseId, purchaseBat);
-		dao.purchaseHelmet(vo);
+		vo.goldUpdate(purchaseResult, purchaseId);
+		dao.goldUpdate(vo);
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-//		dao.itemehaveInfo(ihivo);
+		ItemHaveInfoVO ihivo1= new ItemHaveInfoVO(purchaseBat, purchaseItemId);
+		dao.itemehaveInfo(ihivo,ihivo1);
 	}
 
 	public void shoesSelect() {
@@ -504,17 +498,15 @@ public class BaseballUI {
 			if(item_presentChar.getItemName().contentEquals("영광의 신발")) {
 				System.out.println("영광의 신발 구매완료");
 				presentChar.setGold(presentChar.getGold()-300);
-				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+3);
+//				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 신발")) {
 				System.out.println("명예의 신발 구매완료");
 				presentChar.setGold(presentChar.getGold()-400);
-				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+5);
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 신발")) {
 				System.out.println("승리의 신발 구매완료");
 				presentChar.setGold(presentChar.getGold()-500);
-				presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+7);
 			}
 		}
 		else {
@@ -522,14 +514,14 @@ public class BaseballUI {
 		}
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
-		purchaseShoes=presentChar.getHitterRunSpeed();
 		purchaseItemId = item_presentChar.getItemId();
 		purchaseQuntity=1;
 		UserCharacterVO vo= new UserCharacterVO();
-		vo.hitterRunSpeed(purchaseResult, purchaseId, purchaseShoes);
-		dao.purchaseHelmet(vo);
+		vo.goldUpdate(purchaseResult, purchaseId);
+		dao.goldUpdate(vo);
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-//		dao.itemehaveInfo(ihivo);
+		ItemHaveInfoVO ihivo1= new ItemHaveInfoVO(purchaseBat, purchaseItemId);
+		dao.itemehaveInfo(ihivo,ihivo1);
 
 	}
 
@@ -562,17 +554,16 @@ public class BaseballUI {
 			if(item_presentChar.getItemName().contentEquals("영광의 글러브")) {
 				System.out.println("영광의 글러브 구매완료");
 				presentChar.setGold(presentChar.getGold()-300);
-				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
+//				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 			else if(item_presentChar.getItemName().contentEquals("명예의 글러브")) {
 				System.out.println("명예의 글러브 구매완료");
 				presentChar.setGold(presentChar.getGold()-550);
-				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
+				
 			}
 			else if(item_presentChar.getItemName().contentEquals("승리의 글러브")) {
 				System.out.println("승리의 글러브 구매완료");
 				presentChar.setGold(presentChar.getGold()-700);
-				presentChar.setPitcherBallControl(presentChar.getPitcherBallControl()+3);
 			}
 		}
 		else {
@@ -581,14 +572,14 @@ public class BaseballUI {
 		
 		purchaseResult=presentChar.getGold();
 		purchaseId=presentChar.getCharacterId();
-		purchaseGlove=presentChar.getPitcherBallControl();
 		UserCharacterVO vo= new UserCharacterVO();
-		vo.pitcherBallControl(purchaseResult, purchaseId, purchaseGlove);
+		vo.goldUpdate(purchaseResult, purchaseId);
+		dao.goldUpdate(vo);
 		purchaseItemId = item_presentChar.getItemId();
 		purchaseQuntity=1;
-		System.out.println("글러브 샀음 리런 옴? " + vo);
 		ItemHaveInfoVO ihivo= new ItemHaveInfoVO(purchaseId, purchaseItemId,purchaseQuntity);
-//		dao.itemehaveInfo(ihivo);
+		ItemHaveInfoVO ihivo1= new ItemHaveInfoVO(purchaseBat, purchaseItemId);
+		dao.itemehaveInfo(ihivo,ihivo1);
 	}
 
 	public void foodSelect() {
@@ -606,6 +597,7 @@ public class BaseballUI {
 		}
 	}
 	
+
 	public void trainingMenu() {
 		while (true) {
 			System.out.println("코치 목록");
@@ -687,11 +679,12 @@ public class BaseballUI {
 		}
 	}
 	
+
+	
 	public void itemEquipHaveInfo() {
 		System.out.println("[ 내 장비 아이템 목록 ] ");
 		purchaseId=presentChar.getCharacterId();
-		System.out.println(purchaseId);
-		ArrayList<ItemequipinfoVO> list = dao.itemequiphaveInfo(purchaseId);
+		ArrayList<ItemEquipinfoVO> list = dao.itemequiphaveInfo();
 		
 		System.out.println("--------------------------------------------------");
 		System.out.println("골드 : " + presentChar.getGold());
@@ -701,7 +694,201 @@ public class BaseballUI {
 		for(int i=0;i<list.size();i++) {
 			System.out.println(list.get(i));
 		}
+		itemEquipInventorySelect();
 	}
+	
+	public void itemEquipHaveHemletInfo() {
+		System.out.println("[ 내 헬멧 아이템 목록 ] ");
+		ArrayList<ItemEquipinfoVO> list = dao.itemEquipHaveHemletInfo();
+//		ArrayList<ItemHaveInfoVO> list2=dao.itemInfo();
+		System.out.println("--------------------------------------------------");
+		System.out.println("골드 : " + presentChar.getGold());
+		System.out.println("--------------------------------------------------");
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		System.out.println(list.size());
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
+		
+		
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		equip_presentChar=list.get(num-1);
+		equipHelmet(equip_presentChar);
+		System.out.println("뭘까요 + " + equip_presentChar);
+		itemEquipInventorySelect();
+		
+		
+	}
+	
+	// 아이템 입을래 말래? 
+	public void wearingItemQ() {
+		System.out.println("착용하시겠습니까 ? ");
+		System.out.println("1. 네 착용하겠습니다");
+		System.out.println("2. 아니요 착용 안하겠습니다");
+		int m = keyin.nextInt();	
+		
+		switch(m) {					
+		case 1: 
+			UserCharacterVO vo= new UserCharacterVO();
+			vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
+			dao.purchaseHelmet(vo);	
+			System.out.println("착용 완료");
+			break;
+		case 2: return;
+		default:
+		}	
+	}
+	
+	public void equipHelmet(ItemEquipinfoVO equip_presentChar) {
+		
+		if(equip_presentChar.getItemName().contentEquals("영광의 헬멧")) {
+			presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+3);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getPitcherBallSpeed();
+			
+			wearingItemQ();
+			
+		}
+		else if(equip_presentChar.getItemName().contentEquals("명예의 헬멧")){
+			presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+5);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getPitcherBallSpeed();
+			wearingItemQ();
+		}
+		else if(equip_presentChar.getItemName().contentEquals("승리의 헬멧")){
+			presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+7);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getPitcherBallSpeed();
+			wearingItemQ();
+		}
+		else {
+			return;
+		}
+		
+	}
+
+
+	public void itemEquipHaveUniformInfo() {
+		System.out.println("[ 내 헬멧 아이템 목록 ] ");
+		ArrayList<ItemEquipinfoVO> list = dao.itemEquipHaveUniformInfo();
+		System.out.println("--------------------------------------------------");
+		System.out.println("골드 : " + presentChar.getGold());
+		System.out.println("--------------------------------------------------");
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		System.out.println(list.size());
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		equip_presentChar=list.get(num-1);
+		
+		equipUniform(equip_presentChar);
+		itemEquipInventorySelect();
+	}
+	private void equipUniform(ItemEquipinfoVO equip_presentChar2) {
+		
+		if(equip_presentChar.getItemName().contentEquals("영광의 유니폼")) {
+			presentChar.setPitcherMentality(presentChar.getPitcherMentality()+3);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getPitcherMentality();
+			wearingItemQ();
+		}
+		else if(equip_presentChar.getItemName().contentEquals("명예의 유니폼")){
+			presentChar.setPitcherMentality(presentChar.getPitcherMentality()+5);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getPitcherMentality();
+			wearingItemQ();;
+		}
+		else if(equip_presentChar.getItemName().contentEquals("승리의 유니폼")){
+			presentChar.setPitcherMentality(presentChar.getPitcherMentality()+7);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getPitcherMentality();
+			
+			wearingItemQ();
+		}
+		else {
+			return;
+		}
+		
+	}
+
+	public void itemEquipHaveShoesInfo() {
+		System.out.println("[ 내 헬멧 아이템 목록 ] ");
+		ArrayList<ItemEquipinfoVO> list = dao.itemEquipHaveShoesInfo();
+		System.out.println("--------------------------------------------------");
+		System.out.println("골드 : " + presentChar.getGold());
+		System.out.println("--------------------------------------------------");
+		System.out.println(" 아이템 이름 " + " 아이템 설명 "+" 가격 ");
+		System.out.println(list.size());
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
+		System.out.print("번호 선택> ");
+		int num = keyin.nextInt();
+		equip_presentChar=list.get(num-1);
+		
+		equipShoes(equip_presentChar);
+		itemEquipInventorySelect();
+	}
+	
+	
+	private void equipShoes(ItemEquipinfoVO equip_presentChar2) {
+
+		if(equip_presentChar.getItemName().contentEquals("영광의 신발")) {
+			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+3);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getHitterRunSpeed();
+			
+			wearingItemQ();
+		}
+		else if(equip_presentChar.getItemName().contentEquals("명예의 신발")){
+			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+5);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getHitterRunSpeed();
+			
+			wearingItemQ();
+		}
+		else if(equip_presentChar.getItemName().contentEquals("승리의 신발")){
+			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+7);
+			purchaseId=presentChar.getCharacterId();
+			purchaseHelmet=presentChar.getHitterRunSpeed();
+	
+			wearingItemQ();
+		}
+		else {
+			return;
+		}
+		
+	}
+
+	public void itemEquipInventorySelect() {
+		while (true) {
+			itemEquipInventorySelectMenuPrint();
+			int m = keyin.nextInt();	
+			switch(m) {					
+			case 1: itemEquipHaveHemletInfo();break;
+//			case 2: itemInfo();			break;
+//			case 3: itemEquipHaveInfo(); break;
+			case 0: return;
+			default:
+			}
+		}
+	}
+	
+	public void itemEquipInventorySelectMenuPrint() {
+		System.out.println("[ 장비 고르기 ]");
+		System.out.println("1.	헬멧");
+		System.out.println("2.	유니폼");
+		System.out.println("3.  신발");
+		System.out.println("0.	뒤로가기");
+		System.out.print("선택>	");
+	}
+	// 내 장비 목록 출력
+	// 모자 유니폼 신발 방망이 or 글러브 하나씩만 고르게 해서 
+	// 장비 목록에서 갯수 빼면됨 
+	
 	
 	public void goldInfo() {
 		

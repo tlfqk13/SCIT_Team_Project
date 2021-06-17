@@ -192,40 +192,43 @@ public class UserCharacterVO {
 		this.className = className;
 	}
 	
-	public UserCharacterVO pitcherMentality(int gold,int characterId,int pitcherMentality) {
+	public UserCharacterVO goldUpdate(int gold, int characterId) {
 		this.gold=gold;
+		this.characterId = characterId;
+		return null;
+	}
+	
+	public UserCharacterVO pitcherMentality(int characterId,int pitcherMentality ) {
 		this.characterId = characterId;
 		this.pitcherMentality=pitcherMentality;
 		return null;
 	}
 	
-	public UserCharacterVO pitcherBallSpeed(int gold,int characterId,int pitcherBallSpeed) {
-		this.gold=gold;
+	public UserCharacterVO pitcherBallSpeed(int characterId,int pitcherBallSpeed) {
 		this.characterId = characterId;
 		this.pitcherBallSpeed=pitcherBallSpeed;
 		return null;
 	}
 	
-	public void hitterRunSpeed(int gold,int characterId,int hitterRunSpeed) {
-		this.gold=gold;
+	public UserCharacterVO hitterRunSpeed(int characterId,int hitterRunSpeed) {
 		this.characterId = characterId;
 		this.hitterRunSpeed=hitterRunSpeed;
+		return null;
 	}
-	public UserCharacterVO pitcherBallControl(int gold,int characterId,int pitcherBallControl) {
-		this.gold=gold;
+	public UserCharacterVO pitcherBallControl(int characterId,int pitcherBallControl) {
 		this.characterId = characterId;
 		this.pitcherBallControl=pitcherBallControl;
 		return null;
 	}
 	
-	public UserCharacterVO hitterPower(int gold,int characterId,int hitterPower) {
-		this.gold=gold;
+	public UserCharacterVO hitterPower(int characterId,int hitterPower) {
 		this.characterId = characterId;
 		this.pitcherBallControl=hitterPower;
 		return null;
 	}
-	
-	
+
+
+
 	
 	
 }

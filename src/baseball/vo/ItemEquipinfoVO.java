@@ -1,12 +1,19 @@
 package baseball.vo;
 
-public class ItemequipinfoVO {
+public class ItemEquipinfoVO {
 	private int charaterid;
 	private int equipitem1;
 	private int equipitem2;
 	private int equipitem3;
 	private int itemid;
+	private int price;
+	private String itemName;
+	private String summary;
 	
+	
+	public ItemEquipinfoVO() {
+		super();
+	}
 	public int getCharaterid() {
 		return charaterid;
 	}
@@ -37,11 +44,24 @@ public class ItemequipinfoVO {
 	public void setItemid(int itemid) {
 		this.itemid = itemid;
 	}
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 	@Override
 	public String toString() {
-		return "ItemequipinfoVO [charaterid=" + charaterid + ", equipitem1=" + equipitem1 + ", equipitem2=" + equipitem2
-				+ ", equipitem3=" + equipitem3 + ", itemid=" + itemid + "]";
+		return "ItemEquipinfoVO [price=" + price + ", "
+				+ "itemName=" + itemName + ", summary=" + summary
+				 + itemName + "]";
 	}
-	
+
 	
 }

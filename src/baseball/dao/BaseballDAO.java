@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
-import baseball.vo.ItemequipinfoVO;
+import baseball.vo.ItemEquipinfoVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -292,6 +292,24 @@ public class BaseballDAO {
 		return result;
 	}
 	
+	public void goldUpdate(UserCharacterVO vo) {
+		SqlSession ss= null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.goldUpdate(vo);
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		
+	}
+
+	
 	public void itemehaveInfo(ItemHaveInfoVO ihivo, ItemHaveInfoVO ihivo1) {
 		SqlSession ss= null;
 		try {
@@ -399,13 +417,13 @@ public class BaseballDAO {
 	}
 
 
-	public ArrayList<ItemequipinfoVO> itemequiphaveInfo(int purchaseId) {
+	public ArrayList<ItemEquipinfoVO> itemequiphaveInfo() {
 		SqlSession ss= null;
-		ArrayList<ItemequipinfoVO> result=null;
+		ArrayList<ItemEquipinfoVO> result=null;
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-			result=mapper.itemequiphaveInfo(purchaseId);
+			result=mapper.itemequiphaveInfo();
 			ss.commit();
 		}
 		catch(Exception e) {
@@ -417,5 +435,64 @@ public class BaseballDAO {
 		return result;
 	}
 
+
+	public ArrayList<ItemEquipinfoVO> itemEquipHaveHemletInfo() {
+		SqlSession ss= null;
+		ArrayList<ItemEquipinfoVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.itemEquipHaveHemletInfo();
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemEquipinfoVO> itemEquipHaveUniformInfo() {
+		SqlSession ss= null;
+		ArrayList<ItemEquipinfoVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.itemEquipHaveUniformInfo();
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<ItemEquipinfoVO> itemEquipHaveShoesInfo() {
+		SqlSession ss= null;
+		ArrayList<ItemEquipinfoVO> result=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result=mapper.itemEquipHaveShoesInfo();
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+
+	
 
 }

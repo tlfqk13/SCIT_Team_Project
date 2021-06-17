@@ -159,8 +159,6 @@ insert into itemhaveinfo (
 	)
 </insert>
 
-
-
 <select id="itemequiphaveInfo" resultType="itemequiphaveInfo">
 select 
    i.itemname, i.price, i.summary, count(ihi.quantity) as quantity
@@ -171,7 +169,7 @@ where
 group by i.itemname, i.price, i.summary
 </select>
 
-<update id="purchaseBat" parameterType="character">
+<update id="goldUpdate" parameterType="character">
 update usercharacter 
 set gold = #{gold},hitterPower=#{hitterPower}
 where characterId=#{characterId}
@@ -179,25 +177,25 @@ where characterId=#{characterId}
 
 <update id="purchaseCloth" parameterType="character">
 update usercharacter 
-set gold = #{gold},pitcherMentality=#{pitcherMentality}
+pitcherMentality=#{pitcherMentality}
 where characterId=#{characterId}
 </update>
 
 <update id="purchaseHelmet" parameterType="character">
 update usercharacter 
-set gold = #{gold},pitcherBallSpeed=#{pitcherBallSpeed}
+set pitcherBallSpeed=#{pitcherBallSpeed}
 where characterId=#{characterId}
 </update>
 
 <update id="purchaseShoes" parameterType="int">
 update usercharacter 
-set  gold = #{gold},hitterRunSpeed = #{hitterRunSpeed}
+hitterRunSpeed = #{hitterRunSpeed}
 where characterId=#{characterId}
 </update>
 
 <update id="purchaseGlove" parameterType="int">
 update usercharacter 
-set  gold = #{gold},pitcherBallControl = #{pitcherBallControl}
+set pitcherBallControl = #{pitcherBallControl}
 where characterId=#{characterId}
 </update>
 
@@ -209,6 +207,23 @@ set
 where 
 	itemid = #{itemid} and characterid = #{characterid}
 </update>
+
+
+
+<select id="itemEquipHaveHemletInfo" resultType="itemquipinfo">
+ select 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ from 
+ 	itemhaveinfo ihi, item i
+where 
+	i.itemClass = '헬멧' and ihi.itemid=i.itemid 
+group by 
+	i.itemname, i.price, i.summary
+order by
+	price
+
+
+</select>
 
 </mapper>
 

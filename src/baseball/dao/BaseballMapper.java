@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
-import baseball.vo.ItemequipinfoVO;
+import baseball.vo.ItemEquipinfoVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -41,7 +41,7 @@ public interface BaseballMapper {
 	// 내 아이템 목록 불러오기 
 	public ArrayList<ItemHaveInfoVO> itemInfo();
 	// 골드 업데이트 
-	public ArrayList<UserCharacterVO> goldUpdate();
+	public void goldUpdate(UserCharacterVO vo);
 	// 내가 가진 장비 아이템 정보
 	public void itemehaveInfo(ItemHaveInfoVO vo);
 	
@@ -53,8 +53,12 @@ public interface BaseballMapper {
 	public void purchaseCloth(UserCharacterVO vo);
 	
 	// 내가 가진 아이템 목록 불러오기 
-	public ArrayList<ItemequipinfoVO> itemequiphaveInfo(int purchaseItemId);
+	public ArrayList<ItemEquipinfoVO> itemequiphaveInfo();
 	
 	//구매수 1증가
 	int addQuantity(ItemHaveInfoVO ihivo1);
+	
+	public ArrayList<ItemEquipinfoVO> itemEquipHaveHemletInfo();
+	public ArrayList<ItemEquipinfoVO> itemEquipHaveUniformInfo();
+	public ArrayList<ItemEquipinfoVO> itemEquipHaveShoesInfo();
 }
