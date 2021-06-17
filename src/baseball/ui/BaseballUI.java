@@ -702,7 +702,6 @@ public class BaseballUI {
 		System.out.println();
 		System.out.println("[ ³» Çï¸ä ¾ÆÀÌÅÛ ¸ñ·Ï ] ");
 		ArrayList<ItemEquipinfoVO> list = dao.itemEquipHaveHemletInfo();
-//		ArrayList<ItemHaveInfoVO> list2=dao.itemInfo();
 		System.out.println("--------------------------------------------------");
 		System.out.println("°ñµå : " + presentChar.getGold());
 		System.out.println("--------------------------------------------------");
@@ -758,11 +757,8 @@ public class BaseballUI {
 			UserCharacterVO vo= new UserCharacterVO();
 			
 			vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
-//			ItemEquipinfoVO ivo=new ItemEquipinfoVO(purchaseId,purchaseItemId);
 			dao.purchaseHelmet(vo);	
-//			dao.ItemEquipinfoVO(ivo);
 			System.out.println("Âø¿ë ¿Ï·á");
-//			System.out.println("ivo" + ivo);
 			break;
 		case 2: return;
 		default:

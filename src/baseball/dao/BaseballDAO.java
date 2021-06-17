@@ -492,28 +492,4 @@ public class BaseballDAO {
 		}
 		return result;
 	}
-
-
-	public ArrayList<ItemEquipInventoryVO> ItemEquipInventory(ItemEquipInventoryVO ivo) {
-		SqlSession ss= null;
-		ArrayList<ItemEquipInventoryVO> result=null;
-		try {
-			ss=factory.openSession();
-			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-			result=mapper.ItemEquipInventory(ivo);
-			ss.commit();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			if(ss!=null)ss.close();
-		}
-		return result;
-		
-	}
-
-
-	
-
 }

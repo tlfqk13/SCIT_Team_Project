@@ -209,7 +209,7 @@ where
 	itemid = #{itemid} and characterid = #{characterid}
 </update>
 
-<select id="itemEquipHaveHemletInfo" resultType="itemquipinfo">
+<select id="itemEquipHaveHemletInfo" resultType="itemhaveinfo">
  select 
  	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
  from 
@@ -221,19 +221,6 @@ group by
 order by
 	price
 </select>
-
-<insert id="ItemEquipInventory" parameterType="itemquipinfo">
-insert into itemequipinfo(
-   charterid,
-   equipitem1
-   )
-   values(
-   #{charetid},
-   #{equipitem1}
-   )
-</insert>
-
-
 
 </mapper>
 
