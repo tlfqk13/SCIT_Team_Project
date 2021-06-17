@@ -7,8 +7,14 @@ public class ItemHaveInfoVO {
 	private String characterName;
 	private String itemName;
 	
+	
+	
 	public ItemHaveInfoVO() {
 		super();
+	}
+
+	public ItemHaveInfoVO(int purchaseId) {
+		this.characterid=purchaseId;
 	}
 	
 	public ItemHaveInfoVO(int charaterid,int itemid,int quantity) {

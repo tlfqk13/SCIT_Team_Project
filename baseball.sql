@@ -5,7 +5,7 @@ CREATE TABLE users (
     password  VARCHAR2(40) NOT NULL
 );
  
- update usercharacter set gold=gold+5000, hitterhit=15 ,pitchermentality=10 where characterid=1;
+ update usercharacter set gold=gold+500, hitterhit=15 ,pitchermentality=10 where characterid=1;
  
  commit;
  
@@ -31,12 +31,18 @@ order by price;
  update usercharacter set pitcherballspeed=0, hitterrunspeed=0 where characterid=1;
  
  commit;
+ 
+update usercharacter 
+set hitterRunSpeed =10
+where characterId=1;
 
  select gold from usercharacter;
  
  select * from itemhaveinfo;
  
  select * from itemequipinfo;
+ 
+ select * from itemequiphaveinfo;
  
  select 
    i.itemname, i.price, i.summary, ihi.quantity
@@ -208,7 +214,6 @@ CREATE TABLE itemequiphaveinfo (
     itemequipid  NUMBER PRIMARY KEY,
     characterid  NUMBER NOT NULL,
     itemid       NUMBER NOT NULL,
-    itemlevel        NUMBER NOT NULL,
     CONSTRAINT itemequiphaveinfofk1 FOREIGN KEY ( characterid )
         REFERENCES usercharacter ( characterid )
             ON DELETE CASCADE,
@@ -219,7 +224,8 @@ CREATE TABLE itemequiphaveinfo (
 
 drop table itemequiphaveinfo;
 
-         
+select * from item;
+
 --아이템 강화--
 
 CREATE TABLE itemlevel (
@@ -310,6 +316,8 @@ CREATE SEQUENCE hallofframeidseq INCREMENT BY 1 MINVALUE 401;
 
 CREATE SEQUENCE itemequiphaveseq INCREMENT BY 1 MINVALUE 501;
 
+CREATE SEQUENCE itemequipidseq INCREMENT BY 1 MINVALUE 601;
 
+commit;
 
 

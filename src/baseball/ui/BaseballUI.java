@@ -38,9 +38,6 @@ public class BaseballUI {
 	private int purchaseCloth=0;
 	private int purchaseHelmet=0;
 	
-	
-	
-	
 	public BaseballUI() {
 		while (true) {
 			loginMenuPrint();				//메뉴 출력
@@ -770,6 +767,10 @@ public class BaseballUI {
 				vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
 				dao.purchaseHelmet(vo);	
 				System.out.println("헬멧 착용 완료");
+				ItemVO idtest= new ItemVO();
+				System.out.println("ㅠㅠㅠ -> "+idtest.getItemId());
+				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId,118);
+				dao.test(testVo);
 			}
 			else if(purchaseCloth!=0) {
 				vo.pitcherMentality(purchaseId,purchaseCloth);
@@ -1078,10 +1079,6 @@ public class BaseballUI {
 		System.out.println("0.	뒤로가기");
 		System.out.print("선택>	");
 	}
-	// 내 장비 목록 출력
-	// 모자 유니폼 신발 방망이 or 글러브 하나씩만 고르게 해서 
-	// 장비 목록에서 갯수 빼면됨 
-	
 	
 	public void goldInfo() {
 		

@@ -492,4 +492,22 @@ public class BaseballDAO {
 		}
 		return result;
 	}
+
+	//Âø¿ë Å×½ºÆ®
+	public void test(ItemHaveInfoVO testVo) {
+		SqlSession ss= null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.test(testVo);
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		
+	}
 }
