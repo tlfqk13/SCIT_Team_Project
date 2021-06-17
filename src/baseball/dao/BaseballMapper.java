@@ -3,7 +3,11 @@ package baseball.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
+
 import baseball.vo.HofVO;
+import baseball.vo.QuizScoreVO;
+import baseball.vo.QuizVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -38,11 +42,18 @@ public interface BaseballMapper {
 	//선수 삭제
 	public int deleteCharacter(String loginId, int presentCharId);
 	//일반 휴식 
-		public int rest1(int result);
-		//고급 휴식
-		public int rest2(int result);
-		//경기 
-		public int play(int result);
+	public int rest1(int result);
+	//고급 휴식
+	public int rest2(int result);
+	//경기 
+	public int play(int result);
+	//퀴즈 문제 불러오기
+	public ArrayList<QuizVO> quiz();
+	//퀴즈 점수 입력
+	public int quizScoreInsert(QuizScoreVO scoreVo);
+	//퀴즈 점수 불러오기
+	public ArrayList<QuizScoreVO> quizScoreAll();
+	public ArrayList<QuizScoreVO> quizScoreAll2(RowBounds rb);
 
 	
 

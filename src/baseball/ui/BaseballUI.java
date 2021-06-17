@@ -1,11 +1,14 @@
 package baseball.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import baseball.dao.BaseballDAO;
 import baseball.vo.HofVO;
+import baseball.vo.QuizScoreVO;
+import baseball.vo.QuizVO;
 import baseball.vo.TrainerVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -17,8 +20,9 @@ public class BaseballUI {
 	Scanner keyin = new Scanner(System.in);
 	private UserCharacterVO presentChar = null;
 	private String loginId = null;
+	private int quizScoreNum = 0;
+	int tenNum = 9;
 
-	
 	public BaseballUI() {
 		while (true) {
 			int m = 0;
@@ -127,6 +131,7 @@ public class BaseballUI {
 					case 1: characterCreate(); 	break;
 					case 2: characterSelect();	break;
 					case 3: characterDrop();	break;
+					case 4: loginId = null; return;
 					case 0: return;
 					default: 
 				}
@@ -142,7 +147,8 @@ public class BaseballUI {
 		System.out.println("[ 선수 메뉴 ]");
 		System.out.println("1.	선수 생성");
 		System.out.println("2.	선수 선택");
-		System.out.println("0.	선수 삭제");
+		System.out.println("3.	선수 삭제");
+		System.out.println("4. 	로그아웃");
 		System.out.print("선택>	");
 	}
 	
@@ -211,7 +217,7 @@ public class BaseballUI {
 		System.out.println("[ 캐릭터 선택 ]");
 		System.out.println("1.	투수");
 		System.out.println("2.	타자");
-		System.out.println("0.	종료");
+		System.out.println("0.	뒤로");
 		System.out.print("선택>	");
 	}
 	
@@ -228,7 +234,7 @@ public class BaseballUI {
 		}
 		else {
 			UserCharacterVO vo = null;
-			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호","캐릭터 이름","BallSpeed","BallControl","Mentality","보유금", "연차");
+			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호","캐릭터 이름","볼스피드","볼컨트롤","정신력","보유금", "연차");
 			for (int i = 0; i < list.size(); i++) {
 				vo = list.get(i);
 				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getPitcherBallSpeed(),vo.getPitcherBallControl(),vo.getPitcherMentality(),vo.getGold(), vo.getYear());
@@ -237,7 +243,13 @@ public class BaseballUI {
 				System.out.print("번호 선택> ");
 				try {
 					num = keyin.nextInt();
-					break;
+					if (num <= list.size()) {
+						break;	
+					}
+					else {
+						System.out.println("다시 입력하세요.");
+						continue;
+					}
 				}
 				catch (InputMismatchException e) {
 					keyin.nextLine();
@@ -264,16 +276,22 @@ public class BaseballUI {
 		}
 		else {
 			UserCharacterVO vo = null;
-			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호", "캐릭터 이름","BallSpeed","BallControl","Mentality","보유금", "연차");
+			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호", "캐릭터 이름","파워","타격","주루","보유금", "연차");
 			for (int i = 0; i < list.size(); i++) {
 				vo = list.get(i);
-				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getPitcherBallSpeed(),vo.getPitcherBallControl(),vo.getPitcherMentality(),vo.getGold(), vo.getYear());
+				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getHitterPower(),vo.getHitterHit(),vo.getHitterRunSpeed(),vo.getGold(), vo.getYear());
 			}
 			while (true) {
 				System.out.print("번호 선택> ");
 				try {
 					num = keyin.nextInt();
-					break;
+					if (num <= list.size()) {
+						break;	
+					}
+					else {
+						System.out.println("다시 입력하세요.");
+						continue;
+					}
 				}
 				catch (InputMismatchException e) {
 					keyin.nextLine();
@@ -306,8 +324,10 @@ public class BaseballUI {
 				case 1: storeMenu();			break;
 				case 2: trainingMenu();			break;
 				case 3: characterInfoMenu();	break;
-				case 4: match(); 			break;
-				case 5: rest(); 			break;
+				case 4: match(); 				break;
+				case 5: rest(); 				break;
+				case 6: quiz();					break;
+				case 7: presentChar = null; return;
 				case 0: System.out.println("게임을 종료합니다."); System.exit(0);
 				default:
 				}
@@ -327,6 +347,8 @@ public class BaseballUI {
 		System.out.println("3. 	캐릭터 정보");
 		System.out.println("4. 	경기");
 		System.out.println("5. 	휴식");
+		System.out.println("6. 	퀴즈");
+		System.out.println("7. 	캐릭터 선택창");
 		System.out.println("0.	종료");
 		System.out.print("선택>	");
 	}
@@ -513,15 +535,43 @@ public class BaseballUI {
 	public void match() {
 		System.out.println("[ 경기 하기 ]");
 		System.out.println("경기 시작");
-		presentChar.setActive(5);
-		presentChar.setHealth(100);
-		presentChar.setGold(presentChar.getGold()+500);
-		System.out.println("행동력이 5로 회복 되었습니다.");
-		System.out.println("소지금이 증가 하였습니다.");
-		System.out.println("건강이 100으로 회복 되었습니다.");
+		if (presentChar.getYear() < 5) {
+			presentChar.setActive(5);
+			presentChar.setHealth(100);
+			presentChar.setGold(presentChar.getGold()+500);
+			presentChar.setYear(presentChar.getYear() + 1);
+			System.out.println("행동력이 5로 회복 되었습니다.");
+			System.out.println("소지금이 증가 하였습니다.");
+			System.out.println("건강이 100으로 회복 되었습니다.");
+			System.out.println("연차가 1년 늘었습니다.");
+		}
+		else {
+			int m = dao.hofCharacterInsert(presentChar);
+			int n = dao.deleteCharacter(loginId, presentChar.getCharacterId());
+			presentChar = null;
+			return;
+		}
+		
+		
 		
 		//캐릭터 정보 db에 반영하기
 		//dao.     (presentChar);
+		
+		
+//		public void temp() {
+//		//5년차 경기 뛰면  명예의전당테이블로 옮기고 삭제
+//		UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
+//		if (vo.getYear() < 5) {
+//			//경기
+//		}
+//		else {
+//			int m = dao.hofCharacterInsert(vo);
+//			int n = dao.deleteCharacter(loginId, presentCharId);
+//			presentCharId = 0;
+//			return;
+//		}
+//		
+//	}
 		
 	}
 	
@@ -556,9 +606,15 @@ public class BaseballUI {
 	}
 	
 	public void freeRest() {
-		presentChar.setActive(presentChar.getActive()-1);
-		presentChar.setHealth(50);
-		System.out.println("일반 휴식이 완료 되었습니다.");
+		if (presentChar.getHealth() < 50) {
+			presentChar.setActive(presentChar.getActive()-1);
+			presentChar.setHealth(50);
+			System.out.println("일반 휴식이 완료 되었습니다.");
+		}
+		else {
+			System.out.println("체력이 충분합니다.");
+			return;
+		}
 		
 	//캐릭터 정보 db에 반영하기
 	//dao.     (presentChar);
@@ -567,11 +623,18 @@ public class BaseballUI {
 	
 	public void premiumRest() {
 		
-		presentChar.setActive(presentChar.getActive()-1);
-		presentChar.setGold(presentChar.getGold()-100);
-		presentChar.setHealth(10);
-		System.out.println("프리미엄 휴식이 완료되었습니다.");
-		System.out.println("소지금이 감소하였습니다.");
+		if (presentChar.getHealth() != 100) {
+			presentChar.setActive(presentChar.getActive()-1);
+			presentChar.setGold(presentChar.getGold()-100);
+			presentChar.setHealth(10);
+			System.out.println("프리미엄 휴식이 완료되었습니다.");
+			System.out.println("소지금이 감소하였습니다.");
+		}
+		else {
+			System.out.println("체력이 충분합니다.");
+			return;
+		}
+		
 		//캐릭터 정보 db에 반영하기
 		//dao.     (presentChar);
 	}
@@ -679,20 +742,268 @@ public class BaseballUI {
 		System.out.printf("%s", " ---------------------------------------------------------------- \n");
 	}
 	
-//	public void temp() {
-//		//5년차 경기 뛰면  명예의전당테이블로 옮기고 삭제
-//		UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
-//		if (vo.getYear() < 5) {
-//			//경기
+
+	
+	public void quiz() {
+		int m = 0;
+		while (true) {
+			quizMenuPrint();
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+			switch(m) {					
+			case 1: quizQuestion();		break;
+			case 2: quizScore();		break;
+			case 0: System.out.println("메인메뉴로 돌아갑니다."); 	return;
+			default:
+			}
+		}	
+	}
+	
+	public void quizMenuPrint() {
+		System.out.println("[ 퀴즈 ]");
+		System.out.println("1.	퀴즈 풀기");
+		System.out.println("2.	캐릭터별 퀴즈 정답률");
+		System.out.println("0.	뒤로 가기");
+		System.out.print("선택>	");
+	}
+	
+	public void quizEndMenuPrint() {
+		System.out.println("1.	한번 더");
+		System.out.println("2.	끝내기");
+		System.out.print("선택>	");
+	}
+	
+	public void quizQuestion() {
+		
+		ArrayList<QuizVO> list = dao.quiz();
+		QuizScoreVO scoreVo = new QuizScoreVO(loginId, presentChar.getCharacterId(), presentChar.getCharacterName());
+		quiz1:
+		while (true) {
+			int m = 0;
+			scoreVo.setCorrectAnswer(0);
+			scoreVo.setCorrectPercent(0);
+			scoreVo.setWrongAnswer(0);
+			String answer = null;
+			for (int i = 0; i < list.size(); i++) {
+				QuizVO vo =  list.get(i);
+				System.out.println();
+				System.out.println((i+1) + "번 문제");
+				System.out.println(vo.getQuestion());
+				if (vo.getExample1()==null && vo.getExample2()==null && vo.getExample3()==null && vo.getExample4()==null) {
+					while (true) {
+						try {
+							keyin.nextLine();
+							System.out.print("정답 : ");
+							answer = keyin.nextLine();
+							if (answer.equalsIgnoreCase(vo.getCorrect())) {
+								System.out.println("맞았습니다.");
+								scoreVo.setCorrectAnswer(scoreVo.getCorrectAnswer() + 1);
+								break;
+							}
+							else {
+								System.out.println("틀렸습니다.");
+								scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
+								break;
+							}
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+							System.out.println("다시 입력하세요.");
+							continue;
+						}
+					}
+				}
+				else {
+					System.out.println("1 - " + vo.getExample1());
+					System.out.println("2 - " + vo.getExample2());
+					System.out.println("3 - " + vo.getExample3());
+					System.out.println("4 - " + vo.getExample4());
+					System.out.println();
+					System.out.print("정답 : ");
+					while (true) {
+						try {
+							m = keyin.nextInt();
+							if (m > 4 || m <= 0) {
+								System.out.println("다시 입력하세요.");
+								continue;
+							}
+							else if (m == 1) {
+								if (vo.getExample1().equals(vo.getCorrect())) {
+									System.out.println("맞았습니다.");
+									scoreVo.setCorrectAnswer(scoreVo.getCorrectAnswer() + 1);
+									break;
+								}
+								else {
+									System.out.println("틀렸습니다.");
+									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
+									break;
+								}
+							}
+							else if (m == 2) {
+								if (vo.getExample2().equals(vo.getCorrect())) {
+									System.out.println("맞았습니다.");
+									scoreVo.setCorrectAnswer(scoreVo.getCorrectAnswer() + 1);
+									break;
+								}
+								else {
+									System.out.println("틀렸습니다.");
+									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
+									break;
+								}
+							}
+							else if (m == 3) {
+								if (vo.getExample3().equals(vo.getCorrect())) {
+									System.out.println("맞았습니다.");
+									scoreVo.setCorrectAnswer(scoreVo.getCorrectAnswer() + 1);
+									break;
+								}
+								else {
+									System.out.println("틀렸습니다.");
+									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
+									break;
+								}
+							}
+							else if (m == 4) {
+								if (vo.getExample4().equals(vo.getCorrect())) {
+									System.out.println("맞았습니다.");
+									scoreVo.setCorrectAnswer(scoreVo.getCorrectAnswer() + 1);
+									break;
+								}
+								else {
+									System.out.println("틀렸습니다.");
+									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
+									break;
+								}
+							}
+						}
+						catch (InputMismatchException e) {
+							keyin.nextLine();
+							System.out.println("다시 입력하세요.");
+							System.out.println("정답 : ");
+							continue;
+						}
+				}
+					
+			}
+				
+		}
+			scoreVo.setCorrectPercent((int)Math.round((scoreVo.getCorrectAnswer()/5.0)* 100));
+			System.out.println("맞은 문제수 : " + scoreVo.getCorrectAnswer() + "개");
+			System.out.println("틀린 문제수 : " + scoreVo.getWrongAnswer() + "개");
+			System.out.println("정답률 : " + scoreVo.getCorrectPercent() + "%");
+			dao.quizScroeInsert(scoreVo);
+			quizEndMenuPrint();
+			while (true) {
+				int n;
+				try {
+					
+					n = keyin.nextInt();
+				}
+				catch (InputMismatchException e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}	
+				switch(n) {					
+				case 1: System.out.println("한번 더 시작합니다.");continue quiz1;
+				case 2: System.out.println("퀴즈를 끝냅니다.");break quiz1;
+				default: System.out.println("다시 입력하세요.");  	System.out.print("선택>	");
+				}
+			}	
+
+		}
+		
+	}
+	
+//	public void quizScore() {
+//		ArrayList<QuizScoreVO> scoreList = dao.quizScroeAll();
+//		QuizScoreVO vo = null;
+//		System.out.printf("%s \n", "[ 퀴즈 점수 ]");
+//		System.out.println();
+//		System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
+//		System.out.printf("%s  %-10s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "맞은 문제", "|", "틀린 문제", "|", "정답률", "|");
+//
+//		for (int i  = 0; i < scoreList.size(); i++) {
+//			vo = scoreList.get(i);
+//			System.out.printf("%s  %-10s \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", vo.getUserId(), "|", vo.getCharacterName() , "|", vo.getCorrectAnswer(), "|", vo.getWrongAnswer(), "|", vo.getCorrectPercent(), "|");
+//			
 //		}
-//		else {
-//			int m = dao.hofCharacterInsert(vo);
-//			int n = dao.deleteCharacter(loginId, presentCharId);
-//			presentCharId = 0;
-//			return;
-//		}
-//		
+//		System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
+//
 //	}
+	
+	public void quizScore() {
+		
+		int m = 1;
+		quizScoreNum = 0;
+		ArrayList<QuizScoreVO> scoreList = dao.quizScroeAll();
+		int firstScoreSize = scoreList.size();
+		System.out.printf("%s \n", "[ 퀴즈 점수 ]");
+		score:
+		while (true) {
+			if (quizScoreNum != 0) {
+				if (firstScoreSize > quizScoreNum) {
+					System.out.println("1.	다음 페이지");
+					System.out.println("2.	뒤로");
+					System.out.print("선택>	");
+				}
+				else {
+					System.out.println("마지막 페이지입니다.");
+					System.out.println("1.	종료");
+					System.out.print("선택>	");
+				}
+				
+				try {
+					m = keyin.nextInt();
+				}
+				catch (InputMismatchException e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}	
+			}
+		
+			if (firstScoreSize > quizScoreNum) {
+				switch(m) {					
+				case 1: quizScoreList(); break;
+				case 2: return;
+				default: System.out.println("다시 입력하세요.");  	System.out.print("선택>	");
+				}
+			}
+			else {
+				switch(m) {					
+				case 1: return;
+				default: System.out.println("다시 입력하세요.");  	System.out.print("선택>	");
+				}
+			}
+		}
+	}
+	
+	public void quizScoreList() {
+			QuizScoreVO vo = null;
+
+			ArrayList<QuizScoreVO> scoreList = dao.quizScroeAll2(quizScoreNum,10);
+			
+
+				System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
+				System.out.printf("%s  %-10s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "맞은 문제", "|", "틀린 문제", "|", "정답률", "|");
+				for (int i = 0; i <= scoreList.size()-1; i++) {
+					vo = scoreList.get(i);
+					System.out.printf("%s  %-10s \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", vo.getUserId(), "|", vo.getCharacterName() , "|", vo.getCorrectAnswer(), "|", vo.getWrongAnswer(), "|", vo.getCorrectPercent(), "|");
+				}
+				System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
+				System.out.println((((int)Math.floor(quizScoreNum/10))+1) + "페이지" );
+				quizScoreNum +=10;
+				
+			
+	}
+	
 }
 	
 	

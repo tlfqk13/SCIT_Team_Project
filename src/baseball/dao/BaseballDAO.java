@@ -3,10 +3,13 @@ package baseball.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import baseball.vo.HofVO;
+import baseball.vo.QuizScoreVO;
+import baseball.vo.QuizVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -280,6 +283,82 @@ public class BaseballDAO {
 			ss = factory.openSession(); 
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
 			result = mapper.deleteCharacter(loginId, presentCharId);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+	
+	//퀴즈 문제 불러오기
+	public ArrayList<QuizVO> quiz() {
+		SqlSession ss = null;
+		ArrayList<QuizVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.quiz();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+	//퀴즈 점수 입력
+	public int quizScroeInsert(QuizScoreVO scoreVo) {
+		SqlSession ss = null;
+		int result = 0;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.quizScoreInsert(scoreVo);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;		
+	}
+
+	//퀴즈 점수 불러오기
+	public ArrayList<QuizScoreVO> quizScroeAll() {
+		SqlSession ss = null;
+		ArrayList<QuizScoreVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.quizScoreAll();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+
+	public ArrayList<QuizScoreVO> quizScroeAll2(int startRecore, int countPerPage) {
+		SqlSession ss = null;
+		ArrayList<QuizScoreVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			RowBounds rb = new RowBounds(startRecore, countPerPage);
+			result = mapper.quizScoreAll2(rb);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
