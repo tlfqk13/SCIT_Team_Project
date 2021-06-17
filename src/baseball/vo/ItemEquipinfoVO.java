@@ -11,8 +11,10 @@ public class ItemEquipinfoVO {
 	private String summary;
 	
 	
-	public ItemEquipinfoVO() {
+	public ItemEquipinfoVO(int purchaseId, int purchaseItemId) {
 		super();
+		this.charaterid=purchaseId;
+		this.equipitem1=purchaseItemId;
 	}
 	public int getCharaterid() {
 		return charaterid;
@@ -58,9 +60,10 @@ public class ItemEquipinfoVO {
 	}
 	@Override
 	public String toString() {
-		return "ItemEquipinfoVO [price=" + price + ", "
-				+ "itemName=" + itemName + ", summary=" + summary
-				 + itemName + "]";
+		return "itemName=" + price + ", "
+				+ "itemName=" + itemName + ", "
+				+ "summary=" + summary + ", "
+				 + "price" + price;
 	}
 
 	

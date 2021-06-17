@@ -26,6 +26,8 @@ order by price;
  select * from item;
  
  select * from usercharacter;   
+ 
+ commit;
 
  select gold from usercharacter;
  
@@ -134,6 +136,8 @@ CREATE TABLE itemequipinfo (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
+
+drop table itemequipinfo;
  
  --아이템--
 
@@ -210,6 +214,8 @@ CREATE TABLE itemequiphaveinfo (
             ON DELETE CASCADE
 );
 
+drop table itemequiphaveinfo;
+
          
 --아이템 강화--
 
@@ -269,12 +275,13 @@ insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextv
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','명예의 신발','스피드+5',400);
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'신발','승리의 신발','스피드+7',500);
 -----------------------------------------------------------
-insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','행동력 +1',200);
-
-
-
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','스피드 -5~+3 랜덤',300);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','행운의 쿠키','스피드 0~5 랜덤',500);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','스피드 -5~+3 랜덤',300);
+insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','스피드 -5~+3 랜덤',300);
 insert into itemequiphaveinfo(itemequipid,characterid,itemid,itemlevel) values(itemequiphaveseq.nextval,1,'104',3);
-
+update item set summary='스피드 -5 ~ +5 랜덤' where itemname='쿠키';
+delete item where itemname='쿠키';
 select * from item;
 select * from usercharacter;
 select * from itemequiphaveinfo;

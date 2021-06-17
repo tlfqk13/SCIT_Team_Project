@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
+import baseball.vo.ItemEquipInventoryVO;
 import baseball.vo.ItemEquipinfoVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
@@ -61,4 +62,6 @@ public interface BaseballMapper {
 	public ArrayList<ItemEquipinfoVO> itemEquipHaveHemletInfo();
 	public ArrayList<ItemEquipinfoVO> itemEquipHaveUniformInfo();
 	public ArrayList<ItemEquipinfoVO> itemEquipHaveShoesInfo();
+	
+	public ArrayList<ItemEquipInventoryVO> ItemEquipInventory(ItemEquipInventoryVO ivo);
 }

@@ -159,13 +159,14 @@ insert into itemhaveinfo (
 	)
 </insert>
 
-<select id="itemequiphaveInfo" resultType="itemequiphaveInfo">
+<select id="itemequiphaveInfo" resultType="itemhaveinfo">
 select 
    i.itemname, i.price, i.summary, count(ihi.quantity) as quantity
 from 
    item i, itemhaveinfo ihi, usercharacter uc
 where 
    i.itemid=ihi.itemid and ihi.characterid=uc.characterid
+   
 group by i.itemname, i.price, i.summary
 </select>
 
@@ -208,8 +209,6 @@ where
 	itemid = #{itemid} and characterid = #{characterid}
 </update>
 
-
-
 <select id="itemEquipHaveHemletInfo" resultType="itemquipinfo">
  select 
  	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
@@ -221,9 +220,20 @@ group by
 	i.itemname, i.price, i.summary
 order by
 	price
-
-
 </select>
+
+<insert id="ItemEquipInventory" parameterType="itemquipinfo">
+insert into itemequipinfo(
+   charterid,
+   equipitem1
+   )
+   values(
+   #{charetid},
+   #{equipitem1}
+   )
+</insert>
+
+
 
 </mapper>
 

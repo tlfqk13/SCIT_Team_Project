@@ -19,6 +19,11 @@ public class ItemEquipInventoryVO {
 	public int getItemquitipid() {
 		return itemquitipid;
 	}
+	public ItemEquipInventoryVO(int characterid, int itemid) {
+		super();
+		this.characterid = characterid;
+		this.itemid = itemid;
+	}
 	public void setItemquitipid(int itemquitipid) {
 		this.itemquitipid = itemquitipid;
 	}
