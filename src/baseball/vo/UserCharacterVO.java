@@ -18,11 +18,17 @@ public class UserCharacterVO {
 	private int pitcherMentality;
 	
 	
+	
+	
 	public UserCharacterVO() {
 		super();
 	}
 
-	
+
+	public UserCharacterVO(int gold,int characterId) {
+		this.gold=gold;
+		this.characterId = characterId;
+	}
 
 	public int getCharacterId() {
 		return characterId;

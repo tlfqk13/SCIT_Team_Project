@@ -171,27 +171,39 @@ group by i.itemname, i.price, i.summary
 </select>
 
 <update id="goldUpdate" parameterType="character">
-update usercharacter 
-set gold = #{gold},hitterPower=#{hitterPower}
-where characterId=#{characterId}
+update 
+	usercharacter 
+set 
+	gold = #{gold}
+where 
+	characterId=#{characterId}
 </update>
 
 <update id="purchaseCloth" parameterType="character">
-update usercharacter 
-pitcherMentality=#{pitcherMentality}
-where characterId=#{characterId}
+update 
+	usercharacter 
+set 
+	pitcherMentality=#{pitcherMentality}
+where 
+	characterId=#{characterId}
 </update>
 
 <update id="purchaseHelmet" parameterType="character">
-update usercharacter 
-set pitcherBallSpeed=#{pitcherBallSpeed}
-where characterId=#{characterId}
+update 
+	usercharacter 
+set 
+	pitcherBallSpeed=#{pitcherBallSpeed}
+where 
+	characterId=#{characterId}
 </update>
 
 <update id="purchaseShoes" parameterType="int">
-update usercharacter 
-hitterRunSpeed = #{hitterRunSpeed}
-where characterId=#{characterId}
+update 
+	usercharacter 
+set 
+	hitterRunSpeed = #{hitterRunSpeed}
+where 
+	characterId=#{characterId}
 </update>
 
 <update id="purchaseGlove" parameterType="int">
@@ -216,6 +228,32 @@ where
  	itemhaveinfo ihi, item i
 where 
 	i.itemClass = '헬멧' and ihi.itemid=i.itemid 
+group by 
+	i.itemname, i.price, i.summary
+order by
+	price
+</select>
+
+<select id="itemEquipHaveUniformInfo" resultType="itemhaveinfo">
+ select 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ from 
+ 	itemhaveinfo ihi, item i
+where 
+	i.itemClass = '옷' and ihi.itemid=i.itemid 
+group by 
+	i.itemname, i.price, i.summary
+order by
+	price
+</select>
+
+<select id="itemEquipHaveShoesInfo" resultType="itemhaveinfo">
+ select 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ from 
+ 	itemhaveinfo ihi, item i
+where 
+	i.itemClass = '신발' and ihi.itemid=i.itemid 
 group by 
 	i.itemname, i.price, i.summary
 order by

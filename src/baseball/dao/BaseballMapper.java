@@ -59,8 +59,8 @@ public interface BaseballMapper {
 	//구매수 1증가
 	int addQuantity(ItemHaveInfoVO ihivo1);
 	
-	public ArrayList<ItemEquipinfoVO> itemEquipHaveHemletInfo();
-	public ArrayList<ItemEquipinfoVO> itemEquipHaveUniformInfo();
-	public ArrayList<ItemEquipinfoVO> itemEquipHaveShoesInfo();
+	public ArrayList<ItemHaveInfoVO> itemEquipHaveHemletInfo();
+	public ArrayList<ItemHaveInfoVO> itemEquipHaveUniformInfo();
+	public ArrayList<ItemHaveInfoVO> itemEquipHaveShoesInfo();
 	
 }

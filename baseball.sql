@@ -9,7 +9,7 @@ CREATE TABLE users (
  
  commit;
  
-  select * from itemhaveinfo; 
+  select * from item; 
  
  select * from itemhaveinfo ihi, item i
 where i.itemClass = '헬멧' and ihi.itemid=i.itemid;
@@ -25,7 +25,10 @@ order by price;
  
  select * from item;
  
- select * from usercharacter;   
+ select * from usercharacter; 
+ 
+ 
+ update usercharacter set pitcherballspeed=0, hitterrunspeed=0 where characterid=1;
  
  commit;
 
@@ -289,6 +292,7 @@ select * from itemequipinfo;
 --지금 아이템 담기고 있음
 select * from itemhaveinfo;
 
+commit;
 
 select i.itemname, i.price, i.summary, count(ihi.quantity) as quantity
 from item i, itemhaveinfo ihi, usercharacter uc

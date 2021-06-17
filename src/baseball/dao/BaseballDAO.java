@@ -437,9 +437,9 @@ public class BaseballDAO {
 	}
 
 
-	public ArrayList<ItemEquipinfoVO> itemEquipHaveHemletInfo() {
+	public ArrayList<ItemHaveInfoVO> itemEquipHaveHemletInfo() {
 		SqlSession ss= null;
-		ArrayList<ItemEquipinfoVO> result=null;
+		ArrayList<ItemHaveInfoVO> result=null;
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
@@ -456,9 +456,9 @@ public class BaseballDAO {
 	}
 
 
-	public ArrayList<ItemEquipinfoVO> itemEquipHaveUniformInfo() {
+	public ArrayList<ItemHaveInfoVO> itemEquipHaveUniformInfo() {
 		SqlSession ss= null;
-		ArrayList<ItemEquipinfoVO> result=null;
+		ArrayList<ItemHaveInfoVO> result=null;
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
@@ -475,9 +475,9 @@ public class BaseballDAO {
 	}
 
 
-	public ArrayList<ItemEquipinfoVO> itemEquipHaveShoesInfo() {
+	public ArrayList<ItemHaveInfoVO> itemEquipHaveShoesInfo() {
 		SqlSession ss= null;
-		ArrayList<ItemEquipinfoVO> result=null;
+		ArrayList<ItemHaveInfoVO> result=null;
 		try {
 			ss=factory.openSession();
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
