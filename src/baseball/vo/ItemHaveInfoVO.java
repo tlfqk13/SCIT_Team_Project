@@ -62,8 +62,9 @@ public class ItemHaveInfoVO {
 	public String toString() {
 		return "ItemInventoryVO [ characterName=" + characterName + 
 									", itemName=" + itemName +
-									", quantity= " + quantity
-									+"  ] ";
+									", quantity= " + quantity+
+									", itemId= " + itemid;
+									
 								
 	}
 	

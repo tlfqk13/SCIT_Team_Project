@@ -724,7 +724,6 @@ public class BaseballUI {
 			equip_presentChar=list.get(num-1);
 			keyin.nextLine();
 			equipHelmet(equip_presentChar);
-			
 			itemEquipInventorySelect();
 		}
 		
@@ -752,43 +751,7 @@ public class BaseballUI {
 	}
 	
 	// ¾ÆÀÌÅÛ ÀÔÀ»·¡ ¸»·¡? 
-	public void wearingItemQ() {
-		System.out.println();
-		System.out.println("Âø¿ëÇÏ½Ã°Ú½À´Ï±î ? ");
-		System.out.println("1. ³× Âø¿ëÇÏ°Ú½À´Ï´Ù");
-		System.out.println("2. ¾Æ´Ï¿ä Âø¿ë ¾ÈÇÏ°Ú½À´Ï´Ù");
-
-		int number = keyin.nextInt();	
-		
-		switch(number) {					
-		case 1: 
-			UserCharacterVO vo= new UserCharacterVO();
-			if(purchaseHelmet!=0) {
-				vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
-				dao.purchaseHelmet(vo);	
-				System.out.println("Çï¸ä Âø¿ë ¿Ï·á");
-				ItemVO idtest= new ItemVO();
-				System.out.println("¤Ð¤Ð¤Ð -> "+idtest.getItemId());
-				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId,118);
-				dao.test(testVo);
-			}
-			else if(purchaseCloth!=0) {
-				vo.pitcherMentality(purchaseId,purchaseCloth);
-				dao.purchaseCloth(vo);	
-				System.out.println("À¯´ÏÆû Âø¿ë ¿Ï·á");
-			}
-			else if(purchaseShoes!=0) {
-				vo.hitterRunSpeed(purchaseId, purchaseCloth);
-				dao.purchaseShoes(vo);
-				System.out.println("½ÅÂø¿ë ¿Ï·á");
-			}
-			else{
-				System.out.println("´Ù ¾Æ´Ñµ¥¿ä...");
-			}
-			
-		case 2: return;
-		}	
-	}
+	
 	
 	public void takeOffItemQ() {
 		System.out.println();
@@ -829,27 +792,109 @@ public class BaseballUI {
 			presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+3);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getPitcherBallSpeed();
-			wearingItemQ();
-			
-			
+			purchaseItemId=equip_presentChar2.getItemid();
+//			ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId,purchaseItemId);
+			System.out.println("*(*(**(*(*(-> " + purchaseItemId);
+			System.out.println("zyzyzyzyz-> " + purchaseId);
+//			System.out.println("testVo -- > " + testVo);
+//			dao.test(testVo);
+//			
+			wearingItemQ(purchaseId,purchaseItemId);
+
 		}
 		else if(equip_presentChar2.getItemName().contentEquals("¸í¿¹ÀÇ Çï¸ä")){
 			presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+5);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getPitcherBallSpeed();
-			wearingItemQ();
+			
 		}
 		else if(equip_presentChar2.getItemName().contentEquals("½Â¸®ÀÇ Çï¸ä")){
 			presentChar.setPitcherBallSpeed(presentChar.getPitcherBallSpeed()+7);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getPitcherBallSpeed();
-			wearingItemQ();
+			
 		}
 		else {
 			return;
 		}
 		
 	}
+	
+	
+	void wearingItemQ(int purchaseId2, int purchaseItemId2) {
+		// TODO Auto-generated method stub
+		System.out.println();
+		System.out.println("Âø¿ëÇÏ½Ã°Ú½À´Ï±î ? ");
+		System.out.println("1. ³× Âø¿ëÇÏ°Ú½À´Ï´Ù");
+		System.out.println("2. ¾Æ´Ï¿ä Âø¿ë ¾ÈÇÏ°Ú½À´Ï´Ù");
+
+		int number = keyin.nextInt();	
+		
+		switch(number) {					
+		case 1: 
+			UserCharacterVO vo= new UserCharacterVO();
+			if(purchaseHelmet!=0) {
+				vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
+				dao.purchaseHelmet(vo);	
+				System.out.println("¿Ê¿Ê¿Ê-> " + purchaseItemId2);
+				System.out.println("¿Ê¿Ê¿Ê-> " + purchaseId2);
+				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId2,purchaseItemId2);
+				System.out.println("testVo -- > " + testVo);
+			}
+			else if(purchaseCloth!=0) {
+				vo.pitcherMentality(purchaseId,purchaseCloth);
+				dao.purchaseCloth(vo);	
+				System.out.println("À¯´ÏÆû Âø¿ë ¿Ï·á");
+			}
+			else if(purchaseShoes!=0) {
+				vo.hitterRunSpeed(purchaseId, purchaseCloth);
+				dao.purchaseShoes(vo);
+				System.out.println("½ÅÂø¿ë ¿Ï·á");
+			}
+			else{
+				System.out.println("´Ù ¾Æ´Ñµ¥¿ä...");
+			}
+			
+		case 2: return;
+		}	
+	}
+//
+//	public void wearingItemQ() {
+//		System.out.println();
+//		System.out.println("Âø¿ëÇÏ½Ã°Ú½À´Ï±î ? ");
+//		System.out.println("1. ³× Âø¿ëÇÏ°Ú½À´Ï´Ù");
+//		System.out.println("2. ¾Æ´Ï¿ä Âø¿ë ¾ÈÇÏ°Ú½À´Ï´Ù");
+//
+//		int number = keyin.nextInt();	
+//		
+//		switch(number) {					
+//		case 1: 
+//			UserCharacterVO vo= new UserCharacterVO();
+//			if(purchaseHelmet!=0) {
+//				vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
+//				dao.purchaseHelmet(vo);	
+//				System.out.println("*(*(**(*(*(-> " + equip_presentChar2.getItemid());
+//				purchaseItemId=equip_presentChar2.getItemid();
+//				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId,purchaseItemId);
+//				System.out.println("testVo -- > " + testVo);
+//			}
+//			else if(purchaseCloth!=0) {
+//				vo.pitcherMentality(purchaseId,purchaseCloth);
+//				dao.purchaseCloth(vo);	
+//				System.out.println("À¯´ÏÆû Âø¿ë ¿Ï·á");
+//			}
+//			else if(purchaseShoes!=0) {
+//				vo.hitterRunSpeed(purchaseId, purchaseCloth);
+//				dao.purchaseShoes(vo);
+//				System.out.println("½ÅÂø¿ë ¿Ï·á");
+//			}
+//			else{
+//				System.out.println("´Ù ¾Æ´Ñµ¥¿ä...");
+//			}
+//			
+//		case 2: return;
+//		}	
+//	}
 	
 	public void takeOffequipHelmet(ItemHaveInfoVO equip_presentChar2) {
 		
@@ -919,20 +964,20 @@ public class BaseballUI {
 			presentChar.setPitcherMentality(presentChar.getPitcherMentality()+3);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getPitcherMentality();
-			wearingItemQ();
+			
 		}
 		else if(equip_presentChar.getItemName().contentEquals("¸í¿¹ÀÇ À¯´ÏÆû")){
 			presentChar.setPitcherMentality(presentChar.getPitcherMentality()+5);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getPitcherMentality();
-			wearingItemQ();;
+			;
 		}
 		else if(equip_presentChar.getItemName().contentEquals("½Â¸®ÀÇ À¯´ÏÆû")){
 			presentChar.setPitcherMentality(presentChar.getPitcherMentality()+7);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getPitcherMentality();
 			
-			wearingItemQ();
+			
 		}
 		else {
 			return;
@@ -1006,21 +1051,21 @@ public class BaseballUI {
 			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+3);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getHitterRunSpeed();
-			wearingItemQ();
+			
 		}
 		else if(equip_presentChar.getItemName().contentEquals("¸í¿¹ÀÇ ½Å¹ß")){
 			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+5);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getHitterRunSpeed();
 			
-			wearingItemQ();
+			
 		}
 		else if(equip_presentChar.getItemName().contentEquals("½Â¸®ÀÇ ½Å¹ß")){
 			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()+7);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getHitterRunSpeed();
 	
-			wearingItemQ();
+			
 		}
 		else {
 			return;
@@ -1035,21 +1080,21 @@ public class BaseballUI {
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getHitterRunSpeed();
 			
-			wearingItemQ();
+			
 		}
 		else if(equip_presentChar.getItemName().contentEquals("¸í¿¹ÀÇ ½Å¹ß")){
 			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()-5);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getHitterRunSpeed();
 			
-			wearingItemQ();
+			
 		}
 		else if(equip_presentChar.getItemName().contentEquals("½Â¸®ÀÇ ½Å¹ß")){
 			presentChar.setHitterRunSpeed(presentChar.getHitterRunSpeed()-7);
 			purchaseId=presentChar.getCharacterId();
 			purchaseHelmet=presentChar.getHitterRunSpeed();
 	
-			wearingItemQ();
+			
 		}
 		else {
 			return;

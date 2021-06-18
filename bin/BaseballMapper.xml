@@ -161,12 +161,10 @@ insert into itemhaveinfo (
 
 <insert id="test" parameterType="itemequiphaveInfo">
 insert into itemequiphaveinfo(
-	itemequipid,
 	characterid,
 	itemid
 	)
 	values(
-	itemequipidseq.nextval,
 	#{characterid},
 	#{itemid}
 	)
@@ -175,13 +173,13 @@ insert into itemequiphaveinfo(
 
 <select id="itemequiphaveInfo" resultType="itemhaveinfo">
 select 
-   i.itemname, i.price, i.summary, count(ihi.quantity) as quantity
+   i.itemname, i.price, i.summary, count(ihi.quantity) as quantity, ihi.itemid
 from 
    item i, itemhaveinfo ihi, usercharacter uc
 where 
    i.itemid=ihi.itemid and ihi.characterid=uc.characterid
    
-group by i.itemname, i.price, i.summary
+group by i.itemname, i.price, i.summary, ihi.itemid
 </select>
 
 <update id="goldUpdate" parameterType="character">
@@ -237,39 +235,39 @@ where
 
 <select id="itemEquipHaveHemletInfo" resultType="itemhaveinfo">
  select 
- 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity,ihi.itemid
  from 
  	itemhaveinfo ihi, item i
 where 
 	i.itemClass = '헬멧' and ihi.itemid=i.itemid 
 group by 
-	i.itemname, i.price, i.summary
+	i.itemname, i.price, i.summary,ihi.itemid
 order by
 	price
 </select>
 
 <select id="itemEquipHaveUniformInfo" resultType="itemhaveinfo">
  select 
- 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity ,ihi.itemid
  from 
  	itemhaveinfo ihi, item i
 where 
 	i.itemClass = '옷' and ihi.itemid=i.itemid 
 group by 
-	i.itemname, i.price, i.summary
+	i.itemname, i.price, i.summary,ihi.itemid
 order by
 	price
 </select>
 
 <select id="itemEquipHaveShoesInfo" resultType="itemhaveinfo">
  select 
- 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity 
+ 	i.itemname, i.price, i.summary,count(ihi.quantity) as quantity ,ihi.itemid
  from 
  	itemhaveinfo ihi, item i
 where 
 	i.itemClass = '신발' and ihi.itemid=i.itemid 
 group by 
-	i.itemname, i.price, i.summary
+	i.itemname, i.price, i.summary,ihi.itemid
 order by
 	price
 </select>

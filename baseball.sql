@@ -43,6 +43,11 @@ where characterId=1;
  select * from itemequipinfo;
  
  select * from itemequiphaveinfo;
+ drop table itemequiphaveinfo;
+ select i.itemname, i.itemclass 
+ from item i, itemequiphaveinfo iqhi 
+ where i.itemid=iqhi.itemid;
+ 
  
  select 
    i.itemname, i.price, i.summary, ihi.quantity
@@ -211,7 +216,6 @@ CREATE TABLE hallofframe (
 
 --장비아이템 소유 정보 --
 CREATE TABLE itemequiphaveinfo (
-    itemequipid  NUMBER PRIMARY KEY,
     characterid  NUMBER NOT NULL,
     itemid       NUMBER NOT NULL,
     CONSTRAINT itemequiphaveinfofk1 FOREIGN KEY ( characterid )
@@ -222,8 +226,9 @@ CREATE TABLE itemequiphaveinfo (
             ON DELETE CASCADE
 );
 
+commit;
 drop table itemequiphaveinfo;
-
+select * from itemequiphaveinfo;
 select * from item;
 
 --아이템 강화--
@@ -288,8 +293,8 @@ insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextv
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','행운의 쿠키','스피드 0~5 랜덤',500);
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','스피드 -5~+3 랜덤',300);
 insert into item(itemid,itemclass,itemname,summary,price) values(itemidseq.nextval,'소비형 아이템','쿠키','스피드 -5~+3 랜덤',300);
-insert into itemequiphaveinfo(itemequipid,characterid,itemid,itemlevel) values(itemequiphaveseq.nextval,1,'104',3);
-update item set summary='스피드 -5 ~ +5 랜덤' where itemname='쿠키';
+insert into itemequiphaveinfo(characterid,itemid) values(3,'104');
+update item set summary='스피드 -5 ~ +5 랜덤' where itemname='쿠키'
 delete item where itemname='쿠키';
 select * from item;
 select * from usercharacter;
@@ -300,10 +305,10 @@ select * from itemhaveinfo;
 
 commit;
 
-select i.itemname, i.price, i.summary, count(ihi.quantity) as quantity
+select i.itemname, i.price, i.summary, count(ihi.quantity) as quantity, ihi.itemid
 from item i, itemhaveinfo ihi, usercharacter uc
 where i.itemid=ihi.itemid and ihi.characterid=uc.characterid 
-group by i.itemname, i.price, i.summary; 
+group by i.itemname, i.price, i.summary, ihi.itemid; 
 
 
 commit;
