@@ -63,5 +63,6 @@ public interface BaseballMapper {
 	public ArrayList<ItemHaveInfoVO> itemEquipHaveUniformInfo();
 	public ArrayList<ItemHaveInfoVO> itemEquipHaveShoesInfo();
 	public void test(ItemHaveInfoVO testVo);
+	public void testVoDelete(ItemHaveInfoVO testVo);
 	
 }

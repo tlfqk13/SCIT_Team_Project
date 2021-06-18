@@ -138,12 +138,12 @@ where itemClass = '소비형 아이템'
 </select>
 
 <select id="itemInfo" resultType="itemhaveinfo">
-select 
-	uc.charactername, i.itemname, ihi.quantity 
-from 
-	item i, itemhaveinfo ihi , usercharacter uc
-where 
-	i.itemid = ihi.itemid and uc.characterid=ihi.characterid 
+ select 
+ 	i.itemname, i.itemclass ,i.summary
+ from 
+ 	item i, itemequiphaveinfo iqhi 
+ where 
+ 	i.itemid=iqhi.itemid
 </select>
 
 <insert id="itemehaveInfo" parameterType="itemhaveinfo">
@@ -169,6 +169,11 @@ insert into itemequiphaveinfo(
 	#{itemid}
 	)
 </insert>
+
+<delete id="testVoDelete">
+delete from itemequiphaveinfo
+where characterid=#{characterid} and itemid=#{itemid}
+</delete>
 
 
 <select id="itemequiphaveInfo" resultType="itemhaveinfo">

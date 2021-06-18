@@ -510,4 +510,23 @@ public class BaseballDAO {
 		}
 		
 	}
+
+
+	public void testVoDelete(ItemHaveInfoVO testVo) {
+		SqlSession ss= null;
+		ArrayList<ItemHaveInfoVO> list=null;
+		try {
+			ss=factory.openSession();
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			mapper.testVoDelete(testVo);
+			ss.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(ss!=null)ss.close();
+		}
+		
+	}
 }

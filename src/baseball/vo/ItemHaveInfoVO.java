@@ -5,8 +5,9 @@ public class ItemHaveInfoVO {
 	private int itemid;
 	private int quantity;
 	private String characterName;
+	private String itemClass;
 	private String itemName;
-	
+	private String Summary;
 	
 	
 	public ItemHaveInfoVO() {
@@ -57,18 +58,28 @@ public class ItemHaveInfoVO {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
+	public String getSummary() {
+		return Summary;
+	}
+
+	public void setSummary(String summary) {
+		Summary = summary;
+	}
+
+	public String getItemClass() {
+		return itemClass;
+	}
+
+	public void setItemClass(String itemClass) {
+		this.itemClass = itemClass;
+	}
 	
 	@Override
 	public String toString() {
-		return "ItemInventoryVO [ characterName=" + characterName + 
-									", itemName=" + itemName +
-									", quantity= " + quantity+
-									", itemId= " + itemid;
-									
-								
+		return "≥ª ¿Â∫Ò [+ itemName=" + itemName +
+						", itemclass= " + itemClass+
+						", summary= " + Summary;
+					
 	}
-	
-	
-	
-	
+
 }

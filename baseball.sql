@@ -44,10 +44,13 @@ where characterId=1;
  
  select * from itemequiphaveinfo;
  drop table itemequiphaveinfo;
+ 
+ 
  select i.itemname, i.itemclass 
  from item i, itemequiphaveinfo iqhi 
  where i.itemid=iqhi.itemid;
  
+ select * from usercharacter;
  
  select 
    i.itemname, i.price, i.summary, ihi.quantity
@@ -225,11 +228,13 @@ CREATE TABLE itemequiphaveinfo (
         REFERENCES item ( itemid )
             ON DELETE CASCADE
 );
-
+rollback;
 commit;
 drop table itemequiphaveinfo;
 select * from itemequiphaveinfo;
+select * from itemequipinfo;
 select * from item;
+select * from itemhaveinfo;
 
 --아이템 강화--
 
