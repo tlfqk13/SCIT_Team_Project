@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/손동규/Downloads/Mybatis_Person_blank.zip (Unzipped Files)-20210531T000341Z-001/mybatis-3.5.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/손동규/Downloads/Mybatis_Person_blank.zip (Unzipped Files)-20210531T000341Z-001/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="D:/user/Downloads/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="D:/user/Downloads/mybatis-3.4.6/mybatis-3.4.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -13,6 +13,9 @@
 		<typeAlias type="baseball.vo.ItemHaveInfoVO" alias="itemhaveinfo"/>
 		<typeAlias type="baseball.vo.ItemEquipInventoryVO" alias="itemequiphaveInfo"/>
 		<typeAlias type="baseball.vo.ItemEquipinfoVO" alias="itemquipinfo"/>
+		<typeAlias type="baseball.vo.HofVO" alias="hof" />
+		<typeAlias type="baseball.vo.QuizVO" alias="quiz" />
+		<typeAlias type="baseball.vo.QuizScoreVO" alias="quizScore" />
 	</typeAliases>
 	
 	<!-- DB접속 정보 셋팅 -->

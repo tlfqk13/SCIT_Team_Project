@@ -7,6 +7,11 @@ import baseball.vo.ItemHaveInfoVO;
 import baseball.vo.ItemVO;
 import baseball.vo.ItemEquipInventoryVO;
 import baseball.vo.ItemEquipinfoVO;
+import org.apache.ibatis.session.RowBounds;
+
+import baseball.vo.HofVO;
+import baseball.vo.QuizScoreVO;
+import baseball.vo.QuizVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -45,6 +50,45 @@ public interface BaseballMapper {
 	public void goldUpdate(UserCharacterVO vo);
 	// 내가 가진 장비 아이템 정보
 	public void itemehaveInfo(ItemHaveInfoVO vo);
+	//현재 캐릭터 정보 불러오기
+	public UserCharacterVO getCharacter(HashMap<String, Object> map);
+	//명예의 전당 타자 목록 불러오기
+	public ArrayList<HofVO> getHitterHofCharacter();
+	//명예의 전당 투수 목록 불러오기
+	public ArrayList<HofVO> getPitcherHofCharacter();
+	//일반 은퇴 선수 중 타자 목록 불러오기
+	public ArrayList<HofVO> getHitterKickCharacter();
+	//일반 은퇴 선수 중 투수 목록 불러오기
+	public ArrayList<HofVO> getPitcherKickCharacter();
+	//5년차 이후에 은퇴선수 목록으로 이동
+	public int hofCharacterInsert(UserCharacterVO vo);
+	//선수 삭제
+	public int deleteCharacter(HashMap<String, Object> map);
+	//일반 휴식 
+	public int rest1(int result);
+	//고급 휴식
+	public int rest2(int result);
+	//경기 
+	public int play(int result);
+	//퀴즈 문제 불러오기
+	public ArrayList<QuizVO> quiz();
+	//퀴즈 점수 입력
+	public int quizScoreInsert(QuizScoreVO scoreVo);
+	//퀴즈 점수 불러오기
+	public ArrayList<QuizScoreVO> quizScoreAll();
+	//퀴즈 점수 10개씩 불러오기
+	public ArrayList<QuizScoreVO> quizScoreAll2(RowBounds rb);
+	//퀴즈 정답률 순위 불러오기
+	public ArrayList<QuizScoreVO> quizRanking();
+	//투수 랭킹 목록 불러오기
+	public ArrayList<UserCharacterVO> pitcherRanking();
+	//타자 랭킹 목록 불러오기
+	public ArrayList<UserCharacterVO> hitterRanking();
+	//아이디 목록 불러오기
+	public ArrayList<UserVO> getUser();
+	//아이디 삭제하기
+	public int deleteId(String userId);
+	
 	
 	// 아이템 구매시 골드 와 능력치 갱신하는 메서드 
 	public void purchaseBat(UserCharacterVO vo);
@@ -64,5 +108,7 @@ public interface BaseballMapper {
 	public ArrayList<ItemHaveInfoVO> itemEquipHaveShoesInfo();
 	public void test(ItemHaveInfoVO testVo);
 	public void testVoDelete(ItemHaveInfoVO testVo);
+	//경기, 휴식 캐릭터 정보 업데이트
+	public int matchRestUpdate(UserCharacterVO presentChar);
 	
 }

@@ -277,6 +277,209 @@ order by
 	price
 </select>
 
+<!-- 현재 캐릭터 정보 불러오기 -->
+<select id="getCharacter" parameterType="map" resultType="character">
+select
+	uct.*
+	, (pitcherBallSpeed + pitcherBallControl + pitcherMentality) as allStat
+from
+	usercharacter uct
+where
+	userId = #{loginId}
+	and characterId = #{characterId}
+>>>>>>> refs/remotes/origin/jeonjungyu
+</select>
+
+<!-- 명예의 전당 타자 목록 불러오기 -->
+<select id="getHitterHofCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '타자'
+	and allStat >= 200
+order by allStat desc
+</select>
+
+<!-- 명예의 전당 투수 목록 불러오기 -->
+<select id="getPitcherHofCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '투수'
+	and allStat >= 200
+order by allStat desc
+</select>
+
+<!-- 일반 은퇴 선수 중 타자 목록 불러오기 -->
+<select id="getHitterKickCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '타자'
+	and allStat <![CDATA[ < ]]> 200
+order by allStat desc
+</select>
+
+<!-- 일반 은퇴 선수 중 투수 목록 불러오기 -->
+<select id="getPitcherKickCharacter" resultType="hof">
+select 
+	*
+from
+	hallofframe
+where
+	className = '투수'
+	and allStat <![CDATA[ < ]]> 200
+order by allStat desc
+</select>
+
+<!-- 5년차 이후에 은퇴선수 목록으로 이동 -->
+<insert id="hofCharacterInsert" parameterType="character">
+insert into hallofframe
+	values (hallofframeidseq.nextval, #{userId}, #{characterName}, #{allStat}, #{className})
+</insert>
+
+<!-- 선수 삭제 -->
+<delete id="deleteCharacter" parameterType="map">
+delete from usercharacter
+where 
+	userId = #{userId}
+	and characterId = #{characterId}
+</delete>
+
+<!-- 일반 휴식 -->
+<update id="rest1" parameterType="int">
+update usercharacter 
+set 
+	health = health + 20
+	, gold = gold - 2000 
+where 
+	characterid = #{characterid} 
+</update>
+
+<!-- 고급 휴식 -->
+<update id="rest2" parameterType="int">
+update usercharacter 
+	set health = 100
+	, gold = gold - 4000 
+where 
+	characterid = #{characterid}
+</update>
+
+<!-- 경기 -->
+<update id="play" parameterType="int">
+update usercharacter 
+	set health = 100
+	, gold = gold + 3000
+	, active = 5 
+where 
+	characterid = #{characterid}
+</update>
+
+<!-- 퀴즈 문제 불러오기 -->
+<select id="quiz" resultType="quiz">
+select 
+	* 
+from 
+	(select * from quiz order by dbms_random.value) 
+where 
+	rownum  <![CDATA[ <= ]]> 5 
+</select>
+
+<!-- 퀴즈 점수 입력 -->
+<insert id="quizScoreInsert" parameterType="quizScore">
+insert into quizscore values(quizscoreseq.nextval, #{userId}, #{characterId}, #{characterName}, #{correctAnswer}, #{wrongAnswer}, #{correctPercent})
+</insert>
+
+<!-- 퀴즈 점수 불러오기 -->
+<select id="quizScoreAll" resultType="quizScore">
+select 
+	* 
+from 
+	quizscore 
+order by 
+	quizscorenumber
+</select>
+<!-- 퀴즈 점수 10개씩 불러오기 -->
+<select id="quizScoreAll2" parameterType="string" resultType="quizScore">
+select 
+	* 
+from 
+	quizscore 
+order by 
+	quizscorenumber
+</select>
+
+<!-- 퀴즈 정답률 순위 불러오기 -->
+<select id="quizRanking" resultType="quizScore">
+select 
+	userId, characterName, avg(correctPercent) as correctPercent 
+from 
+	quizscore 
+group by 
+	characterName, userId 
+order by 
+	correctPercent desc
+</select>
+
+<!-- 투수 랭킹 목록 불러오기 -->
+<select id="pitcherRanking" resultType="character">
+select
+	uc.*
+	, (pitcherBallSpeed + pitcherBallControl + pitcherMentality) as allStat
+from
+	usercharacter uc
+where 
+	className = '투수'
+order by
+	allStat desc
+</select>
+
+<!-- 타자 랭킹 목록 불러오기 -->
+<select id="hitterRanking" resultType="character">
+select
+	uc.*
+	, (hitterPower + hitterHit + hitterRunSpeed) as allStat
+from
+	usercharacter uc
+where 
+	className = '타자'
+order by
+	allStat desc
+</select>
+
+<!-- 아이디 목록 불러오기 -->
+<select id="getUser" resultType="users">
+select
+	userId
+from
+	users
+</select>
+
+<!-- 아이디 삭제하기 -->
+<delete id="deleteId" parameterType="string">
+delete from users
+where
+	userId = #{userId}
+</delete>
+
+<!-- 경기, 휴식 캐릭터 정보 업데이트 -->
+<update id="matchRestUpdate" parameterType="character">
+update usercharacter
+set
+	health = #{health}
+	, active = #{active}
+	, gold = #{gold}
+	, year = #{year}
+where
+	userId = #{userId}
+	and characterId = #{characterId}	
+</update>
 
 
 </mapper>
