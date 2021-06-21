@@ -273,16 +273,16 @@ public class BaseballDAO {
 
 	
 	//선수 삭제
-	public int deleteCharacter(String loginId, int presentCharId) {
+	public int deleteCharacter(String userId, int characterId) {
 		SqlSession ss = null;
 		int result = 0;
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("loginId", loginId);
-		map.put("presentCharId", presentCharId);
+		map.put("userId", userId);
+		map.put("characterId", characterId);
 		try {
 			ss = factory.openSession(); 
 			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-			result = mapper.deleteCharacter(loginId, presentCharId);
+			result = mapper.deleteCharacter(map);
 			ss.commit();
 		}
 		catch (Exception e) {
@@ -350,7 +350,7 @@ public class BaseballDAO {
 		return result;
 	}
 
-
+	//퀴즈 점수 10개씩 불러오기
 	public ArrayList<QuizScoreVO> quizScroeAll2(int startRecore, int countPerPage) {
 		SqlSession ss = null;
 		ArrayList<QuizScoreVO> result = null;
@@ -368,6 +368,98 @@ public class BaseballDAO {
 		}
 		return result;
 	}
+
+	//퀴즈 정답률 순위 불러오기
+	public ArrayList<QuizScoreVO> quizRanking() {
+		SqlSession ss = null;
+		ArrayList<QuizScoreVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.quizRanking();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+	//투수 랭킹 목록 불러오기
+	public ArrayList<UserCharacterVO> pitcherRanking() {
+		SqlSession ss = null;
+		ArrayList<UserCharacterVO> result = null;
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.pitcherRanking();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+	
+	//타자 랭킹 목록 불러오기
+		public ArrayList<UserCharacterVO> hitterRanking() {
+			SqlSession ss = null;
+			ArrayList<UserCharacterVO> result = null;
+			try {
+				ss = factory.openSession(); 
+				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+				result = mapper.hitterRanking();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (ss != null) ss.close();
+			}
+			return result;
+		}
+
+		//아이디 목록 불러오기
+		public ArrayList<UserVO> getId() {
+			SqlSession ss = null;
+			ArrayList<UserVO> result = null;
+			try {
+				ss = factory.openSession(); 
+				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+				result = mapper.getId();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (ss != null) ss.close();
+			}
+			return result;
+		}
+
+		//아이디 삭제
+		public int deleteId(String userId) {
+			SqlSession ss = null;
+			int result = 0;
+			try {
+				ss = factory.openSession(); 
+				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+				result = mapper.deleteId(userId);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (ss != null) ss.close();
+			}
+			return result;
+		}
+
+		
 
 
 }

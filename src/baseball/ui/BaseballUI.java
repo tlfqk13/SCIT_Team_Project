@@ -21,7 +21,7 @@ public class BaseballUI {
 	private UserCharacterVO presentChar = null;
 	private String loginId = null;
 	private int quizScoreNum = 0;
-	int tenNum = 9;
+//	int tenNum = 9;
 
 	public BaseballUI() {
 		while (true) {
@@ -38,7 +38,9 @@ public class BaseballUI {
 			switch(m) {					//고른 번호에 따라 처리, 0번 고르면 종료
 			case 1: join();		break;
 			case 2: login();	break;
-			case 3: hof();	break;
+			case 3:	idDelete();	break;
+			case 4: ranking(); 	break;
+			case 5: hof();		break;
 			case 0: System.out.println("게임을 종료합니다."); return;
 			default:
 			}
@@ -49,7 +51,9 @@ public class BaseballUI {
 		System.out.println("[ 나만의 선수 키우기 야구편 ]");
 		System.out.println("1.	회원가입");
 		System.out.println("2.	로그인");
-		System.out.println("3. 	은퇴선수");
+		System.out.println("3. 	회원탈퇴");
+		System.out.println("4. 	랭킹(올스탯)");
+		System.out.println("5. 	은퇴선수");
 		System.out.println("0.	종료");
 		System.out.print("선택>	");
 	}
@@ -130,7 +134,7 @@ public class BaseballUI {
 				switch(m) {
 					case 1: characterCreate(); 	break;
 					case 2: characterSelect();	break;
-					case 3: characterDrop();	break;
+					case 3: characterDelete();	break;
 					case 4: loginId = null; return;
 					case 0: return;
 					default: 
@@ -139,9 +143,96 @@ public class BaseballUI {
 			}
 		}
 		
+	}
+	
+	public void idDelete() {
+		int m = 0;
+		ArrayList<UserVO> list = dao.getId();
+		UserVO vo = null;
 		
+		System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s \n","|   ", "번호", "|", "유저 아이디" , "|");
+		System.out.printf("%s", " ---------------------- \n");
+		for (int i = 0; i < list.size(); i++) {
+			vo = list.get(i);
+			System.out.printf("%s  %-6d \t %-2s  %-6s \t %-2s \n","|   ", (i+1), "|", vo.getUserId() , "|");
+		}
+		while (true) {
+			try {
+				m = keyin.nextInt();
+				break;
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
+		}
+		vo = list.get(m-1);
+		int d = dao.deleteId(vo.getUserId());
+		if (d == 1) {
+			System.out.println("아이디가 삭제되었습니다.");
+			presentChar = null;
+		}
+		else {
+			System.out.println("아이디 삭제에 실패했습니다.");
+		}
 		
 	}
+	
+	public void ranking() {
+		while (true) {
+			int m = 0;
+			rankingMenuPrint();				
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
+			switch(m) {
+				case 1: pitcherRanking(); 	break;
+				case 2: hitterRanking();	break;
+				case 0: return;
+				default: 
+			}
+			
+		}
+	}
+	
+	public void rankingMenuPrint() {
+		System.out.println("[ 랭킹 ]");
+		System.out.println("1.	투수 랭킹");
+		System.out.println("2.	타자 랭킹");
+		System.out.println("0. 	뒤로");
+		System.out.print("선택>	");
+	}
+	
+	public void pitcherRanking() {
+		ArrayList<UserCharacterVO> list = dao.pitcherRanking();
+		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+		System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "등수", "|", "캐릭터 이름" , "|", "올스탯", "|", "보유금", "|", "연차", "|");
+		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+		for (int i = 0; i < list.size(); i++) {
+			UserCharacterVO vo = list.get(i);
+			System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", ((i+1)+"등"), "|", vo.getCharacterName(), "|", vo.getAllStat(), "|", vo.getGold(), "|",vo.getYear(), "|");
+		}
+		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+	}
+	
+	public void hitterRanking() {
+		ArrayList<UserCharacterVO> list = dao.hitterRanking();
+		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+		System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "등수", "|", "캐릭터 이름" , "|", "올스탯", "|", "보유금", "|", "연차", "|");
+		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+		for (int i = 0; i < list.size(); i++) {
+			UserCharacterVO vo = list.get(i);
+			System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", ((i+1)+"등"), "|", vo.getCharacterName(), "|", vo.getAllStat(), "|", vo.getGold(), "|",vo.getYear(), "|");
+		}
+		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+	}
+	
 	
 	public void characterMenuPrint() {
 		System.out.println("[ 선수 메뉴 ]");
@@ -191,6 +282,7 @@ public class BaseballUI {
 	public void characterSelect() {
 		while (true) {
 			int m = 0;
+			System.out.println("[ 캐릭터 선택 ]");
 			selectMenuPrint();
 			try {
 				m = keyin.nextInt();
@@ -201,29 +293,74 @@ public class BaseballUI {
 				continue;
 			}
 			switch(m) {					
-			case 1: pitcherSelect(); 	break;
-			case 2: hitterSelect(); 	break;
+			case 1: pitcherSelect(); 	mainMenu();		break;
+			case 2: hitterSelect();		mainMenu();	 	break;
 			case 0: return;
 			default:
 			}
 		}
 	}
 		
-	public void characterDrop() {
+	public void characterDelete() {
+		while (true) {
+			int m = 0;
+			System.out.println("[ 캐릭터 삭제 ]");
+			selectMenuPrint();
+			try {
+				m = keyin.nextInt();
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
+			switch(m) {					
+			case 1: pitcherDelete(); 	break;
+			case 2: hitterDelete(); 	break;
+			case 0: return;
+			default:
+			}
+		}
 		
 	}
 	
 	public void selectMenuPrint() {
-		System.out.println("[ 캐릭터 선택 ]");
 		System.out.println("1.	투수");
 		System.out.println("2.	타자");
 		System.out.println("0.	뒤로");
 		System.out.print("선택>	");
 	}
 	
+	public void pitcherDelete() {
+		pitcherSelect();
+		
+		int d = dao.deleteCharacter(presentChar.getUserId(), presentChar.getCharacterId());
+		if (d == 1) {
+			System.out.println("캐릭터가 삭제되었습니다.");
+			presentChar = null;
+		}
+		else {
+			System.out.println("캐릭터 삭제에 실패했습니다.");
+		}
+		
+	}
+	
+	public void hitterDelete() {
+		hitterSelect();
+		
+		int d = dao.deleteCharacter(presentChar.getUserId(), presentChar.getCharacterId());
+		if (d == 1) {
+			System.out.println("캐릭터가 삭제되었습니다.");
+			presentChar = null;
+		}
+		else {
+			System.out.println("캐릭터 삭제에 실패했습니다.");
+		}
+	}
+	
 	public void pitcherSelect() {
 		int num = 0;
-		System.out.println("[ 투수 캐릭터 목록 ]");
+		System.out.printf("%50s", "[ 투수 캐릭터 목록 ] \n");
 		
 		//투수캐릭터 목록 출력
 		ArrayList<UserCharacterVO> list = dao.pitcherSelect(loginId);
@@ -234,11 +371,15 @@ public class BaseballUI {
 		}
 		else {
 			UserCharacterVO vo = null;
-			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호","캐릭터 이름","볼스피드","볼컨트롤","정신력","보유금", "연차");
+			System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+			System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "번호", "|", "캐릭터 이름" , "|", "올스탯", "|", "보유금", "|", "연차", "|");
+			System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
 			for (int i = 0; i < list.size(); i++) {
 				vo = list.get(i);
-				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getPitcherBallSpeed(),vo.getPitcherBallControl(),vo.getPitcherMentality(),vo.getGold(), vo.getYear());
+				System.out.printf("%s  %-6d \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", (i+1), "|", vo.getCharacterName(), "|", vo.getAllStat(), "|", vo.getGold(), "|",vo.getYear(), "|");
 			}
+			System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+
 			while (true) {
 				System.out.print("번호 선택> ");
 				try {
@@ -259,13 +400,13 @@ public class BaseballUI {
 			}
 			
 			presentChar = list.get(num-1);
-			mainMenu();
+			
 		}
 	}
 	
 	public void hitterSelect() {
 		int num = 0;
-		System.out.println("[ 타자 캐릭터 목록 ]");
+		System.out.printf("%50s", "[ 타자 캐릭터 목록 ] \n");
 		
 		//타자캐릭터 목록 출력
 		ArrayList<UserCharacterVO> list = dao.hitterSelect(loginId);
@@ -276,11 +417,15 @@ public class BaseballUI {
 		}
 		else {
 			UserCharacterVO vo = null;
-			System.out.printf("%-5s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \t %-10s \n", "번호", "캐릭터 이름","파워","타격","주루","보유금", "연차");
+			System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+			System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "번호", "|", "캐릭터 이름" , "|", "올스탯", "|", "보유금", "|", "연차", "|");
+			System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
 			for (int i = 0; i < list.size(); i++) {
 				vo = list.get(i);
-				System.out.printf("%-5d \t %-10s \t %-10d \t %-10d \t %-10d \t %-10d \t %-10d \n", (i+1), vo.getCharacterName(),vo.getHitterPower(),vo.getHitterHit(),vo.getHitterRunSpeed(),vo.getGold(), vo.getYear());
+				System.out.printf("%s  %-6d \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", (i+1), "|", vo.getCharacterName(), "|", vo.getAllStat(), "|", vo.getGold(), "|",vo.getYear(), "|");
 			}
+			System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
+
 			while (true) {
 				System.out.print("번호 선택> ");
 				try {
@@ -300,7 +445,6 @@ public class BaseballUI {
 				}
 			}
 			presentChar = list.get(num-1);
-			mainMenu();
 		}
 		
 	}
@@ -499,7 +643,7 @@ public class BaseballUI {
 	}
 	
 	public void statInfo() {
-		System.out.printf("%-25s \n", "[ 스탯창 ]");
+		System.out.printf("%25s \n", "[ 스탯창 ]");
 		System.out.println();
 		System.out.printf("%s", " ---------------------------------------- \n");
 		System.out.printf("%-3s \t %-10s \t %-4s \t %-5s \t %s \n","|", "캐릭터 이름", "|", presentChar.getCharacterName(), "|");
@@ -547,7 +691,10 @@ public class BaseballUI {
 		}
 		else {
 			int m = dao.hofCharacterInsert(presentChar);
-			int n = dao.deleteCharacter(loginId, presentChar.getCharacterId());
+			if (m == 0) {
+				System.out.println("명예의 전당에 반영되었습니다.");
+			}
+			dao.deleteCharacter(loginId, presentChar.getCharacterId());
 			presentChar = null;
 			return;
 		}
@@ -713,11 +860,13 @@ public class BaseballUI {
 	public void hitterKickCharacter() {
 		ArrayList<HofVO> list = null;
 		HofVO vo = null;
-		System.out.printf("%35s \n", "- 일반 은퇴 선수 -");
+		System.out.printf("%35s \n", "[ 일반 은퇴 선수 ]");
 		System.out.println();
 		System.out.printf("%33s \n", "- 타자 -");
 		System.out.printf("%s", " ---------------------------------------------------------------- \n");
 		System.out.printf("%s  %-10s \t %-4s \t %-12s \t %-4s \t %-5s \t %s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "올스탯", "|");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+
 		list = dao.getHitterKickCharacter();
 		for (int i = 0; i < list.size(); i++) {
 			vo = list.get(i);
@@ -729,11 +878,13 @@ public class BaseballUI {
 	public void pitcherKickCharacter() {
 		ArrayList<HofVO> list = null;
 		HofVO vo = null;
-		System.out.printf("%35s \n", "- 일반 은퇴 선수 -");
+		System.out.printf("%35s \n", "[ 일반 은퇴 선수 ]");
 		System.out.println();
 		System.out.printf("%33s \n", "- 투수 -");
 		System.out.printf("%s", " ---------------------------------------------------------------- \n");
 		System.out.printf("%s  %-10s \t %-4s \t %-12s \t %-4s \t %-5s \t %s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "올스탯", "|");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+
 		list = dao.getPitcherKickCharacter();
 		for (int i = 0; i < list.size(); i++) {
 			vo = list.get(i);
@@ -759,6 +910,7 @@ public class BaseballUI {
 			switch(m) {					
 			case 1: quizQuestion();		break;
 			case 2: quizScore();		break;
+			case 3: quizRanking(); 			break;
 			case 0: System.out.println("메인메뉴로 돌아갑니다."); 	return;
 			default:
 			}
@@ -769,6 +921,7 @@ public class BaseballUI {
 		System.out.println("[ 퀴즈 ]");
 		System.out.println("1.	퀴즈 풀기");
 		System.out.println("2.	캐릭터별 퀴즈 정답률");
+		System.out.println("3.	정답률 순위");
 		System.out.println("0.	뒤로 가기");
 		System.out.print("선택>	");
 	}
@@ -792,6 +945,7 @@ public class BaseballUI {
 			String answer = null;
 			for (int i = 0; i < list.size(); i++) {
 				QuizVO vo =  list.get(i);
+				
 				System.out.println();
 				System.out.println((i+1) + "번 문제");
 				System.out.println(vo.getQuestion());
@@ -807,7 +961,8 @@ public class BaseballUI {
 								break;
 							}
 							else {
-								System.out.println("틀렸습니다.");
+								System.out.print("틀렸습니다. ");
+								System.out.println("답 : " + vo.getCorrect());
 								scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
 								break;
 							}
@@ -820,13 +975,28 @@ public class BaseballUI {
 					}
 				}
 				else {
+					//퀴즈 보기 섞기
+					ArrayList<String> exampleAll = new ArrayList<String>();
+					exampleAll.add(vo.getExample1());
+					exampleAll.add(vo.getExample2());
+					exampleAll.add(vo.getExample3());
+					exampleAll.add(vo.getExample4());
+					Collections.shuffle(exampleAll);
+					vo.setExample1(exampleAll.get(0));
+					vo.setExample2(exampleAll.get(1));
+					vo.setExample3(exampleAll.get(2));
+					vo.setExample4(exampleAll.get(3));
+					
+					
+					
 					System.out.println("1 - " + vo.getExample1());
 					System.out.println("2 - " + vo.getExample2());
 					System.out.println("3 - " + vo.getExample3());
 					System.out.println("4 - " + vo.getExample4());
 					System.out.println();
-					System.out.print("정답 : ");
+					
 					while (true) {
+						System.out.print("정답 : ");
 						try {
 							m = keyin.nextInt();
 							if (m > 4 || m <= 0) {
@@ -840,7 +1010,16 @@ public class BaseballUI {
 									break;
 								}
 								else {
-									System.out.println("틀렸습니다.");
+									System.out.print("틀렸습니다. ");
+									if (vo.getExample2().equals(vo.getCorrect())) {
+										System.out.println("답 : 2 - " + vo.getExample2());
+									}
+									else if (vo.getExample3().equals(vo.getCorrect())) {
+										System.out.println("답 : 3 - " + vo.getExample3());
+									}
+									else if (vo.getExample4().equals(vo.getCorrect())) {
+										System.out.println("답 : 4 - " + vo.getExample4());
+									}
 									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
 									break;
 								}
@@ -852,7 +1031,16 @@ public class BaseballUI {
 									break;
 								}
 								else {
-									System.out.println("틀렸습니다.");
+									System.out.print("틀렸습니다. ");
+									if (vo.getExample1().equals(vo.getCorrect())) {
+										System.out.println("답 : 1 - " + vo.getExample1());
+									}
+									else if (vo.getExample3().equals(vo.getCorrect())) {
+										System.out.println("답 : 3 - " + vo.getExample3());
+									}
+									else if (vo.getExample4().equals(vo.getCorrect())) {
+										System.out.println("답 : 4 - " + vo.getExample4());
+									}
 									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
 									break;
 								}
@@ -864,7 +1052,16 @@ public class BaseballUI {
 									break;
 								}
 								else {
-									System.out.println("틀렸습니다.");
+									System.out.print("틀렸습니다. ");
+									if (vo.getExample1().equals(vo.getCorrect())) {
+										System.out.println("답 : 1 - " + vo.getExample1());
+									}
+									else if (vo.getExample2().equals(vo.getCorrect())) {
+										System.out.println("답 : 2 - " + vo.getExample2());
+									}
+									else if (vo.getExample4().equals(vo.getCorrect())) {
+										System.out.println("답 : 4 - " + vo.getExample4());
+									}
 									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
 									break;
 								}
@@ -876,7 +1073,16 @@ public class BaseballUI {
 									break;
 								}
 								else {
-									System.out.println("틀렸습니다.");
+									System.out.print("틀렸습니다. ");
+									if (vo.getExample1().equals(vo.getCorrect())) {
+										System.out.println("답 : 1 - " + vo.getExample1());
+									}
+									else if (vo.getExample2().equals(vo.getCorrect())) {
+										System.out.println("답 : 2 - " + vo.getExample2());
+									}
+									else if (vo.getExample3().equals(vo.getCorrect())) {
+										System.out.println("답 : 3 - " + vo.getExample3());
+									}
 									scoreVo.setWrongAnswer(scoreVo.getWrongAnswer() + 1);
 									break;
 								}
@@ -885,7 +1091,6 @@ public class BaseballUI {
 						catch (InputMismatchException e) {
 							keyin.nextLine();
 							System.out.println("다시 입력하세요.");
-							System.out.println("정답 : ");
 							continue;
 						}
 				}
@@ -993,6 +1198,8 @@ public class BaseballUI {
 
 				System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
 				System.out.printf("%s  %-10s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "유저ID", "|", "캐릭터 이름" , "|", "맞은 문제", "|", "틀린 문제", "|", "정답률", "|");
+				System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
+
 				for (int i = 0; i <= scoreList.size()-1; i++) {
 					vo = scoreList.get(i);
 					System.out.printf("%s  %-10s \t %-2s  %-6s \t %-2s  %-6d \t %-2s  %-6d \t %-2s  %-7d \t %-2s \n","|   ", vo.getUserId(), "|", vo.getCharacterName() , "|", vo.getCorrectAnswer(), "|", vo.getWrongAnswer(), "|", vo.getCorrectPercent(), "|");
@@ -1000,8 +1207,21 @@ public class BaseballUI {
 				System.out.printf("%s", " ---------------------------------------------------------------------------------------- \n");
 				System.out.println((((int)Math.floor(quizScoreNum/10))+1) + "페이지" );
 				quizScoreNum +=10;
-				
-			
+	}
+	
+	public void quizRanking() {
+		ArrayList<QuizScoreVO> rankingList = dao.quizRanking();
+		System.out.printf("%37s", "[ 퀴즈 정답률 순위 ] \n");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+		System.out.printf("%s  %-10s \t %-2s  %-8s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", "등수", "|", "유저ID" , "|", "캐릭터 이름", "|", "정답률", "|");
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+		for (int i = 0; i < rankingList.size(); i++) {
+			QuizScoreVO quizRankingVo = rankingList.get(i);
+			System.out.printf("%s  %-10s \t %-2s  %-8s \t %-2s  %-6s \t %-2s  %-7s \t %-2s \n","|   ", ((i+1)+"등"), "|", quizRankingVo.getUserId() , "|", quizRankingVo.getCharacterName(), "|", quizRankingVo.getCorrectPercent(), "|");
+
+		}
+		System.out.printf("%s", " ---------------------------------------------------------------- \n");
+
 	}
 	
 }

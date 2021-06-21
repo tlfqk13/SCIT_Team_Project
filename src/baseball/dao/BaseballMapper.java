@@ -40,7 +40,7 @@ public interface BaseballMapper {
 	//5년차 이후에 은퇴선수 목록으로 이동
 	public int hofCharacterInsert(UserCharacterVO vo);
 	//선수 삭제
-	public int deleteCharacter(String loginId, int presentCharId);
+	public int deleteCharacter(HashMap<String, Object> map);
 	//일반 휴식 
 	public int rest1(int result);
 	//고급 휴식
@@ -53,8 +53,19 @@ public interface BaseballMapper {
 	public int quizScoreInsert(QuizScoreVO scoreVo);
 	//퀴즈 점수 불러오기
 	public ArrayList<QuizScoreVO> quizScoreAll();
+	//퀴즈 점수 10개씩 불러오기
 	public ArrayList<QuizScoreVO> quizScoreAll2(RowBounds rb);
-
+	//퀴즈 정답률 순위 불러오기
+	public ArrayList<QuizScoreVO> quizRanking();
+	//투수 랭킹 목록 불러오기
+	public ArrayList<UserCharacterVO> pitcherRanking();
+	//타자 랭킹 목록 불러오기
+	public ArrayList<UserCharacterVO> hitterRanking();
+	//아이디 목록 불러오기
+	public ArrayList<UserVO> getId();
+	//아이디 삭제하기
+	public int deleteId(String userId);
+	
 	
 
 }
