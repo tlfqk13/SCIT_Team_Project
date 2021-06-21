@@ -61,11 +61,11 @@ public interface BaseballMapper {
 	public ArrayList<UserCharacterVO> pitcherRanking();
 	//타자 랭킹 목록 불러오기
 	public ArrayList<UserCharacterVO> hitterRanking();
-	//아이디 목록 불러오기
-	public ArrayList<UserVO> getId();
-	//아이디 삭제하기
-	public int deleteId(String userId);
-	
+//	//아이디 목록 불러오기
+//	public ArrayList<UserVO> getId();
+//	//아이디 삭제하기
+//	public int deleteId(String userId);
+//	
 	
 
 }
