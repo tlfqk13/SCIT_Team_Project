@@ -870,11 +870,15 @@ public class BaseballUI {
 
 	public void trainingMenu() {
 			int m = 0;
-			if (presentChar.getActive() == 0) {
+			if (presentChar.getHealth() < 25) {
+				System.out.println("체력이 부족합니다.");
+				return;
+			}
+			else if (presentChar.getActive() == 0) {
 				System.out.println("행동력이 부족합니다.");
 				return;
 			}
-			else if (presentChar.getActive() > 0) {
+			else if (presentChar.getActive() > 0 && presentChar.getHealth() >= 25 ) {
 				TrainingVO trVo = null;
 				String charClassName = presentChar.getClassName();
 				while (true) {
@@ -1716,20 +1720,22 @@ public class BaseballUI {
 	}
 	
 	public void premiumRest() {
-		
-		if (presentChar.getHealth() != 100) {
-			presentChar.setActive(presentChar.getActive()-1);
-			presentChar.setGold(presentChar.getGold()-100);
-			presentChar.setHealth(100);
-			System.out.println("프리미엄 휴식이 완료되었습니다.");
-			System.out.println("소지금이 감소하였습니다.");
+		if (presentChar.getGold() < 100) {
+			if (presentChar.getHealth() != 100) {
+				presentChar.setActive(presentChar.getActive()-1);
+				presentChar.setGold(presentChar.getGold()-100);
+				presentChar.setHealth(100);
+				System.out.println("프리미엄 휴식이 완료되었습니다.");
+				System.out.println("소지금이 감소하였습니다.");
+			}
+			else {
+				System.out.println("체력이 충분합니다.");
+				return;
+			}
+			
+			dao.matchRestUpdate(presentChar);
 		}
-		else {
-			System.out.println("체력이 충분합니다.");
-			return;
-		}
 		
-		dao.matchRestUpdate(presentChar);
 
 	}
 	
