@@ -16,6 +16,7 @@
 		<typeAlias type="baseball.vo.HofVO" alias="hof" />
 		<typeAlias type="baseball.vo.QuizVO" alias="quiz" />
 		<typeAlias type="baseball.vo.QuizScoreVO" alias="quizScore" />
+		<typeAlias type="baseball.vo.TrainingVO" alias="training" />
 	</typeAliases>
 	
 	<!-- DB접속 정보 셋팅 -->

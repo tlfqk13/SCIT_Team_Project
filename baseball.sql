@@ -18,12 +18,12 @@ CREATE TABLE usercharacter (
     health         NUMBER(3) DEFAULT 100 NOT NULL,
     year           NUMBER(2) DEFAULT 1 NOT NULL,
     classname            VARCHAR2(10) NOT NULL,
-    hitterpower          NUMBER(2) DEFAULT 0,
-    hitterhit            NUMBER(2) DEFAULT 0,
-    hitterrunspeed       NUMBER(2) DEFAULT 0,
-    pitcherballspeed     NUMBER(2) DEFAULT 0,
-    pitcherballcontrol  NUMBER(2) DEFAULT 0,
-    pitchermentality     NUMBER(2) DEFAULT 0,
+    hitterpower          NUMBER(3) DEFAULT 0,
+    hitterhit            NUMBER(3) DEFAULT 0,
+    hitterrunspeed       NUMBER(3) DEFAULT 0,
+    pitcherballspeed     NUMBER(3) DEFAULT 0,
+    pitcherballcontrol  NUMBER(3) DEFAULT 0,
+    pitchermentality     NUMBER(3) DEFAULT 0,
     CONSTRAINT usercharacterfk FOREIGN KEY ( userid )
         REFERENCES users ( userid )
             ON DELETE CASCADE
@@ -260,19 +260,21 @@ insert into training values ( trainingidseq.nextval, '볼스피드훈련', '투수');
 insert into training values ( trainingidseq.nextval, '볼컨트롤훈련', '투수');
 insert into training values ( trainingidseq.nextval, '정신력훈련', '투수');
 --코치 insert--
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '파워고정', 5, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '파워랜덤', 0, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '타격고정', 5, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '타격랜덤', 0, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '주루고정', 5, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '주루랜덤', 0, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '볼스피드고정', 5, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '볼스피드랜덤', 0, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '볼컨트롤고정', 5, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '볼컨트롤랜덤', 0, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '정신력고정', 5, -25);
-insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '정신력랜덤', 0, -25);
-
+insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '고정훈련코치', 5, -25);
+insert into coach (coachid, coachname, coacheffect1, coachdecrease) values (coachidseq.nextval, '랜덤훈련코치', 0, -25);
+--훈련 정보 insert --
+insert into traininginfo values ( 401, 301 ); 
+insert into traininginfo values ( 402, 301 ); 
+insert into traininginfo values ( 401, 302 ); 
+insert into traininginfo values ( 402, 302 ); 
+insert into traininginfo values ( 401, 303 ); 
+insert into traininginfo values ( 402, 303 ); 
+insert into traininginfo values ( 401, 304 ); 
+insert into traininginfo values ( 402, 304 ); 
+insert into traininginfo values ( 401, 305 ); 
+insert into traininginfo values ( 402, 305 ); 
+insert into traininginfo values ( 401, 306 ); 
+insert into traininginfo values ( 402, 306 ); 
 
 
 

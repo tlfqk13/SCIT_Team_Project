@@ -2,7 +2,6 @@ package baseball.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.ibatis.io.ResolverUtil.Test;
@@ -16,6 +15,7 @@ import baseball.vo.HofVO;
 import baseball.vo.QuizScoreVO;
 import baseball.vo.QuizVO;
 import baseball.vo.TrainerVO;
+import baseball.vo.TrainingVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -53,7 +53,7 @@ public class BaseballUI {
 			try {
 				m = keyin.nextInt();
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -149,7 +149,7 @@ public class BaseballUI {
 				try {
 					m = keyin.nextInt();
 				}
-				catch (InputMismatchException e) {
+				catch (Exception e) {
 					keyin.nextLine();
 					System.out.println("다시 입력하세요.");
 					continue;
@@ -183,11 +183,17 @@ public class BaseballUI {
 		System.out.println();
 		while (true) {
 			try {
+				System.out.println("0. 	뒤로 가기");
 				System.out.print("선택>	");
 				m = keyin.nextInt();
-				break;
+				if (m == 0) {
+					return;
+				}
+				else {
+					break;
+				}
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -213,7 +219,7 @@ public class BaseballUI {
 			try {
 				m = keyin.nextInt();
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -232,7 +238,7 @@ public class BaseballUI {
 		System.out.println("[ 랭킹 ]");
 		System.out.println("1.	투수 랭킹");
 		System.out.println("2.	타자 랭킹");
-		System.out.println("0. 	뒤로");
+		System.out.println("0. 	뒤로 가기");
 		System.out.print("선택>	");
 	}
 	
@@ -314,7 +320,7 @@ public class BaseballUI {
 			try {
 				m = keyin.nextInt();
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -336,7 +342,7 @@ public class BaseballUI {
 			try {
 				m = keyin.nextInt();
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -419,7 +425,7 @@ public class BaseballUI {
 						continue;
 					}
 				}
-				catch (InputMismatchException e) {
+				catch (Exception e) {
 					keyin.nextLine();
 					System.out.println("다시 입력하세요.");
 					continue;
@@ -465,7 +471,7 @@ public class BaseballUI {
 						continue;
 					}
 				}
-				catch (InputMismatchException e) {
+				catch (Exception e) {
 					keyin.nextLine();
 					System.out.println("다시 입력하세요.");
 					continue;
@@ -486,7 +492,7 @@ public class BaseballUI {
 				try {
 					m = keyin.nextInt();
 				}
-				catch (InputMismatchException e) {
+				catch (Exception e) {
 					keyin.nextLine();
 					System.out.println("다시 입력하세요.");
 					continue;
@@ -495,12 +501,10 @@ public class BaseballUI {
 				case 1: storeMenu();			break;
 				case 2: trainingMenu();			break;
 				case 3: characterInfoMenu();	break;
-//				case 4: match(); 			break;
-//				case 5: rest(); 			break;
 				case 4: match(); 				break;
 				case 5: rest(); 				break;
 				case 6: quiz();					break;
-				case 7: presentChar = null; return;
+				case 7: presentChar = null; 	return;
 				case 0: System.out.println("게임을 종료합니다."); System.exit(0);
 				default:
 				}
@@ -863,11 +867,15 @@ public class BaseballUI {
 //
 //	}
 
-	
 
 	public void trainingMenu() {
 			int m = 0;
-			if (loginId != null && presentChar != null) {
+			if (presentChar.getActive() == 0) {
+				System.out.println("행동력이 부족합니다.");
+				return;
+			}
+			else if (presentChar.getActive() > 0) {
+				TrainingVO trVo = null;
 				String charClassName = presentChar.getClassName();
 				while (true) {
 					if (charClassName.equals("타자")) {
@@ -875,15 +883,15 @@ public class BaseballUI {
 						try {
 							m = keyin.nextInt();
 						}
-						catch (InputMismatchException e) {
+						catch (Exception e) {
 							keyin.nextLine();
 							System.out.println("다시 입력하세요.");
 							continue;
 						}	
 						switch(m) {		
-//						case 1: powerTraining();			break;
-//						case 2: hitTraining();			break;
-//						case 3: runSpeedTraining();	break;
+						case 1: powerTraining(m, trVo, "타자");			break;
+						case 2: hitTraining(m, trVo, "타자");			break;
+						case 3: runSpeedTraining(m, trVo, "타자");	break;
 						case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
 						default:
 						}
@@ -894,15 +902,15 @@ public class BaseballUI {
 						try {
 							m = keyin.nextInt();
 						}
-						catch (InputMismatchException e) {
+						catch (Exception e) {
 							keyin.nextLine();
 							System.out.println("다시 입력하세요.");
 							continue;
 						}	
 						switch(m) {		
-//						case 1: ballSpeedTraining();			break;
-//						case 2: ballControlTraining();			break;
-//						case 3: mentalityTraining();	break;
+						case 1: ballSpeedTraining(m, trVo, "투수");			break;
+						case 2: ballControlTraining(m, trVo, "투수");			break;
+						case 3: mentalityTraining(m, trVo, "투수");	break;
 						case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
 						default:
 						}
@@ -936,11 +944,180 @@ public class BaseballUI {
 	
 	public void coachMenuPrint() {
 		System.out.println("[ 코치 선택 ]");
-		
+		System.out.println("1.	고정훈련코치");
+		System.out.println("2.	랜덤훈련코치");
+		System.out.println("0.	뒤로가기");
 		System.out.print("선택>	");
 	}
 	
+	public void powerTraining(int m, TrainingVO trVo, String s) {
+		int n = 0;
+		coachMenuPrint();
+		while (true) {
+			try {
+				n = keyin.nextInt();
+				break;
+			}
+			catch (Exception e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+		}
+		
+		switch(n) {		
+		case 1: coachTraining(m, n, trVo, s);				break;
+		case 2: coachTraining(m, n, trVo, s);				break;
+		case 0: System.out.println("뒤로 돌아갑니다."); 		return;
+		default:
+		}
+		
+		int before = presentChar.getHitterPower();
+		presentChar = dao.trainingCharacterUpdate(presentChar);
+		System.out.println("힘 : " + (before) + "( +" +(presentChar.getHitterPower()-before) + " )");
+	}
 	
+	public void hitTraining(int m, TrainingVO trVo, String s) {
+		int n = 0;
+		coachMenuPrint();
+		while (true) {
+			try {
+				n = keyin.nextInt();
+				break;
+			}
+			catch (Exception e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+		}
+		
+		switch(n) {		
+		case 1: coachTraining(m, n, trVo, s);				break;
+		case 2: coachTraining(m, n, trVo, s);				break;
+		case 0: System.out.println("뒤로 돌아갑니다."); 		return;
+		default:
+		}
+		
+		int before = presentChar.getHitterHit();
+		presentChar = dao.trainingCharacterUpdate(presentChar);
+		System.out.println("타격 : " + (before) + "( +" +(presentChar.getHitterHit()-before) + " )");
+	}
+	
+	public void runSpeedTraining(int m, TrainingVO trVo, String s) {
+		int n = 0;
+		coachMenuPrint();
+		while (true) {
+			try {
+				n = keyin.nextInt();
+				break;
+			}
+			catch (Exception e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+		}
+		
+		switch(n) {		
+		case 1: coachTraining(m, n, trVo, s);				break;
+		case 2: coachTraining(m, n, trVo, s);				break;
+		case 0: System.out.println("뒤로 돌아갑니다."); 		return;
+		default:
+		}
+		
+		int before = presentChar.getHitterRunSpeed();
+		presentChar = dao.trainingCharacterUpdate(presentChar);
+		System.out.println("주루 : " + (before) + "( +" +(presentChar.getHitterRunSpeed()-before) + " )");
+	}
+	
+	
+	
+	public void ballSpeedTraining(int m, TrainingVO trVo, String s) {
+		int n = 0;
+		coachMenuPrint();
+		while (true) {
+			try {
+				n = keyin.nextInt();
+				break;
+			}
+			catch (Exception e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+		}
+		
+		switch(n) {		
+		case 1: coachTraining(m, n, trVo, s);				break;
+		case 2: coachTraining(m, n, trVo, s);				break;
+		case 0: System.out.println("뒤로 돌아갑니다."); 		return;
+		default:
+		}
+		
+		int before = presentChar.getPitcherBallSpeed();
+		presentChar = dao.trainingCharacterUpdate(presentChar);
+		System.out.println("볼스피드 : " + (before) + "( +" +(presentChar.getPitcherBallSpeed()-before) + " )");
+	}
+	
+	public void ballControlTraining(int m, TrainingVO trVo, String s) {
+		int n = 0;
+		coachMenuPrint();
+		while (true) {
+			try {
+				n = keyin.nextInt();
+				break;
+			}
+			catch (Exception e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+		}
+		
+		switch(n) {		
+		case 1: coachTraining(m, n, trVo, s);				break;
+		case 2: coachTraining(m, n, trVo, s);				break;
+		case 0: System.out.println("뒤로 돌아갑니다."); 		return;
+		default:
+		}
+		
+		int before = presentChar.getPitcherBallControl();
+		presentChar = dao.trainingCharacterUpdate(presentChar);
+		System.out.println("볼컨트롤 : " + (before) + "( +" +(presentChar.getPitcherBallControl()-before) + " )");
+	}
+	
+	public void mentalityTraining(int m, TrainingVO trVo, String s) {
+		int n = 0;
+		coachMenuPrint();
+		while (true) {
+			try {
+				n = keyin.nextInt();
+				break;
+			}
+			catch (Exception e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}	
+		}
+		
+		switch(n) {		
+		case 1: coachTraining(m, n, trVo, s);				break;
+		case 2: coachTraining(m, n, trVo, s);				break;
+		case 0: System.out.println("뒤로 돌아갑니다."); 		return;
+		default:
+		}
+		
+		int before = presentChar.getPitcherMentality();
+		presentChar = dao.trainingCharacterUpdate(presentChar);
+		System.out.println("정신력 : " + (before) + "( +" +(presentChar.getPitcherMentality()-before) + " )");
+	}
+
+	private void coachTraining(int m, int n, TrainingVO trVo, String s) {
+		trVo = dao.getTraining(m, n, s);
+		dao.trainingUpdate(trVo);	
+	}
 	
 	
 	
@@ -1453,70 +1630,65 @@ public class BaseballUI {
 
 	
 	public void match() {
-		System.out.println("[ 경기 하기 ]");
-		System.out.println("경기 시작");
-		if (presentChar.getYear() < 5) {
-			presentChar.setActive(5);
-			presentChar.setHealth(100);
-			presentChar.setGold(presentChar.getGold()+500);
-			presentChar.setYear(presentChar.getYear() + 1);
-			System.out.println("행동력이 5로 회복 되었습니다.");
-			System.out.println("소지금이 증가 하였습니다.");
-			System.out.println("건강이 100으로 회복 되었습니다.");
-			System.out.println("연차가 1년 늘었습니다.");
-		}
-		else {
-			int m = dao.hofCharacterInsert(presentChar);
-			if (m == 0) {
-				System.out.println("명예의 전당에 반영되었습니다.");
-			}
-			dao.deleteCharacter(loginId, presentChar.getCharacterId());
-			presentChar = null;
+		if (presentChar.getActive() == 0) {
+			System.out.println("행동력이 부족합니다.");
 			return;
 		}
+		else {
+			System.out.println("[ 경기 하기 ]");
+			System.out.println("경기 시작");
+			if (presentChar.getYear() < 5) {
+				presentChar.setActive(5);
+				presentChar.setHealth(100);
+				presentChar.setGold(presentChar.getGold()+500);
+				presentChar.setYear(presentChar.getYear() + 1);
+				System.out.println("행동력이 5로 회복 되었습니다.");
+				System.out.println("소지금이 증가 하였습니다.");
+				System.out.println("건강이 100으로 회복 되었습니다.");
+				System.out.println("연차가 1년 늘었습니다.");
+				dao.matchRestUpdate(presentChar);
+
+			}
+			else {
+				int m = dao.hofCharacterInsert(presentChar);
+				if (m == 0) {
+					System.out.println("명예의 전당에 반영되었습니다.");
+				}
+				dao.deleteCharacter(loginId, presentChar.getCharacterId());
+				presentChar = null;
+				return;
+			}
+		}
 		
-		
-		
-		//캐릭터 정보 db에 반영하기
-		//dao.     (presentChar);
-		
-		
-//		public void temp() {
-//		//5년차 경기 뛰면  명예의전당테이블로 옮기고 삭제
-//		UserCharacterVO vo = dao.getCharacter(loginId, presentCharId);
-//		if (vo.getYear() < 5) {
-//			//경기
-//		}
-//		else {
-//			int m = dao.hofCharacterInsert(vo);
-//			int n = dao.deleteCharacter(loginId, presentCharId);
-//			presentCharId = 0;
-//			return;
-//		}
-//		
-//	}
 		
 	}
 	
 	public void rest() {
-		int m = 0;
-		while (true) {
-			restMenuPrint();
-			try {
-				m = keyin.nextInt();
-			}
-			catch (InputMismatchException e) {
-				keyin.nextLine();
-				System.out.println("다시 입력하세요.");
-				continue;
-			}	
-			switch(m) {		
-			case 1: freeRest();			break;
-			case 2: premiumRest();			break;
-			case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
-			default:
+		if (presentChar.getActive() == 0) {
+			System.out.println("행동력이 부족합니다.");
+			return;
+		}
+		else {
+			int m = 0;
+			while (true) {
+				restMenuPrint();
+				try {
+					m = keyin.nextInt();
+				}
+				catch (Exception e) {
+					keyin.nextLine();
+					System.out.println("다시 입력하세요.");
+					continue;
+				}	
+				switch(m) {		
+				case 1: freeRest();			break;
+				case 2: premiumRest();			break;
+				case 0: System.out.println("메인 메뉴로 돌아갑니다."); return;
+				default:
+				}
 			}
 		}
+		
 		
 	}
 	
@@ -1548,7 +1720,7 @@ public class BaseballUI {
 		if (presentChar.getHealth() != 100) {
 			presentChar.setActive(presentChar.getActive()-1);
 			presentChar.setGold(presentChar.getGold()-100);
-			presentChar.setHealth(10);
+			presentChar.setHealth(100);
 			System.out.println("프리미엄 휴식이 완료되었습니다.");
 			System.out.println("소지금이 감소하였습니다.");
 		}
@@ -1557,8 +1729,8 @@ public class BaseballUI {
 			return;
 		}
 		
-		//캐릭터 정보 db에 반영하기
-		//dao.     (presentChar);
+		dao.matchRestUpdate(presentChar);
+
 	}
 	
 	public void hof() {
@@ -1568,7 +1740,7 @@ public class BaseballUI {
 			try {
 				m = keyin.nextInt();
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -1677,7 +1849,7 @@ public class BaseballUI {
 			try {
 				m = keyin.nextInt();
 			}
-			catch (InputMismatchException e) {
+			catch (Exception e) {
 				keyin.nextLine();
 				System.out.println("다시 입력하세요.");
 				continue;
@@ -1863,7 +2035,7 @@ public class BaseballUI {
 								}
 							}
 						}
-						catch (InputMismatchException e) {
+						catch (Exception e) {
 							keyin.nextLine();
 							System.out.println("다시 입력하세요.");
 							continue;
@@ -1885,7 +2057,7 @@ public class BaseballUI {
 					
 					n = keyin.nextInt();
 				}
-				catch (InputMismatchException e) {
+				catch (Exception e) {
 					keyin.nextLine();
 					System.out.println("다시 입력하세요.");
 					continue;
@@ -1942,7 +2114,7 @@ public class BaseballUI {
 				try {
 					m = keyin.nextInt();
 				}
-				catch (InputMismatchException e) {
+				catch (Exception e) {
 					keyin.nextLine();
 					System.out.println("다시 입력하세요.");
 					continue;
@@ -2001,8 +2173,4 @@ public class BaseballUI {
 	
 }
 	
-//	
-//	
-//	
-//	
-//
+

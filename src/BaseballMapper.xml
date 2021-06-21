@@ -481,6 +481,154 @@ where
 	and characterId = #{characterId}	
 </update>
 
+<!-- 트레이닝 정보 가져오기 -->
+<select id="getTraining" parameterType="map" resultType="training">
+select
+    trainingId
+   	, trainingName
+   	, trainingClass
+   	, coachId 
+   	, coachName
+   	, coachEffect1
+   	, coachEffect2
+   	, coachDecrease
+from 
+    (select 
+    	ti.trainingId
+    	, trainingName
+    	, trainingClass
+    	, ti.coachId 
+    	, coachName
+    	, coachEffect1
+    	, coachEffect2
+    	, coachDecrease
+    from 
+    	training t
+    	, traininginfo ti
+    	, coach c
+    where 
+    	t.trainingid = ti.trainingid
+    	and ti.coachid = c.coachid)
+<where> 
+	<if test='m == 1 and n == 1 and s.equalsIgnoreCase("타자")'>
+		trainingName = '파워훈련' and coachName = '고정훈련코치'
+	</if>
+	<if test='m == 1 and n == 2 and s.equalsIgnoreCase("타자")'>
+		trainingName = '파워훈련' and coachName = '랜덤훈련코치'
+	</if>
+	<if test='m == 2 and n == 1 and s.equalsIgnoreCase("타자")'>
+		trainingName = '타격훈련' and coachName = '고정훈련코치'
+	</if>
+	<if test='m == 2 and n == 2 and s.equalsIgnoreCase("타자")'>
+		trainingName = '타격훈련' and coachName = '랜덤훈련코치'
+	</if>
+	<if test='m == 3 and n == 1 and s.equalsIgnoreCase("타자")'>
+		trainingName = '주루훈련' and coachName = '고정훈련코치'
+	</if>
+	<if test='m == 3 and n == 2 and s.equalsIgnoreCase("타자")'>
+		trainingName = '주루훈련' and coachName = '랜덤훈련코치'
+	</if>
+	<if test='m == 1 and n == 1 and s.equalsIgnoreCase("투수")'>
+		trainingName = '볼스피드훈련' and coachName = '고정훈련코치'
+	</if>
+	<if test='m == 1 and n == 2 and s.equalsIgnoreCase("투수")'>
+		trainingName = '볼스피드훈련' and coachName = '랜덤훈련코치'
+	</if>
+	<if test='m == 2 and n == 1 and s.equalsIgnoreCase("투수")'>
+		trainingName = '볼컨트롤훈련' and coachName = '고정훈련코치'
+	</if>
+	<if test='m == 2 and n == 2 and s.equalsIgnoreCase("투수")'>
+		trainingName = '볼컨트롤훈련' and coachName = '랜덤훈련코치'
+	</if>
+	<if test='m == 3 and n == 1 and s.equalsIgnoreCase("투수")'>
+		trainingName = '정신력훈련' and coachName = '고정훈련코치'
+	</if>
+	<if test='m == 3 and n == 2 and s.equalsIgnoreCase("투수")'>
+		trainingName = '정신력훈련' and coachName = '랜덤훈련코치'
+	</if>
+</where>
+</select>
+  
+<!-- 훈련 정보 db에 적용하기 -->
+<update id="trainingUpdate" parameterType="training">
+update usercharacter
+<set>
+	<if test='trainingName.equalsIgnoreCase("파워훈련") and coachName.equalsIgnoreCase("고정훈련코치")'>
+		hitterPower = hitterPower + #{coachEffect1}
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("파워훈련") and coachName.equalsIgnoreCase("랜덤훈련코치")'>
+		hitterPower = hitterPower + round(dbms_random.value(1,10))
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("타격훈련") and coachName.equalsIgnoreCase("고정훈련코치")'>
+		hitterHit = hitterHit + #{coachEffect1}
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("타격훈련") and coachName.equalsIgnoreCase("랜덤훈련코치")'>
+		hitterHit = hitterHit + round(dbms_random.value(1,10))
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("주루훈련") and coachName.equalsIgnoreCase("고정훈련코치")'>
+		hitterRunSpeed = hitterRunSpeed + #{coachEffect1}
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("주루훈련") and coachName.equalsIgnoreCase("랜덤훈련코치")'>
+		hitterRunSpeed = hitterRunSpeed + round(dbms_random.value(1,10))
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("볼스피드훈련") and coachName.equalsIgnoreCase("고정훈련코치")'>
+		pitcherBallSpeed = pitcherBallSpeed + #{coachEffect1}
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("볼스피드훈련") and coachName.equalsIgnoreCase("랜덤훈련코치")'>
+		pitcherBallSpeed = pitcherBallSpeed + round(dbms_random.value(1,10))
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("볼컨트롤훈련") and coachName.equalsIgnoreCase("고정훈련코치")'>
+		pitcherBallControl = pitcherBallControl + #{coachEffect1}
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("볼컨트롤훈련") and coachName.equalsIgnoreCase("랜덤훈련코치")'>
+		pitcherBallControl = pitcherBallControl + round(dbms_random.value(1,10))
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("정신력훈련") and coachName.equalsIgnoreCase("고정훈련코치")'>
+		pitcherMentality = pitcherMentality + #{coachEffect1}
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+	<if test='trainingName.equalsIgnoreCase("정신력훈련") and coachName.equalsIgnoreCase("랜덤훈련코치")'>
+		pitcherMentality = pitcherMentality + round(dbms_random.value(1,10))
+		, active = active - 1
+		, health = health + #{coachDecrease}
+	</if>
+</set>
+	
+</update>
+
+
+<!-- 훈련 후 현재 캐릭터 정보 업데이트 -->
+<select id="trainingCharacterUpdate" resultType="character">
+select
+	* 
+from 
+	usercharacter
+where
+	userId = #{userId}
+	and characterId = #{characterId}	
+</select>
+
+
 
 </mapper>
-

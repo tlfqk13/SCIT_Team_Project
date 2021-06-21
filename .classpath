@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/user/Downloads/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="D:/user/Downloads/mybatis-3.4.6/mybatis-3.4.6.jar"/>
+	<classpathentry kind="lib" path="D:/user/Downloads/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

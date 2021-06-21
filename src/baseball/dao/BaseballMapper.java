@@ -12,6 +12,7 @@ import org.apache.ibatis.session.RowBounds;
 import baseball.vo.HofVO;
 import baseball.vo.QuizScoreVO;
 import baseball.vo.QuizVO;
+import baseball.vo.TrainingVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -110,5 +111,11 @@ public interface BaseballMapper {
 	public void testVoDelete(ItemHaveInfoVO testVo);
 	//경기, 휴식 캐릭터 정보 업데이트
 	public int matchRestUpdate(UserCharacterVO presentChar);
+	//트레이닝 정보 가져오기
+	public TrainingVO getTraining(HashMap<String, Object> map);
+	//훈련 후 db에 적용하기
+	public int trainingUpdate(TrainingVO trVo);
+	//훈련후 현재 캐릭터 정보 업데이트
+	public UserCharacterVO trainingCharacterUpdate(UserCharacterVO presentChar);
 	
 }

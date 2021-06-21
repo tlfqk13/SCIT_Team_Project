@@ -14,6 +14,7 @@ import baseball.vo.ItemEquipinfoVO;
 import baseball.vo.HofVO;
 import baseball.vo.QuizScoreVO;
 import baseball.vo.QuizVO;
+import baseball.vo.TrainingVO;
 import baseball.vo.UserCharacterVO;
 import baseball.vo.UserVO;
 
@@ -852,6 +853,68 @@ public class BaseballDAO {
 		}
 		finally {
 			if(ss!=null)ss.close();
+		}
+		return result;
+	}
+
+	//트레이닝 정보 가져오기
+	public TrainingVO getTraining(int m, int n, String s) {
+		SqlSession ss = null;
+		TrainingVO result = null;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("m", m);
+		map.put("n", n);
+		map.put("s", s);
+		
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.getTraining(map);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+	//훈련 후 db에 적용하기
+	public int trainingUpdate(TrainingVO trVo) {
+		SqlSession ss = null;
+		int result = 0;
+		
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.trainingUpdate(trVo);
+			ss.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
+		}
+		return result;
+	}
+
+	//훈련후 현재 캐릭터 정보 업데이트
+	public UserCharacterVO trainingCharacterUpdate(UserCharacterVO presentChar) {
+		SqlSession ss = null;
+		UserCharacterVO result = null;
+		
+		try {
+			ss = factory.openSession(); 
+			BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+			result = mapper.trainingCharacterUpdate(presentChar);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (ss != null) ss.close();
 		}
 		return result;
 	}
