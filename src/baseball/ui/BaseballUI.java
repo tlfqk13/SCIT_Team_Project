@@ -167,6 +167,7 @@ public class BaseballUI {
 				continue;
 			}
 		}
+		
 		vo = list.get(m-1);
 		int d = dao.deleteId(vo.getUserId());
 		if (d == 1) {
