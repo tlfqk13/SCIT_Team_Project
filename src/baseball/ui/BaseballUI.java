@@ -778,24 +778,26 @@ public class BaseballUI {
 		System.out.println("2. ¾Æ´Ï¿ä °è¼Ó Âø¿ëÇÏ°Ú½À´Ï´Ù");
 		int m = keyin.nextInt();	
 		
+		System.out.println("¹¹ ÀÔ¾ú´Ï --> " + purchaseName2);
+		
 		switch(m) {					
 		case 1: 
 			UserCharacterVO vo= new UserCharacterVO();
-			if(purchaseHelmet!=0) {
+			if(purchaseName2.contains("Çï¸ä")) {
 				vo.pitcherBallSpeed(purchaseId,purchaseHelmet);
 				dao.purchaseHelmet(vo);
 				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId2,purchaseItemId2);
 				dao.testVoDelete(testVo);
 				System.out.println("Çï¸ä Âø¿ë ÇØÁ¦ ¿Ï·á");
 			}
-			else if(purchaseCloth!=0) {
+			else if(purchaseName2.contains("À¯´ÏÆû")) {
 				vo.pitcherMentality(purchaseId,purchaseCloth);
 				dao.purchaseCloth(vo);
 				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId2,purchaseItemId2);
 				dao.testVoDelete(testVo);
 				System.out.println("À¯´ÏÆû Âø¿ë ÇØÁ¦ ¿Ï·á");
 			}
-			else if(purchaseShoes!=0) {
+			else if(purchaseName2.contains("½Å¹ß")) {
 				vo.hitterRunSpeed(purchaseId, purchaseCloth);
 				dao.purchaseShoes(vo);
 				ItemHaveInfoVO testVo=new ItemHaveInfoVO(purchaseId2,purchaseItemId2);

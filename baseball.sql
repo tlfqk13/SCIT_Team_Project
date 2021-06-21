@@ -42,7 +42,12 @@ where characterId=1;
  
  select * from itemequipinfo;
  
- select * from itemequiphaveinfo;
+ select 
+    * 
+from 
+    itemequiphaveinfo;
+ 
+ 
  drop table itemequiphaveinfo;
  
  
