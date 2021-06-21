@@ -38,7 +38,7 @@ public class BaseballUI {
 			switch(m) {					//고른 번호에 따라 처리, 0번 고르면 종료
 			case 1: join();		break;
 			case 2: login();	break;
-//			case 3:	idDelete();	break;
+			case 3:	idDelete();	break;
 			case 4: ranking(); 	break;
 			case 5: hof();		break;
 			case 0: System.out.println("게임을 종료합니다."); return;
@@ -145,40 +145,43 @@ public class BaseballUI {
 		
 	}
 	
-//	public void idDelete() {
-//		int m = 0;
-//		ArrayList<UserVO> list = dao.getId();
-//		UserVO vo = null;
-//		
-//		System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s \n","|   ", "번호", "|", "유저 아이디" , "|");
-//		System.out.printf("%s", " ---------------------- \n");
-//		for (int i = 0; i < list.size(); i++) {
-//			vo = list.get(i);
-//			System.out.printf("%s  %-6d \t %-2s  %-6s \t %-2s \n","|   ", (i+1), "|", vo.getUserId() , "|");
-//		}
-//		while (true) {
-//			try {
-//				m = keyin.nextInt();
-//				break;
-//			}
-//			catch (InputMismatchException e) {
-//				keyin.nextLine();
-//				System.out.println("다시 입력하세요.");
-//				continue;
-//			}
-//		}
+	public void idDelete() {
+		int m = 0;
+		ArrayList<UserVO> list = dao.getUser();
+		UserVO vo = null;
+		System.out.printf("%s", " -------------------------------- \n");
+		System.out.printf("%s  %-6s \t %-2s  %-6s \t %-2s \n","|   ", "번호", "|", "유저 아이디" , "|");
+		System.out.printf("%s", " -------------------------------- \n");
+		for (int i = 0; i < list.size(); i++) {
+			vo = list.get(i);
+			System.out.printf("%s  %-6d \t %-2s  %-6s \t %-2s \n","|   ", (i+1), "|", vo.getUserId() , "|");
+		}
+		System.out.printf("%s", " -------------------------------- \n");
+		System.out.println();
+		while (true) {
+			try {
+				System.out.print("선택>	");
+				m = keyin.nextInt();
+				break;
+			}
+			catch (InputMismatchException e) {
+				keyin.nextLine();
+				System.out.println("다시 입력하세요.");
+				continue;
+			}
+		}
 		
-//		vo = list.get(m-1);
-//		int d = dao.deleteId(vo.getUserId());
-//		if (d == 1) {
-//			System.out.println("아이디가 삭제되었습니다.");
-//			presentChar = null;
-//		}
-//		else {
-//			System.out.println("아이디 삭제에 실패했습니다.");
-//		}
-//		
-//	}
+		vo = list.get(m-1);
+		int d = dao.deleteId(vo.getUserId());
+		if (d == 1) {
+			System.out.println("아이디가 삭제되었습니다.");
+			presentChar = null;
+		}
+		else {
+			System.out.println("아이디 삭제에 실패했습니다.");
+		}
+		
+	}
 	
 	public void ranking() {
 		while (true) {

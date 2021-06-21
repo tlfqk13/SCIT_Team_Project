@@ -423,41 +423,42 @@ public class BaseballDAO {
 			return result;
 		}
 
-//		//아이디 목록 불러오기
-//		public ArrayList<UserVO> getId() {
-//			SqlSession ss = null;
-//			ArrayList<UserVO> result = null;
-//			try {
-//				ss = factory.openSession(); 
-//				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-//				result = mapper.getId();
-//			}
-//			catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			finally {
-//				if (ss != null) ss.close();
-//			}
-//			return result;
-//		}
-//
-//		//아이디 삭제
-//		public int deleteId(String userId) {
-//			SqlSession ss = null;
-//			int result = 0;
-//			try {
-//				ss = factory.openSession(); 
-//				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
-//				result = mapper.deleteId(userId);
-//			}
-//			catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			finally {
-//				if (ss != null) ss.close();
-//			}
-//			return result;
-//		}
+		//아이디 목록 불러오기
+		public ArrayList<UserVO> getUser() {
+			SqlSession ss = null;
+			ArrayList<UserVO> result = null;
+			try {
+				ss = factory.openSession(); 
+				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+				result = mapper.getUser();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (ss != null) ss.close();
+			}
+			return result;
+		}
+
+		//아이디 삭제
+		public int deleteId(String userId) {
+			SqlSession ss = null;
+			int result = 0;
+			try {
+				ss = factory.openSession(); 
+				BaseballMapper mapper = ss.getMapper(BaseballMapper.class);
+				result = mapper.deleteId(userId);
+				ss.commit();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (ss != null) ss.close();
+			}
+			return result;
+		}
 
 		
 

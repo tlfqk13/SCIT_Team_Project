@@ -283,7 +283,7 @@ order by
 </select>
 
 <!-- 아이디 목록 불러오기 -->
-<select id="getId" resultType="users">
+<select id="getUser" resultType="users">
 select
 	userId
 from
