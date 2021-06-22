@@ -70,6 +70,7 @@ public class BaseballUI {
 		}
 	}
 	
+	//로그인 메뉴 출력
 	void loginMenuPrint() {
 		System.out.println("[ 나만의 선수 키우기 야구편 ]");
 		System.out.println("1.	회원가입");
@@ -81,6 +82,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//회원가입
 	public void join() {
 		System.out.println("[ 회원 가입 ]");
 		String userId, password;
@@ -111,7 +113,7 @@ public class BaseballUI {
 		
 	}
 	
-	
+	//로그인
 	public void login() {
 		
 		String userId, password;
@@ -168,6 +170,7 @@ public class BaseballUI {
 		
 	}
 	
+	//회원 탈퇴
 	public void idDelete() {
 		int m = 0;
 		ArrayList<UserVO> list = dao.getUser();
@@ -212,6 +215,7 @@ public class BaseballUI {
 		
 	}
 	
+	//순위(올스탯)
 	public void ranking() {
 		while (true) {
 			int m = 0;
@@ -234,6 +238,7 @@ public class BaseballUI {
 		}
 	}
 	
+	//순위 메뉴 출력
 	public void rankingMenuPrint() {
 		System.out.println("[ 랭킹 ]");
 		System.out.println("1.	투수 랭킹");
@@ -242,6 +247,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//투수 순위
 	public void pitcherRanking() {
 		ArrayList<UserCharacterVO> list = dao.pitcherRanking();
 		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
@@ -254,6 +260,7 @@ public class BaseballUI {
 		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
 	}
 	
+	//타자 순위
 	public void hitterRanking() {
 		ArrayList<UserCharacterVO> list = dao.hitterRanking();
 		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
@@ -266,7 +273,7 @@ public class BaseballUI {
 		System.out.printf("%s", " -------------------------------------------------------------------------------- \n");
 	}
 	
-	
+	//선수 메뉴 출력
 	public void characterMenuPrint() {
 		System.out.println("[ 선수 메뉴 ]");
 		System.out.println("1.	선수 생성");
@@ -276,6 +283,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//선수 생성
 	public void characterCreate() {
 		String name, className;
 		
@@ -311,7 +319,7 @@ public class BaseballUI {
 		}
 	}
 	
-	
+	//선수 선택
 	public void characterSelect() {
 		while (true) {
 			int m = 0;
@@ -333,7 +341,8 @@ public class BaseballUI {
 			}
 		}
 	}
-		
+	
+	//선수 삭제
 	public void characterDelete() {
 		while (true) {
 			int m = 0;
@@ -357,6 +366,7 @@ public class BaseballUI {
 		
 	}
 	
+	//클래스 선택 메뉴 출력
 	public void selectMenuPrint() {
 		System.out.println("1.	투수");
 		System.out.println("2.	타자");
@@ -364,6 +374,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//투수 캐릭터 삭제
 	public void pitcherDelete() {
 		pitcherSelect();
 		
@@ -378,6 +389,7 @@ public class BaseballUI {
 		
 	}
 	
+	//타자 캐릭터 삭제
 	public void hitterDelete() {
 		hitterSelect();
 		
@@ -391,6 +403,7 @@ public class BaseballUI {
 		}
 	}
 	
+	//투수 캐릭터 목록 출력
 	public void pitcherSelect() {
 		int num = 0;
 		System.out.printf("%50s", "[ 투수 캐릭터 목록 ] \n");
@@ -437,6 +450,7 @@ public class BaseballUI {
 		}
 	}
 	
+	//타자 캐릭터 목록 출력
 	public void hitterSelect() {
 		int num = 0;
 		System.out.printf("%50s", "[ 타자 캐릭터 목록 ] \n");
@@ -482,7 +496,7 @@ public class BaseballUI {
 		
 	}
 	
-	
+	//메인 메뉴
 	public void mainMenu() {
 		int m = 0;
 		
@@ -517,6 +531,7 @@ public class BaseballUI {
 		
 	}
 	
+	//메인 메뉴 출력
 	public void mainMenuPrint() {
 		System.out.println("[ 나만의 선수 키우기 야구편 ]");
 		System.out.println("1.	상점");
@@ -867,7 +882,8 @@ public class BaseballUI {
 //
 //	}
 
-
+	
+	//훈련 메뉴
 	public void trainingMenu() {
 			int m = 0;
 			if (presentChar.getHealth() < 25) {
@@ -928,6 +944,7 @@ public class BaseballUI {
 			
 	}
 	
+	//타자 훈련 메뉴 출력
 	public void hitterTrainingMenuPrint() {
 		System.out.println("[ 타자 훈련 ]");
 		System.out.println("1.	파워 훈련");
@@ -936,7 +953,8 @@ public class BaseballUI {
 		System.out.println("0.	뒤로가기");
 		System.out.print("선택>	");
 	}
-
+	
+	//투수 훈련 메뉴 출력
 	public void pitcherTrainingMenuPrint() {
 		System.out.println("[ 투수 훈련 ]");
 		System.out.println("1.	볼스피드 훈련");
@@ -946,6 +964,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//코치 메뉴 출력
 	public void coachMenuPrint() {
 		System.out.println("[ 코치 선택 ]");
 		System.out.println("1.	고정훈련코치");
@@ -954,6 +973,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//타자 힘 훈련
 	public void powerTraining(int m, TrainingVO trVo, String s) {
 		int n = 0;
 		coachMenuPrint();
@@ -981,6 +1001,7 @@ public class BaseballUI {
 		System.out.println("힘 : " + (before) + "( +" +(presentChar.getHitterPower()-before) + " )");
 	}
 	
+	//타자 타격 훈련
 	public void hitTraining(int m, TrainingVO trVo, String s) {
 		int n = 0;
 		coachMenuPrint();
@@ -1008,6 +1029,7 @@ public class BaseballUI {
 		System.out.println("타격 : " + (before) + "( +" +(presentChar.getHitterHit()-before) + " )");
 	}
 	
+	//타자 주루 훈련
 	public void runSpeedTraining(int m, TrainingVO trVo, String s) {
 		int n = 0;
 		coachMenuPrint();
@@ -1036,7 +1058,7 @@ public class BaseballUI {
 	}
 	
 	
-	
+	//투수 볼스피드 훈련
 	public void ballSpeedTraining(int m, TrainingVO trVo, String s) {
 		int n = 0;
 		coachMenuPrint();
@@ -1064,6 +1086,7 @@ public class BaseballUI {
 		System.out.println("볼스피드 : " + (before) + "( +" +(presentChar.getPitcherBallSpeed()-before) + " )");
 	}
 	
+	//투수 볼컨트롤 훈련
 	public void ballControlTraining(int m, TrainingVO trVo, String s) {
 		int n = 0;
 		coachMenuPrint();
@@ -1091,6 +1114,7 @@ public class BaseballUI {
 		System.out.println("볼컨트롤 : " + (before) + "( +" +(presentChar.getPitcherBallControl()-before) + " )");
 	}
 	
+	//투수 정신력 훈련
 	public void mentalityTraining(int m, TrainingVO trVo, String s) {
 		int n = 0;
 		coachMenuPrint();
@@ -1117,14 +1141,15 @@ public class BaseballUI {
 		presentChar = dao.trainingCharacterUpdate(presentChar);
 		System.out.println("정신력 : " + (before) + "( +" +(presentChar.getPitcherMentality()-before) + " )");
 	}
-
+	
+	//선택능력치 + 선택코치 별로 훈련
 	private void coachTraining(int m, int n, TrainingVO trVo, String s) {
 		trVo = dao.getTraining(m, n, s);
 		dao.trainingUpdate(trVo);	
 	}
 	
 	
-	
+	//캐릭터 정보 메뉴
 	public void characterInfoMenu() {
 		while (true) {
 			characterInfoMenuPrint();
@@ -1139,15 +1164,17 @@ public class BaseballUI {
 		}
 	}
 	
+	//캐릭터 정보 메뉴 출력
 	public void characterInfoMenuPrint() {
 		System.out.println("[ 캐릭터 정보 ]");
 		System.out.println("1.	스탯");
 		System.out.println("2.	지금 장착하고 있는 아이템");
-		System.out.println("3.  장비 아이템");
+		System.out.println("3. 	장비 아이템");
 		System.out.println("0.	뒤로가기");
 		System.out.print("선택>	");
 	}
 	
+	//캐릭터 스탯
 	public void statInfo() {
 		System.out.printf("%25s \n", "[ 스탯창 ]");
 		System.out.println();
@@ -1632,7 +1659,7 @@ public class BaseballUI {
 		
 	}
 
-	
+	//경기 하기
 	public void match() {
 		if (presentChar.getActive() == 0) {
 			System.out.println("행동력이 부족합니다.");
@@ -1648,7 +1675,7 @@ public class BaseballUI {
 				presentChar.setYear(presentChar.getYear() + 1);
 				System.out.println("행동력이 5로 회복 되었습니다.");
 				System.out.println("소지금이 증가 하였습니다.");
-				System.out.println("건강이 100으로 회복 되었습니다.");
+				System.out.println("체력이 100으로 회복 되었습니다.");
 				System.out.println("연차가 1년 늘었습니다.");
 				dao.matchRestUpdate(presentChar);
 
@@ -1667,6 +1694,7 @@ public class BaseballUI {
 		
 	}
 	
+	//휴식 하기
 	public void rest() {
 		if (presentChar.getActive() == 0) {
 			System.out.println("행동력이 부족합니다.");
@@ -1696,6 +1724,7 @@ public class BaseballUI {
 		
 	}
 	
+	//휴식 메뉴 출력
 	public void restMenuPrint() {
 		System.out.println("[ 휴식 하기 ]");
 		System.out.println("1.	일반 휴식");
@@ -1704,6 +1733,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//일반 휴식
 	public void freeRest() {
 		if (presentChar.getHealth() < 50) {
 			presentChar.setActive(presentChar.getActive()-1);
@@ -1719,8 +1749,13 @@ public class BaseballUI {
 
 	}
 	
+	//고급 휴식
 	public void premiumRest() {
 		if (presentChar.getGold() < 100) {
+			System.out.println("돈이 부족합니다.");
+			return;
+		}
+		else {
 			if (presentChar.getHealth() != 100) {
 				presentChar.setActive(presentChar.getActive()-1);
 				presentChar.setGold(presentChar.getGold()-100);
@@ -1735,10 +1770,10 @@ public class BaseballUI {
 			
 			dao.matchRestUpdate(presentChar);
 		}
-		
 
 	}
 	
+	//명예의 전당
 	public void hof() {
 		int m = 0;
 		while (true) {
@@ -1762,6 +1797,7 @@ public class BaseballUI {
 		}	
 	}
 	
+	//명예의 전당 메뉴 출력
 	public void hofMenuPrint() {
 		System.out.println("[ 은퇴선수 ]");
 		System.out.println("1.	명예의 전당(타자)");
@@ -1772,6 +1808,7 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//명예의 전당(타자)
 	public void hitterHofCharacter() {
 		ArrayList<HofVO> list = null;
 		HofVO vo = null;
@@ -1791,6 +1828,7 @@ public class BaseballUI {
 
 	}
 	
+	//명예의 전당(투수)
 	public void pitcherHofCharacter() {
 		ArrayList<HofVO> list = null;
 		HofVO vo = null;
@@ -1810,6 +1848,7 @@ public class BaseballUI {
 
 	}
 	
+	//일반은퇴선수(타자)
 	public void hitterKickCharacter() {
 		ArrayList<HofVO> list = null;
 		HofVO vo = null;
@@ -1828,6 +1867,7 @@ public class BaseballUI {
 		System.out.printf("%s", " ---------------------------------------------------------------- \n");
 	}
 	
+	//일반 은퇴 선수(투수)
 	public void pitcherKickCharacter() {
 		ArrayList<HofVO> list = null;
 		HofVO vo = null;
@@ -1847,7 +1887,7 @@ public class BaseballUI {
 	}
 	
 
-	
+	//야구퀴즈
 	public void quiz() {
 		int m = 0;
 		while (true) {
@@ -1870,6 +1910,7 @@ public class BaseballUI {
 		}	
 	}
 	
+	//퀴즈 메뉴 출력
 	public void quizMenuPrint() {
 		System.out.println("[ 퀴즈 ]");
 		System.out.println("1.	퀴즈 풀기");
@@ -1879,12 +1920,14 @@ public class BaseballUI {
 		System.out.print("선택>	");
 	}
 	
+	//퀴즈 뒷부분 메뉴 출력
 	public void quizEndMenuPrint() {
 		System.out.println("1.	한번 더");
 		System.out.println("2.	끝내기");
 		System.out.print("선택>	");
 	}
 	
+	//퀴즈 문제 
 	public void quizQuestion() {
 		
 		ArrayList<QuizVO> list = dao.quiz();
@@ -2079,6 +2122,7 @@ public class BaseballUI {
 		
 	}
 	
+	//퀴즈 순위 목록 전체 한번에 출력
 //	public void quizScore() {
 //		ArrayList<QuizScoreVO> scoreList = dao.quizScroeAll();
 //		QuizScoreVO vo = null;
@@ -2096,6 +2140,7 @@ public class BaseballUI {
 //
 //	}
 	
+	//퀴즈 순위 목록 10개씩 출력(페이지 넘겨가며 보기)
 	public void quizScore() {
 		
 		int m = 1;
@@ -2162,6 +2207,7 @@ public class BaseballUI {
 				quizScoreNum +=10;
 	}
 	
+	//퀴즈 정답률 순위
 	public void quizRanking() {
 		ArrayList<QuizScoreVO> rankingList = dao.quizRanking();
 		System.out.printf("%37s", "[ 퀴즈 정답률 순위 ] \n");
