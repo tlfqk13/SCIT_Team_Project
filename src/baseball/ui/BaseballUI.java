@@ -1661,35 +1661,31 @@ public class BaseballUI {
 
 	//경기 하기
 	public void match() {
-		if (presentChar.getActive() == 0) {
-			System.out.println("행동력이 부족합니다.");
-			return;
+		
+		System.out.println("[ 경기 하기 ]");
+		System.out.println("경기 시작");
+		if (presentChar.getYear() < 5) {
+			presentChar.setActive(5);
+			presentChar.setHealth(100);
+			presentChar.setGold(presentChar.getGold()+500);
+			presentChar.setYear(presentChar.getYear() + 1);
+			System.out.println("행동력이 5로 회복 되었습니다.");
+			System.out.println("소지금이 증가 하였습니다.");
+			System.out.println("체력이 100으로 회복 되었습니다.");
+			System.out.println("연차가 1년 늘었습니다.");
+			dao.matchRestUpdate(presentChar);
+
 		}
 		else {
-			System.out.println("[ 경기 하기 ]");
-			System.out.println("경기 시작");
-			if (presentChar.getYear() < 5) {
-				presentChar.setActive(5);
-				presentChar.setHealth(100);
-				presentChar.setGold(presentChar.getGold()+500);
-				presentChar.setYear(presentChar.getYear() + 1);
-				System.out.println("행동력이 5로 회복 되었습니다.");
-				System.out.println("소지금이 증가 하였습니다.");
-				System.out.println("체력이 100으로 회복 되었습니다.");
-				System.out.println("연차가 1년 늘었습니다.");
-				dao.matchRestUpdate(presentChar);
-
+			int m = dao.hofCharacterInsert(presentChar);
+			if (m == 0) {
+				System.out.println("명예의 전당에 반영되었습니다.");
 			}
-			else {
-				int m = dao.hofCharacterInsert(presentChar);
-				if (m == 0) {
-					System.out.println("명예의 전당에 반영되었습니다.");
-				}
-				dao.deleteCharacter(loginId, presentChar.getCharacterId());
-				presentChar = null;
-				return;
-			}
+			dao.deleteCharacter(loginId, presentChar.getCharacterId());
+			presentChar = null;
+			return;
 		}
+		
 		
 		
 	}
