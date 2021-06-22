@@ -6,9 +6,9 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
+
 	<classpathentry kind="src" path="src"/>
-=======
+
 	<classpathentry kind="lib" path="C:/Users/손동규/Downloads/Mybatis_Person_blank.zip (Unzipped Files)-20210531T000341Z-001/mybatis-3.5.7.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -19,6 +19,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
->>>>>>> refs/heads/dongkyuson
+
+	<classpathentry kind="lib" path="C:/Users/손동규/Downloads/Mybatis_Person_blank.zip (Unzipped Files)-20210531T000341Z-001/mybatis-3.5.7.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/손동규/Downloads/Mybatis_Person_blank.zip (Unzipped Files)-20210531T000341Z-001/ojdbc6.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+
 	<classpathentry kind="output" path="bin"/>
 </classpath>
