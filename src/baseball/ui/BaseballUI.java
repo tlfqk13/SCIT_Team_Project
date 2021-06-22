@@ -890,7 +890,7 @@ public class BaseballUI {
 				System.out.println("체력이 부족합니다.");
 				return;
 			}
-			else if (presentChar.getActive() == 0) {
+			else if (presentChar.getActive() <= 0) {
 				System.out.println("행동력이 부족합니다.");
 				return;
 			}
@@ -937,9 +937,6 @@ public class BaseballUI {
 					}
 					
 				}
-			}
-			else {
-				return;
 			}
 			
 	}
